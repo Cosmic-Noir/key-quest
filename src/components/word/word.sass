@@ -1,15 +1,19 @@
 .word
-    display: inline-block
-    // Add styles for words here
+  display: flex
 
 @keyframes scrollHorizontal
-    from
-        right: 0
-    to
-        right: 100%
+  from
+      right: 0
+  to
+      right: 100%
 
-.letter, .word
-    animation: scrollHorizontal 5s linear infinite
-    position: absolute
-    top: 0
+.word
+  animation: scrollHorizontal 5s linear infinite
+  position: absolute
+  top: 0
 
+.word 
+  animation-play-state: running
+
+.word.paused 
+  animation-play-state: paused

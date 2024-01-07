@@ -1,14 +1,34 @@
 
 import React from 'react';
 import './letter.sass';
+import classNames from 'classnames';
 
 interface LetterProps {
-    letter: string;
-    // You can add more props as needed, like position, animation state, etc.
+  letter: string;
+  style?: React.CSSProperties;
+  isPaused: boolean;
+  isInWord?: boolean;
 }
 
-const Letter: React.FC<LetterProps> = ({ letter }) => {
-    return <div className="letter">{letter}</div>;
+const Letter: React.FC<LetterProps> = ({
+  letter,
+  style,
+  isPaused,
+  isInWord = false
+}) => {
+  return (
+    <div
+      className={classNames({
+        'letter': !isInWord,
+        'isInWord': isInWord,
+        'paused': isPaused
+      })}
+      style={isInWord ? {} : style}
+    >
+      {letter}
+    </div>
+  );
 };
 
 export default Letter;
+
