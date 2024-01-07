@@ -1,0 +1,15 @@
+.word
+    display: inline-block
+    // Add styles for words here
+
+@keyframes scrollHorizontal
+    from
+        right: 0
+    to
+        right: 100%
+
+.letter, .word
+    animation: scrollHorizontal 5s linear infinite
+    position: absolute
+    top: 0
+
