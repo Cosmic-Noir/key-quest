@@ -11,7 +11,7 @@ import { GameArea } from './components/gameArea';
 
 function App() {
   const [isGameRunning, setIsGameRunning] = useState(false);
-  const [timer, setTimer] = useState(120);
+  const [timer, setTimer] = useState(30);
   const [showLevelComplete, setShowLevelComplete] = useState(false);
   const [isPaused, setIsPaused] = useState(false);
 
@@ -25,13 +25,13 @@ function App() {
     }
 
     return () => clearTimeout(timeout);
-}, [isGameRunning, timer]);
+  }, [isGameRunning, timer]);
 
-const startGame = () => {
-  setIsGameRunning(true);
-  setTimer(120);
-  setShowLevelComplete(false);
-};
+  const startGame = () => {
+    setIsGameRunning(true);
+    setTimer(30);
+    setShowLevelComplete(false);
+  };
 
   const currentHealth = 90;
   const currentScore = 100;
@@ -62,10 +62,10 @@ const startGame = () => {
           </div>
           <HealthAndScore health={currentHealth} score={currentScore} />
           <ControlButtons 
-              onPause={handlePause} 
-              onToggleMusic={handleToggleMusic} 
-              onToggleSound={handleToggleSound} 
-              isPaused={isPaused}
+            onPause={handlePause} 
+            onToggleMusic={handleToggleMusic} 
+            onToggleSound={handleToggleSound} 
+            isPaused={isPaused}
           />
         </>
       )}

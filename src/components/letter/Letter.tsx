@@ -8,20 +8,23 @@ interface LetterProps {
   style?: React.CSSProperties;
   isPaused: boolean;
   isInWord?: boolean;
+  isHighlighted?: boolean;
 }
 
 const Letter: React.FC<LetterProps> = ({
   letter,
   style,
   isPaused,
-  isInWord = false
+  isInWord = false,
+  isHighlighted = false
 }) => {
   return (
     <div
       className={classNames({
         'letter': !isInWord,
         'isInWord': isInWord,
-        'paused': isPaused
+        'paused': isPaused,
+        'highlighted': isHighlighted
       })}
       style={isInWord ? {} : style}
     >

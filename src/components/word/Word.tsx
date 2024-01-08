@@ -7,12 +7,16 @@ interface WordProps {
   word: string;
   style: React.CSSProperties;
   isPaused: boolean;
+  isActive: boolean;
+  typedChars: number;
 }
 
 const Word: React.FC<WordProps> = ({
   word,
   style,
-  isPaused
+  isPaused,
+  isActive,
+  typedChars
 }) => {
   return (
     <div
@@ -28,6 +32,7 @@ const Word: React.FC<WordProps> = ({
           letter={char}
           isPaused={isPaused}
           isInWord={true}
+          isHighlighted={isActive && index === typedChars}
         />
       ))}
     </div>
