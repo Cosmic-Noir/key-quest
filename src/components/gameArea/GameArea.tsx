@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { Letter } from '../letter';
 import { Word } from '../word';
 import './gameArea.sass'; 
@@ -7,7 +7,9 @@ interface GameElement {
   char: string;
   top: number;
   typed: boolean; //Indicating if the element has been typed
-  isPaused: boolean
+  isPaused: boolean;
+  popEffect?: boolean;
+  isVisible: boolean;
 }
 
 interface GameAreaProps {
@@ -19,66 +21,75 @@ const GameArea: React.FC<GameAreaProps> = ({ isPaused }) => {
   const letters = 'abcdefghijklmnopqrstuvwxyz'.split('');
   const words = ['Hello', 'World', 'React', 'Game', 'Type', 'Pew', 'Laazzzeeerr'];
   const [elements, setElements] = useState<GameElement[]>([]);
-  const [lastKeyPressed, setLastKeyPressed] = useState<string>('');
   const [activeWordIndex, setActiveWordIndex] = useState<number | null>(null);
   const [typedChars, setTypedChars] = useState<number>(0);
+  const elementsRef = useRef<GameElement[]>([]);
+  const [forceUpdate, setForceUpdate] = useState(0); // Dummy state
 
-  const getRandomElement = () => {
-    // 50% chance to choose a word
-    const isWord = Math.random() > 0.5; 
-    const char = isWord ? words[Math.floor(Math.random() * words.length)] : letters[Math.floor(Math.random() * letters.length)];
-    // Random top position as a percentage of the GameArea height
-    const top = Math.random() * 100; 
-
-    return { char, top, typed: false, isPaused: false };
-  };
+  useEffect(() => {
+    elementsRef.current = elements;
+  }, [elements]);  
 
   useEffect(() => {
     const handleKeyPress = (event: KeyboardEvent) => {
-      let updatedElements = [...elements];
+      let updatedElements = [...elementsRef.current];
       let foundMatch = false;
   
-      // Check if we are currently typing a word
       if (activeWordIndex !== null) {
-        // Handle typing for the active word
-        const activeElement = updatedElements[activeWordIndex];
-        if (activeElement && activeElement.char[typedChars].toLowerCase() === event.key.toLowerCase()) {
-          // Correct key for the current position in the word
-          foundMatch = true;
-          if (typedChars === activeElement.char.length - 1) {
-            // Word completed
-            updatedElements[activeWordIndex] = { ...activeElement, char: '' };
-            setActiveWordIndex(null);
-            setTypedChars(0);
-          } else {
-            // Continue typing the word
-            setTypedChars(typedChars + 1);
+          const activeElement = updatedElements[activeWordIndex];
+          if (activeElement && activeElement.char[typedChars] && activeElement.char[typedChars].toLowerCase() === event.key.toLowerCase()) {
+              foundMatch = true;
+              if (typedChars === activeElement.char.length - 1) {
+                  // Word completed
+                  triggerPopEffect(activeWordIndex);
+                  setActiveWordIndex(null);
+                  setTypedChars(0);
+              } else {
+                  // Continue typing the word
+                  setTypedChars(typedChars + 1);
+              }
           }
-        }
       } else {
-        // Find the first letter or word that matches
-        updatedElements = updatedElements.map((el, index) => {
-          if (!foundMatch && el.char[0].toLowerCase() === event.key.toLowerCase()) {
-            foundMatch = true;
-            if (el.char.length === 1) {
-              // It's a single letter, remove it
-              return { ...el, char: '' };
-            } else {
-              // It's a word, set it as active
-              setActiveWordIndex(index);
-              setTypedChars(1);
-            }
-          }
-          return el;
-        });
+          updatedElements = updatedElements.map((el, index) => {
+              if (!foundMatch && el.char && el.char[0].toLowerCase() === event.key.toLowerCase()) {
+                  foundMatch = true;
+                  if (el.char.length === 1) {
+                      triggerPopEffect(index);
+                  } else {
+                      setActiveWordIndex(index);
+                      setTypedChars(1);
+                  }
+              }
+              return el;
+          });
       }
   
-      // Only update elements if a match was found
       if (foundMatch) {
-        console.log('Updated elements:', updatedElements);
-          setElements(updatedElements.filter(el => el.char.length > 0));
+          setElements(updatedElements);
       }
-  };
+    };
+  
+  
+    // Function to handle pop effect and removal
+    const triggerPopEffect = (elementIndex: number) => {
+      const popDuration = 500; // Duration of the pop effect
+
+      // Get the element to apply the effect
+      const elementToPop = document.querySelector(`[data-index="${elementIndex}"]`);
+
+      if (elementToPop) {
+          elementToPop.classList.add('pop');
+
+          // Remove the class and hide the element after the effect duration
+        setTimeout(() => {
+            elementToPop.classList.remove('pop');
+            // Update state to hide the element
+            setElements(prevElements => prevElements.map((el, index) => 
+                index === elementIndex ? { ...el, isVisible: false } : el));
+        }, popDuration);
+      }
+    };
+  
   
 
     window.addEventListener('keydown', handleKeyPress);
@@ -86,9 +97,28 @@ const GameArea: React.FC<GameAreaProps> = ({ isPaused }) => {
     return () => {
       window.removeEventListener('keydown', handleKeyPress);
     };
-  }, [elements, activeWordIndex, typedChars]);
+  }, [activeWordIndex, typedChars]);
 
   useEffect(() => {
+    // Apply popEffect to all elements after a delay
+    const applyPopEffect = setTimeout(() => {
+        setElements(prevElements => prevElements.map(el => ({ ...el, popEffect: true })));
+    }, 2000); // Apply pop effect after 2 seconds
+
+    return () => clearTimeout(applyPopEffect);
+  }, [elements]);
+
+
+  useEffect(() => {
+    const getRandomElement = () => {
+      // 50% chance to choose a word
+      const isWord = Math.random() > 0.5; 
+      const char = isWord ? words[Math.floor(Math.random() * words.length)] : letters[Math.floor(Math.random() * letters.length)];
+      // Random top position as a percentage of the GameArea height
+      const top = Math.random() * 100; 
+  
+      return { char, top, typed: false, isPaused: false, isVisible: true };
+    };
     let interval: any;
 
     if (!isPaused) {
@@ -97,32 +127,40 @@ const GameArea: React.FC<GameAreaProps> = ({ isPaused }) => {
       }, 2000); // Adjust interval as needed
     }
 
-  return () => clearInterval(interval);
-}, [isPaused]);
+    return () => clearInterval(interval);
+  }, [isPaused]);
 
-    return (
-      <div className="gameArea">
+  console.log('Rendering elements:', elements);
+
+  return (
+    <div className="gameArea">
       {elements.map((element, index) => (
-        element.char.length > 0 ? 
-        (element.char.length === 1 ? 
-          <Letter
-            key={index}
-            letter={element.char}
-            style={{ top: `${element.top}%` }}
-            isPaused={isPaused}
-          /> : 
-          <Word
-            key={index}
-            word={element.char}
-            style={{ top: `${element.top}%` }}
-            isPaused={isPaused}
-            isActive={index === activeWordIndex}
-            typedChars={typedChars}
-          />)
-        : null
+        element.isVisible ? 
+          (element.char.length === 1 ? 
+            <Letter
+              key={index}
+              ref={ref => ref && ref.setAttribute('data-index', index.toString())}
+              letter={element.char}
+              style={{ top: `${element.top}%` }}
+              isPaused={isPaused}
+              popEffect={element.popEffect}
+              isVisible={element.isVisible}
+            /> : 
+            <Word
+              key={index}
+              ref={ref => ref && ref.setAttribute('data-index', index.toString())}
+              word={element.char}
+              style={{ top: `${element.top}%` }}
+              isPaused={isPaused}
+              isActive={index === activeWordIndex}
+              typedChars={typedChars}
+              popEffect={element.popEffect}
+              isVisible={element.isVisible}
+            />)
+          : null
       ))}
-  </div>
-    );
+    </div>
+  );
 };
 
 export default GameArea;

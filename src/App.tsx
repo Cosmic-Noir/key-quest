@@ -1,10 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import logo from './logo.svg';
 import './App.css';
 import { Person } from './components/person'; 
 import { ForceField } from './components/forceField';
-import { Letter } from './components/letter';
-import { Word } from './components/word';
 import { HealthAndScore } from './components/healthAndScore';
 import { ControlButtons } from './components/controlButtons';
 import { GameArea } from './components/gameArea';
@@ -25,7 +22,7 @@ function App() {
     }
 
     return () => clearTimeout(timeout);
-  }, [isGameRunning, timer]);
+  }, [isGameRunning, timer, isPaused]);
 
   const startGame = () => {
     setIsGameRunning(true);

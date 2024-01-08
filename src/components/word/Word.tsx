@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { forwardRef } from 'react';
 import './word.sass';
 import { Letter } from '../letter';
 import classNames from 'classnames';
@@ -9,22 +9,24 @@ interface WordProps {
   isPaused: boolean;
   isActive: boolean;
   typedChars: number;
+  popEffect?: boolean;
+  isVisible?: boolean;
 }
 
-const Word: React.FC<WordProps> = ({
+const Word = forwardRef<HTMLDivElement, WordProps>(({
   word,
   style,
   isPaused,
   isActive,
-  typedChars
-}) => {
+  typedChars,
+  popEffect,
+  isVisible
+}, ref) => {
   return (
     <div
-      className={classNames({
-        'word': true,
-        'paused': isPaused
-      })}        
-      style={style} 
+      ref={ref}
+      className={classNames('word', { 'paused': isPaused, 'pop': popEffect })}
+      style={style}
     >
       {word.split('').map((char, index) => (
         <Letter
@@ -33,10 +35,11 @@ const Word: React.FC<WordProps> = ({
           isPaused={isPaused}
           isInWord={true}
           isHighlighted={isActive && index === typedChars}
+          isVisible={isVisible}
         />
       ))}
     </div>
   );
-};
+});
 
 export default Word;
