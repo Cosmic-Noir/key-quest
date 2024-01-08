@@ -36,36 +36,36 @@ const GameArea: React.FC<GameAreaProps> = ({ isPaused }) => {
       let foundMatch = false;
   
       if (activeWordIndex !== null) {
-          const activeElement = updatedElements[activeWordIndex];
-          if (activeElement && activeElement.char[typedChars] && activeElement.char[typedChars].toLowerCase() === event.key.toLowerCase()) {
-              foundMatch = true;
-              if (typedChars === activeElement.char.length - 1) {
-                  // Word completed
-                  triggerPopEffect(activeWordIndex);
-                  setActiveWordIndex(null);
-                  setTypedChars(0);
-              } else {
-                  // Continue typing the word
-                  setTypedChars(typedChars + 1);
-              }
+        const activeElement = updatedElements[activeWordIndex];
+        if (activeElement && activeElement.char[typedChars] && activeElement.char[typedChars].toLowerCase() === event.key.toLowerCase()) {
+          foundMatch = true;
+          if (typedChars === activeElement.char.length - 1) {
+            // Word completed
+            triggerPopEffect(activeWordIndex);
+            setActiveWordIndex(null);
+            setTypedChars(0);
+          } else {
+            // Continue typing the word
+            setTypedChars(typedChars + 1);
           }
+        }
       } else {
           updatedElements = updatedElements.map((el, index) => {
-              if (!foundMatch && el.char && el.char[0].toLowerCase() === event.key.toLowerCase()) {
-                  foundMatch = true;
-                  if (el.char.length === 1) {
-                      triggerPopEffect(index);
-                  } else {
-                      setActiveWordIndex(index);
-                      setTypedChars(1);
-                  }
+            if (!foundMatch && el.isVisible && el.char && el.char[0].toLowerCase() === event.key.toLowerCase()) {
+              foundMatch = true;
+              if (el.char.length === 1) {
+                triggerPopEffect(index);
+              } else {
+                setActiveWordIndex(index);
+                setTypedChars(1);
               }
-              return el;
-          });
+          }
+          return el;
+        });
       }
   
       if (foundMatch) {
-          setElements(updatedElements);
+        setElements(updatedElements);
       }
     };
   
@@ -78,20 +78,18 @@ const GameArea: React.FC<GameAreaProps> = ({ isPaused }) => {
       const elementToPop = document.querySelector(`[data-index="${elementIndex}"]`);
 
       if (elementToPop) {
-          elementToPop.classList.add('pop');
+        elementToPop.classList.add('pop');
 
-          // Remove the class and hide the element after the effect duration
+        // Remove the class and hide the element after the effect duration
         setTimeout(() => {
-            elementToPop.classList.remove('pop');
-            // Update state to hide the element
-            setElements(prevElements => prevElements.map((el, index) => 
-                index === elementIndex ? { ...el, isVisible: false } : el));
+          elementToPop.classList.remove('pop');
+          // Update state to hide the element
+          setElements(prevElements => prevElements.map((el, index) => 
+            index === elementIndex ? { ...el, isVisible: false, typed: false } : el));
         }, popDuration);
       }
     };
   
-  
-
     window.addEventListener('keydown', handleKeyPress);
 
     return () => {
@@ -102,8 +100,8 @@ const GameArea: React.FC<GameAreaProps> = ({ isPaused }) => {
   useEffect(() => {
     // Apply popEffect to all elements after a delay
     const applyPopEffect = setTimeout(() => {
-        setElements(prevElements => prevElements.map(el => ({ ...el, popEffect: true })));
-    }, 2000); // Apply pop effect after 2 seconds
+      setElements(prevElements => prevElements.map(el => ({ ...el, popEffect: true })));
+  }, 2000); // Apply pop effect after 2 seconds
 
     return () => clearTimeout(applyPopEffect);
   }, [elements]);
@@ -129,8 +127,6 @@ const GameArea: React.FC<GameAreaProps> = ({ isPaused }) => {
 
     return () => clearInterval(interval);
   }, [isPaused]);
-
-  console.log('Rendering elements:', elements);
 
   return (
     <div className="gameArea">
