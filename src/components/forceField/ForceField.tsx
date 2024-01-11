@@ -1,12 +1,14 @@
-import React from 'react';
-import './forceField.sass'; // Importing the SASS file for styles
+import React, { forwardRef  } from 'react';
+import './forceField.sass';
 
-const ForceField: React.FC = () => {
-    return (
-        <div className="forceField">
-            {/* This div will visually represent the force field */}
-        </div>
-    );
-};
+interface ForceFieldProps {};
+
+const ForceField = forwardRef<HTMLDivElement, ForceFieldProps>((_props, ref) => {
+  return (
+    <div ref={ref} className="forceField">
+      {/* This div will visually represent the force field */}
+    </div>
+  );
+});
 
 export default ForceField;

@@ -1,16 +1,20 @@
-import React, { useState, useEffect } from 'react';
-import './App.css';
-import { Person } from './components/person'; 
-import { ForceField } from './components/forceField';
-import { HealthAndScore } from './components/healthAndScore';
-import { ControlButtons } from './components/controlButtons';
-import { GameArea } from './components/gameArea';
+import React, { useState, useEffect, useRef } from "react";
+import "./App.css";
+import { Person } from "./components/person";
+import { ForceField } from "./components/forceField";
+import { HealthAndScore } from "./components/healthAndScore";
+import { ControlButtons } from "./components/controlButtons";
+import { GameArea } from "./components/gameArea";
 
 function App() {
   const [isGameRunning, setIsGameRunning] = useState(false);
   const [timer, setTimer] = useState(30);
   const [showLevelComplete, setShowLevelComplete] = useState(false);
   const [isPaused, setIsPaused] = useState(false);
+  const [health, setHealth] = useState(100);
+  const [levelScore, setLevelScore] = useState(0);
+  const [totalScore, setTotalScore] = useState(0);
+  const forceFieldRef = useRef(null);
 
   useEffect(() => {
     let timeout: any;
@@ -19,10 +23,19 @@ function App() {
     } else if (timer === 0) {
       setIsGameRunning(false);
       setShowLevelComplete(true);
+      setLevelScore(0);
     }
 
     return () => clearTimeout(timeout);
   }, [isGameRunning, timer, isPaused]);
+
+  useEffect(() => {
+    // Check if the game is running and health drops to 0
+    if (isGameRunning && health <= 0) {
+      setIsGameRunning(false);
+      setShowLevelComplete(true);
+    }
+  }, [health, isGameRunning]);
 
   const startGame = () => {
     setIsGameRunning(true);
@@ -30,8 +43,6 @@ function App() {
     setShowLevelComplete(false);
   };
 
-  const currentHealth = 90;
-  const currentScore = 100;
   const handlePause = () => {
     setIsPaused(!isPaused);
   };
@@ -44,7 +55,6 @@ function App() {
     // Toggle sound logic
   };
 
-
   return (
     <div className="App">
       {!isGameRunning && <button onClick={startGame}>Start Level I</button>}
@@ -54,19 +64,24 @@ function App() {
           <div>Time Left: {timer}s</div>
           <div className="gameContainer">
             <Person />
-            <ForceField />
-            <GameArea isPaused={isPaused} />
+            <ForceField ref={forceFieldRef} />
+            <GameArea
+              isPaused={isPaused}
+              setHealth={setHealth}
+              forceFieldRef={forceFieldRef}
+              setLevelScore={setLevelScore}
+            />
           </div>
-          <HealthAndScore health={currentHealth} score={currentScore} />
-          <ControlButtons 
-            onPause={handlePause} 
-            onToggleMusic={handleToggleMusic} 
-            onToggleSound={handleToggleSound} 
+          <HealthAndScore health={health} score={levelScore} />
+          <ControlButtons
+            onPause={handlePause}
+            onToggleMusic={handleToggleMusic}
+            onToggleSound={handleToggleSound}
             isPaused={isPaused}
           />
         </>
       )}
-  </div>
+    </div>
   );
 }
 
