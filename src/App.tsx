@@ -15,32 +15,35 @@ function App() {
   const [levelScore, setLevelScore] = useState(0);
   const [totalScore, setTotalScore] = useState(0);
   const forceFieldRef = useRef(null);
-
   useEffect(() => {
     let timeout: any;
     if (isGameRunning && !isPaused && timer > 0) {
       timeout = setTimeout(() => setTimer(timer - 1), 1000);
     } else if (timer === 0) {
-      setIsGameRunning(false);
-      setShowLevelComplete(true);
-      setLevelScore(0);
+      endLevel();
     }
 
     return () => clearTimeout(timeout);
   }, [isGameRunning, timer, isPaused]);
 
   useEffect(() => {
-    // Check if the game is running and health drops to 0
     if (isGameRunning && health <= 0) {
-      setIsGameRunning(false);
-      setShowLevelComplete(true);
+      endLevel();
     }
   }, [health, isGameRunning]);
 
-  const startGame = () => {
+  const endLevel = () => {
+    setTotalScore((prevTotalScore) => prevTotalScore + levelScore);
+    setIsGameRunning(false);
+    setShowLevelComplete(true);
+  };
+
+  const startLevel = () => {
     setIsGameRunning(true);
     setTimer(30);
     setShowLevelComplete(false);
+    setLevelScore(0);
+    setHealth(100);
   };
 
   const handlePause = () => {
@@ -57,8 +60,14 @@ function App() {
 
   return (
     <div className="App">
-      {!isGameRunning && <button onClick={startGame}>Start Level I</button>}
-      {showLevelComplete && <div>Level completed!</div>}
+      {!isGameRunning && <button onClick={startLevel}>Start Level</button>}
+      {showLevelComplete && (
+        <>
+          <div>Level completed!</div>
+          <div>Total Score: {totalScore}</div>
+          <div>Level Score: {levelScore}</div>
+        </>
+      )}
       {isGameRunning && (
         <>
           <div>Time Left: {timer}s</div>

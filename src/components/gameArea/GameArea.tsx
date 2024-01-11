@@ -9,6 +9,7 @@ interface GameElement {
   typed: boolean; //Indicating if the element has been typed
   isPaused: boolean;
   isVisible: boolean;
+  hasCollided?: boolean;
 }
 
 interface GameAreaProps {
@@ -174,6 +175,8 @@ const GameArea: React.FC<GameAreaProps> = ({
 
         // Iterate over each game element to check for collision
         elements.forEach((el, index) => {
+          if (el.hasCollided) return;
+
           // Query for the element in the DOM
           const elementRef = document.querySelector(`[data-index="${index}"]`);
 
@@ -182,6 +185,13 @@ const GameArea: React.FC<GameAreaProps> = ({
 
             // Check if the element has collided with the force field
             if (elementRect.right <= forceFieldPosition) {
+              // Mark element as collided:
+              setElements((prevElements) =>
+                prevElements.map((elem, idx) =>
+                  idx === index ? { ...elem, hasCollided: true } : elem
+                )
+              );
+
               // Handle the collision:
               // 1. Deduct health
 
