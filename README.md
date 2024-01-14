@@ -45,10 +45,10 @@ Before running SpaceType Quest, ensure you have the following installed:
   npm start
 ```
 
-5. Playing the Game
-   Select a difficulty level and click 'Start Level' to begin.
-   Type the letters and words as they appear on the screen.
-   Try to maintain accuracy and speed to maximize your score.
+5. Playing the Game - 
+   - Select a difficulty level and click 'Start Level' to begin.
+   - Type the letters and words as they appear on the screen.
+   - Try to maintain accuracy and speed to maximize your score.
 
 ### Project Management
 
