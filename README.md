@@ -24,7 +24,7 @@ Before running SpaceType Quest, ensure you have the following installed:
 1. Clone the repository:
 
 ```sh
-  git clone https://github.com/yourusername/spacetype-quest.git
+  git clone https://github.com/Cosmic-Noir/spacetype-quest.git
 ```
 
 2. Navigate to the project directory:
@@ -53,4 +53,4 @@ Before running SpaceType Quest, ensure you have the following installed:
 
 ### Project Management
 
-Check out the Trello board for a view of this projects' development.
+Check out [the Trello board](https://trello.com/b/c6ke5JTC/key-quest) for a view of this projects' development.
