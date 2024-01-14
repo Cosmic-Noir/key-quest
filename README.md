@@ -39,8 +39,7 @@ Before running SpaceType Quest, ensure you have the following installed:
   npm install
 ```
 
-4. Running the Game
-   To start the game, run the following command in the project directory, this will launch SpaceType Quest in your default web browser:
+4. Running the Game - Run the following command in the project directory, this will launch SpaceType Quest in your default web browser:
 
 ```sh
   npm start
