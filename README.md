@@ -1,46 +1,56 @@
-# Getting Started with Create React App
+# SpaceType Quest
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Description
 
-## Available Scripts
+Welcome to SpaceType Quest, an intergalactic typing adventure! In this game, you journey through the cosmos as a space explorer, encountering various challenges that test your typing skills. Whether it's dodging asteroids with quick keystrokes or communicating with alien species through precise typing, SpaceType Quest offers an engaging and educational experience for typists of all levels.
 
-In the project directory, you can run:
+## Features
 
-### `npm start`
+- **Dynamic Typing Challenges:** Encounter different typing tasks, from simple letters to complex words and phrases.
+- **Difficulty Levels:** Choose your adventure's difficulty – Easy, Medium, or Hard.
+- **Progress Tracking:** Keep track of your typing accuracy, words per minute, and overall score.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Getting Started
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+### Prerequisites
 
-### `npm test`
+Before running SpaceType Quest, ensure you have the following installed:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- [Node.js](https://nodejs.org/)
+- [npm](https://www.npmjs.com/) (usually comes with Node.js)
 
-### `npm run build`
+### Installation
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+1. Clone the repository:
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+```sh
+  git clone https://github.com/yourusername/spacetype-quest.git
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+2. Navigate to the project directory:
 
-### `npm run eject`
+```sh
+  cd spacetype-quest
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+3. Install the required dependencies:
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+```sh
+  npm install
+```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+4. Running the Game
+   To start the game, run the following command in the project directory, this will launch SpaceType Quest in your default web browser:
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+```sh
+  npm start
+```
 
-## Learn More
+5. Playing the Game
+   Select a difficulty level and click 'Start Level' to begin.
+   Type the letters and words as they appear on the screen.
+   Try to maintain accuracy and speed to maximize your score.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### Project Management
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+Check out the Trello board for a view of this projects' development.
