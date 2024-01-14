@@ -1,8 +1,8 @@
-# SpaceType Quest
+# Key Quest
 
 ## Description
 
-Welcome to SpaceType Quest, an intergalactic typing adventure! In this game, you journey through the cosmos as a space explorer, encountering various challenges that test your typing skills. Whether it's dodging asteroids with quick keystrokes or communicating with alien species through precise typing, SpaceType Quest offers an engaging and educational experience for typists of all levels.
+Welcome to Key Quest, an intergalactic typing adventure! In this game, you journey through the cosmos as a space explorer, encountering various challenges that test your typing skills. Whether it's dodging asteroids with quick keystrokes or communicating with alien species through precise typing, Key Quest offers an engaging and educational experience for typists of all levels.
 
 ## Features
 
@@ -14,7 +14,7 @@ Welcome to SpaceType Quest, an intergalactic typing adventure! In this game, you
 
 ### Prerequisites
 
-Before running SpaceType Quest, ensure you have the following installed:
+Before running Key Quest, ensure you have the following installed:
 
 - [Node.js](https://nodejs.org/)
 - [npm](https://www.npmjs.com/) (usually comes with Node.js)
@@ -24,13 +24,13 @@ Before running SpaceType Quest, ensure you have the following installed:
 1. Clone the repository:
 
 ```sh
-  git clone https://github.com/Cosmic-Noir/spacetype-quest.git
+  git clone https://github.com/Cosmic-Noir/key-quest.git
 ```
 
 2. Navigate to the project directory:
 
 ```sh
-  cd spacetype-quest
+  cd key-quest
 ```
 
 3. Install the required dependencies:
@@ -39,7 +39,7 @@ Before running SpaceType Quest, ensure you have the following installed:
   npm install
 ```
 
-4. Running the Game - Run the following command in the project directory, this will launch SpaceType Quest in your default web browser:
+4. Running the Game - Run the following command in the project directory, this will launch Key Quest in your default web browser:
 
 ```sh
   npm start
