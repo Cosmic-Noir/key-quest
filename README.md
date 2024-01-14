@@ -52,4 +52,4 @@ Before running Key Quest, ensure you have the following installed:
 
 ### Project Management
 
-Check out [the Trello board](https://trello.com/b/c6ke5JTC/key-quest) for a view of this projects' development.
+Check out [the Trello board](https://trello.com/b/c6ke5JTC/key-quest) for a view of this projects development.
