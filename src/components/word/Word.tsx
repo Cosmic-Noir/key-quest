@@ -10,14 +10,18 @@ interface WordProps {
   isActive: boolean;
   typedChars: number;
   isVisible?: boolean;
+  className?: string;
 }
 
 const Word = forwardRef<HTMLDivElement, WordProps>(
-  ({ word, style, isPaused, isActive, typedChars, isVisible }, ref) => {
+  (
+    { word, style, isPaused, isActive, typedChars, isVisible, className },
+    ref
+  ) => {
     return (
       <div
         ref={ref}
-        className={classNames("word", { paused: isPaused })}
+        className={classNames(`word ${className}`, { paused: isPaused })}
         style={style}
       >
         {word.split("").map((char, index) => (
@@ -28,6 +32,7 @@ const Word = forwardRef<HTMLDivElement, WordProps>(
             isInWord={true}
             isHighlighted={isActive && index === typedChars}
             isVisible={isVisible}
+            isTypedInWord={isActive && index < typedChars}
           />
         ))}
       </div>

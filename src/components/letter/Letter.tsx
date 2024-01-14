@@ -9,6 +9,8 @@ interface LetterProps {
   isInWord?: boolean;
   isHighlighted?: boolean;
   isVisible?: boolean;
+  isTypedInWord?: boolean;
+  className?: string;
 }
 
 const Letter = forwardRef<HTMLDivElement, LetterProps>(
@@ -20,18 +22,21 @@ const Letter = forwardRef<HTMLDivElement, LetterProps>(
       isInWord = false,
       isHighlighted = false,
       isVisible,
+      isTypedInWord = false,
+      className,
     },
     ref
   ) => {
     return (
       <div
         ref={ref}
-        className={classNames({
+        className={classNames(className, {
           letter: !isInWord,
           isInWord: isInWord,
           paused: isPaused,
           highlighted: isHighlighted,
           hidden: !isVisible,
+          typedInWord: isTypedInWord,
         })}
         style={isInWord ? {} : style}
       >

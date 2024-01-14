@@ -17,6 +17,9 @@ interface GameAreaProps {
   setHealth: React.Dispatch<React.SetStateAction<number>>;
   forceFieldRef: React.RefObject<HTMLDivElement>;
   setLevelScore: React.Dispatch<React.SetStateAction<number>>;
+  onTotalKeystrokesChange: React.Dispatch<React.SetStateAction<number>>;
+  onCorrectKeystrokesChange: React.Dispatch<React.SetStateAction<number>>;
+  difficulty: string;
 }
 
 const GameArea: React.FC<GameAreaProps> = ({
@@ -24,6 +27,9 @@ const GameArea: React.FC<GameAreaProps> = ({
   setHealth,
   forceFieldRef,
   setLevelScore,
+  onTotalKeystrokesChange,
+  onCorrectKeystrokesChange,
+  difficulty,
 }) => {
   const letters = "abcdefghijklmnopqrstuvwxyz".split("");
   const words = [
@@ -41,69 +47,103 @@ const GameArea: React.FC<GameAreaProps> = ({
     "Milkyway",
     "Galaxy",
   ];
+
   const [elements, setElements] = useState<GameElement[]>([]);
   const [activeWordIndex, setActiveWordIndex] = useState<number | null>(null);
   const [typedChars, setTypedChars] = useState<number>(0);
+
   const elementsRef = useRef<GameElement[]>([]);
 
   useEffect(() => {
     elementsRef.current = elements;
   }, [elements]);
 
+  // Function to handle pop effect and removal
+  const triggerPopEffect = (elementIndex: number) => {
+    const popDuration = 500; // Duration of the pop effect
+    const elementToPop = document.querySelector(
+      `[data-index="${elementIndex}"]`
+    );
+
+    if (elementToPop) {
+      elementToPop.classList.add("pop");
+
+      // Remove the class and hide the element after the effect duration
+      setTimeout(() => {
+        elementToPop.classList.remove("pop");
+        // Update state to hide the element
+        setElements((prevElements) =>
+          prevElements.map((el, index) =>
+            index === elementIndex
+              ? { ...el, isVisible: false, typed: false }
+              : el
+          )
+        );
+      }, popDuration);
+    }
+  };
+
   useEffect(() => {
     const handleKeyPress = (event: KeyboardEvent) => {
+      if (isPaused) return;
+
+      onTotalKeystrokesChange((prev) => {
+        console.log("ANY key pressed, total:", prev + 1);
+        return prev + 1;
+      });
+
       let updatedElements = [...elementsRef.current];
       let foundMatch = false;
 
-      // Declare activeElement outside the if block
-      let activeElement =
-        activeWordIndex !== null ? updatedElements[activeWordIndex] : null;
+      // Check if there is an active word
+      if (activeWordIndex !== null) {
+        const activeElement = updatedElements[activeWordIndex];
 
-      if (activeWordIndex !== null && activeElement) {
-        const isCharAvailable = activeElement.char[typedChars];
-        // Todo - We can eventually make this case-sensitive sense for shift
-        const isCorrectKey =
-          isCharAvailable &&
-          activeElement.char[typedChars].toLowerCase() ===
-            event.key.toLowerCase();
+        if (activeElement && typeof activeElement.char === "string") {
+          const targetChar = activeElement.char[typedChars];
 
-        if (isCorrectKey) {
-          foundMatch = true;
-          if (typedChars === activeElement.char.length - 1) {
-            // Word completed
-            triggerPopEffect(activeWordIndex);
-            setActiveWordIndex(null);
-            setTypedChars(0);
-            // Total 15 for a word (5 for last letter + 10)
-            setLevelScore((prevScore) => prevScore + 10);
-          } else {
-            // Continue typing the word
-            setTypedChars(typedChars + 1);
+          if (targetChar && event.key === targetChar) {
+            onCorrectKeystrokesChange((prev) => prev + 1);
+            foundMatch = true;
+
+            if (typedChars === activeElement.char.length - 1) {
+              // Word completed
+              triggerPopEffect(activeWordIndex);
+              setActiveWordIndex(null);
+              setTypedChars(0);
+              setLevelScore((prevScore) => prevScore + 10);
+            } else {
+              // Continue typing the word
+              setTypedChars(typedChars + 1);
+            }
           }
         }
       } else {
-        updatedElements = updatedElements.map((el, index) => {
-          if (foundMatch) return el;
-          // Skip restof the loop if a match is already found
-          const isElementVisible = el.isVisible;
-          const isElementCharAvailable = el.char && el.char[0];
-          const isCorrectKey =
-            isElementCharAvailable &&
-            el.char[0].toLowerCase() === event.key.toLowerCase();
+        // Check for first letter matches among all elements if no active word
+        for (let index = 0; index < updatedElements.length; index++) {
+          const el = updatedElements[index];
 
-          if (isElementVisible && isCorrectKey) {
-            foundMatch = true;
-            if (el.char.length === 1) {
-              triggerPopEffect(index);
-              // Increase score for a correctly typed letter
-              setLevelScore((prevScore) => prevScore + 5);
-            } else {
-              setActiveWordIndex(index);
-              setTypedChars(1);
+          if (typeof el.char === "string") {
+            const targetChar = el.char[0];
+
+            if (el.isVisible && targetChar && event.key === targetChar) {
+              onCorrectKeystrokesChange((prev) => prev + 1);
+              foundMatch = true;
+
+              if (el.char.length === 1) {
+                // Single letter, pop effect and increase score
+                triggerPopEffect(index);
+                setLevelScore((prevScore) => prevScore + 5);
+              } else {
+                // Start typing a word
+                setActiveWordIndex(index);
+                setTypedChars(1);
+              }
+              // Exit loop after finding a match
+              break;
             }
           }
-          return el;
-        });
+        }
       }
 
       if (foundMatch) {
@@ -111,39 +151,19 @@ const GameArea: React.FC<GameAreaProps> = ({
       }
     };
 
-    // Function to handle pop effect and removal
-    const triggerPopEffect = (elementIndex: number) => {
-      const popDuration = 500; // Duration of the pop effect
-      const elementToPop = document.querySelector(
-        `[data-index="${elementIndex}"]`
-      );
-
-      if (elementToPop) {
-        elementToPop.classList.add("pop");
-
-        // Remove the class and hide the element after the effect duration
-        setTimeout(() => {
-          elementToPop.classList.remove("pop");
-          // Update state to hide the element
-          setElements((prevElements) =>
-            prevElements.map((el, index) =>
-              index === elementIndex
-                ? { ...el, isVisible: false, typed: false }
-                : el
-            )
-          );
-        }, popDuration);
-      }
-    };
-
-    window.addEventListener("keydown", handleKeyPress);
+    if (!isPaused) {
+      window.addEventListener("keydown", handleKeyPress);
+    }
 
     return () => {
       window.removeEventListener("keydown", handleKeyPress);
     };
-  }, [activeWordIndex, typedChars]);
+  }, [activeWordIndex, typedChars, isPaused]);
 
   useEffect(() => {
+    const intervalTime =
+      difficulty === "hard" ? 900 : difficulty === "medium" ? 1500 : 2000;
+
     const getRandomElement = () => {
       // 50% chance to choose a word
       const isWord = Math.random() > 0.5;
@@ -160,11 +180,11 @@ const GameArea: React.FC<GameAreaProps> = ({
     if (!isPaused) {
       interval = setInterval(() => {
         setElements((prev) => [...prev, getRandomElement()]);
-      }, 1500);
+      }, intervalTime);
     }
 
     return () => clearInterval(interval);
-  }, [isPaused]);
+  }, [isPaused, difficulty]);
 
   useEffect(() => {
     const checkCollision = () => {
@@ -254,6 +274,7 @@ const GameArea: React.FC<GameAreaProps> = ({
               style={{ top: `${element.top}%` }}
               isPaused={isPaused}
               isVisible={element.isVisible}
+              className={difficulty}
             />
           ) : (
             <Word
@@ -267,6 +288,7 @@ const GameArea: React.FC<GameAreaProps> = ({
               isActive={index === activeWordIndex}
               typedChars={typedChars}
               isVisible={element.isVisible}
+              className={difficulty}
             />
           )
         ) : null

@@ -4,20 +4,28 @@
   to
     right: 100%
 
-.letter
+.easy
+  animation: scrollHorizontal 7s linear infinite
+
+.medium
   animation: scrollHorizontal 5s linear infinite
+
+.hard
+  animation: scrollHorizontal 4s linear infinite
+
+.letter
   position: absolute
   top: 0
 
-.letter 
+.letter
   animation-play-state: running
 
-.letter.paused 
+.letter.paused
   animation-play-state: paused
 
 .letterInWord
   display: inline
-  
+
 .letter.highlighted, .isInWord.highlighted
   color: green
   font-weight: bold
@@ -37,3 +45,7 @@
 
 .hidden
   display: none
+
+.typedInWord
+  opacity: .5
+  color: green
