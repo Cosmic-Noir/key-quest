@@ -13,6 +13,7 @@ function App() {
   const [difficulty, setDifficulty] = useState("easy");
   const [timer, setTimer] = useState(30);
   const [isPaused, setIsPaused] = useState(false);
+  const [isMusicPlaying, setIsMusicPlaying] = useState(false);
 
   // Level related state
   const [isLevelRunning, setIsLevelRunning] = useState(false);
@@ -26,6 +27,7 @@ function App() {
   const [wpm, setWpm] = useState(0);
 
   const forceFieldRef = useRef(null);
+
   useEffect(() => {
     let timeout: any;
     if (isLevelRunning && !isPaused && timer > 0) {
@@ -42,6 +44,15 @@ function App() {
       endLevel();
     }
   }, [health, isLevelRunning]);
+
+  useEffect(() => {
+    const music = document.getElementById(
+      "background-music"
+    ) as HTMLAudioElement;
+    if (music) {
+      isMusicPlaying ? music.play() : music.pause();
+    }
+  }, [isMusicPlaying]);
 
   const handleDifficultyChange = (event: any) => {
     setDifficulty(event.target.value);
@@ -76,7 +87,7 @@ function App() {
   };
 
   const handleToggleMusic = () => {
-    // Toggle music logic
+    setIsMusicPlaying(!isMusicPlaying);
   };
 
   const handleToggleSound = () => {
@@ -85,6 +96,10 @@ function App() {
 
   return (
     <div className="App">
+      <audio id="background-music" src="/Space.mp3" loop>
+        Your browser does not support the audio element.
+      </audio>
+
       {!isLevelRunning && (
         <div>
           <div>

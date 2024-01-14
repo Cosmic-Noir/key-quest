@@ -87,10 +87,9 @@ const GameArea: React.FC<GameAreaProps> = ({
     const handleKeyPress = (event: KeyboardEvent) => {
       if (isPaused) return;
 
-      onTotalKeystrokesChange((prev) => {
-        console.log("ANY key pressed, total:", prev + 1);
-        return prev + 1;
-      });
+      if (event.key !== "Shift") {
+        onTotalKeystrokesChange((prev) => prev + 1);
+      }
 
       let updatedElements = [...elementsRef.current];
       let foundMatch = false;
