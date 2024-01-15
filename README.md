@@ -1,6 +1,8 @@
 # Key Quest
 
-![Logo](./src/logo.png)
+<p align="center">
+  <img src="./src/logo.png" width="300" height="300" />
+</p>
 
 ## Description
 
