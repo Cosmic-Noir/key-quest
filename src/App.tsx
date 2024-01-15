@@ -1,9 +1,12 @@
 import React, { useState, useEffect, useRef } from "react";
-import { Person } from "./components/person";
+import Button from "@mui/material/Button";
+import { DifficultyMenu } from "./components/difficultyMenu";
 import { ForceField } from "./components/forceField";
-import { HealthAndScore } from "./components/healthAndScore";
 import { GameArea } from "./components/gameArea";
+import { HealthAndScore } from "./components/healthAndScore";
 import { PauseMenu } from "./components/pauseMenu";
+import { Person } from "./components/person";
+import { ScoreCard } from "./components/scoreCard";
 
 import "./App.sass";
 import Logo from "./logo.png";
@@ -143,59 +146,28 @@ function App() {
       {!isLevelRunning && (
         <div className="space-themed-text">
           <img src={Logo} className="logo bob" />
-          <div>
-            <input
-              type="radio"
-              id="easy"
-              name="difficulty"
-              value="easy"
-              checked={difficulty === "easy"}
-              onChange={handleDifficultyChange}
-            />
-            <label htmlFor="easy">Easy</label>
-          </div>
-          <div>
-            <input
-              type="radio"
-              id="medium"
-              name="difficulty"
-              value="medium"
-              checked={difficulty === "medium"}
-              onChange={handleDifficultyChange}
-            />
-            <label htmlFor="medium">Medium</label>
-          </div>
-          <div>
-            <input
-              type="radio"
-              id="hard"
-              name="difficulty"
-              value="hard"
-              checked={difficulty === "hard"}
-              onChange={handleDifficultyChange}
-            />
-            <label htmlFor="hard">Hard</label>
-          </div>
-          <button onClick={startLevel}>Start Level</button>
+          <DifficultyMenu
+            difficulty={difficulty}
+            handleDifficultyChange={handleDifficultyChange}
+          />
+          <Button variant="contained" size="large" onClick={startLevel}>
+            Start Level
+          </Button>
         </div>
       )}
 
       {showLevelComplete && (
-        // Todo - Maybe turn into a comonent
-        <div className="space-themed-text">
-          <div>Level completed!</div>
-          <div>Total Score: {totalScore}</div>
-          <div>Level Score: {levelScore}</div>
-          <div>
-            Accuracy: {((correctKeystrokes / totalKeystrokes) * 100).toFixed(2)}
-            %
-          </div>
-          <div>WPM: {wpm.toFixed(0)}</div>
-        </div>
+        <ScoreCard
+          totalScore={totalScore}
+          levelScore={levelScore}
+          correctKeystrokes={correctKeystrokes}
+          totalKeystrokes={totalKeystrokes}
+          wpm={wpm}
+        />
       )}
       {isLevelRunning && (
         <>
-          <div>Time Left: {timer}s</div>
+          <div className="space-themed-text">Time Left: {timer}s</div>
           <div className="gameContainer">
             <Person />
             <ForceField ref={forceFieldRef} />
@@ -210,7 +182,9 @@ function App() {
             />
           </div>
           <HealthAndScore health={health} score={levelScore} />
-          <button onClick={handlePause}>Pause</button>
+          <Button variant="contained" onClick={handlePause} disabled={isPaused}>
+            Pause
+          </Button>
         </>
       )}
     </div>

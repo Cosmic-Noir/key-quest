@@ -30,7 +30,7 @@ const Letter = forwardRef<HTMLDivElement, LetterProps>(
     return (
       <div
         ref={ref}
-        className={classNames(`space-themed-text ${className}`, {
+        className={classNames(`${className}`, {
           letter: !isInWord,
           isInWord: isInWord,
           paused: isPaused,

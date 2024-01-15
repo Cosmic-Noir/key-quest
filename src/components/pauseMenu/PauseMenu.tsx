@@ -2,6 +2,7 @@ import React from "react";
 import { MdMusicNote, MdMusicOff } from "react-icons/md";
 import { FaVolumeMute } from "react-icons/fa";
 import { FaVolumeUp } from "react-icons/fa";
+import Button from "@mui/material/Button";
 
 import "./pauseMenu.sass";
 
@@ -29,15 +30,15 @@ const PauseMenu: React.FC<PauseMenuProps> = ({
       <h1>Menu</h1>
       <div className="volume-controls">
         <span>Sound FX:</span>
-        <button onClick={onToggleSound}>
+        <Button variant="outlined" onClick={onToggleSound}>
           {isSoundOn ? <FaVolumeUp /> : <FaVolumeMute />}
-        </button>
+        </Button>
       </div>
       <span>Music:</span>
       <div className="volume-controls">
-        <button onClick={onToggleMusic}>
+        <Button variant="outlined" onClick={onToggleMusic}>
           {isMusicPlaying ? <MdMusicNote /> : <MdMusicOff />}
-        </button>
+        </Button>
         <input
           type="range"
           min="0"
@@ -47,7 +48,9 @@ const PauseMenu: React.FC<PauseMenuProps> = ({
           onChange={onVolumeChange}
         />
       </div>
-      <button onClick={handlePause}>Unpause</button>
+      <Button variant="contained" size="large" onClick={handlePause}>
+        Unpause
+      </Button>
     </div>
   );
 };
