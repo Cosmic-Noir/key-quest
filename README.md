@@ -1,5 +1,7 @@
 # Key Quest
 
+![Logo](./src/logo.png)
+
 ## Description
 
 Welcome to Key Quest, an intergalactic typing adventure! In this game, you journey through the cosmos as a space explorer, encountering various challenges that test your typing skills. Whether it's dodging asteroids with quick keystrokes or communicating with alien species through precise typing, Key Quest offers an engaging and educational experience for typists of all levels.
