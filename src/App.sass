@@ -1,0 +1,61 @@
+.App
+  text-align: center
+  z-index: 1
+
+.App
+  min-height: 100vh
+  display: flex
+  flex-direction: column
+  align-items: center
+  justify-content: center
+  font-size: calc(10px + 2vmin)
+  color: white
+
+.gameContainer
+  width: 100%
+  height: 100%
+  display: flex
+  align-items: center
+
+.logo
+  height: 400px
+
+button
+  background: linear-gradient(to right, #2a5298 30%, #1e3c72 70%) // Subtle horizontal gradient
+  border: 2px solid black // Black border
+  border-radius: 15px // More rounded corners
+  color: white // White text
+  padding: 10px 20px
+  font-family: 'Your Futuristic Font', sans-serif // Replace with your desired font
+  font-size: 16px
+  cursor: pointer
+  outline: none
+  box-shadow: 0 4px #999
+  transition: all 0.3s
+
+  &:hover
+    // box-shadow: 0 0 15px #2a5298 // Glowing effect on hover
+
+  &:active
+    background: linear-gradient(to right, #2a5298 30%, #1e3c72 70%)
+    box-shadow: 0 2px #666
+    transform: translateY(4px)
+
+/* Define the bobbing animation */
+@keyframes bobbing
+  0%, 100%
+    transform: translateY(0) /* Element is at its original position */
+
+  50%
+    transform: translateY(-5px) /* Element is moved up slightly */
+
+/* Apply the animation to the element with the 'bob' class */
+.bob
+  animation: bobbing 1s ease-in-out infinite /* Adjust the duration and timing function as needed */
+
+.space-themed-text
+  // color: white
+  font-family: 'Orbitron', sans-serif
+  font-weight: bold
+  text-shadow: 0 0 10px rgba(180, 210, 255, 0.7)
+  letter-spacing: 1px

@@ -1,10 +1,12 @@
 import React, { useState, useEffect, useRef } from "react";
-import "./App.css";
 import { Person } from "./components/person";
 import { ForceField } from "./components/forceField";
 import { HealthAndScore } from "./components/healthAndScore";
-import { ControlButtons } from "./components/controlButtons";
 import { GameArea } from "./components/gameArea";
+import { PauseMenu } from "./components/pauseMenu";
+
+import "./App.sass";
+import Logo from "./logo.png";
 
 function App() {
   // Settings
@@ -14,6 +16,8 @@ function App() {
   const [timer, setTimer] = useState(30);
   const [isPaused, setIsPaused] = useState(false);
   const [isMusicPlaying, setIsMusicPlaying] = useState(false);
+  const [volume, setVolume] = useState(0.5);
+  const [isSoundOn, setIsSoundOn] = useState(true);
 
   // Level related state
   const [isLevelRunning, setIsLevelRunning] = useState(false);
@@ -54,6 +58,30 @@ function App() {
     }
   }, [isMusicPlaying]);
 
+  useEffect(() => {
+    const music = document.getElementById(
+      "background-music"
+    ) as HTMLAudioElement;
+    if (music) {
+      music.volume = volume;
+    }
+  }, [volume]);
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        handlePause();
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, []);
+
+  const handleVolumeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setVolume(parseFloat(e.target.value));
+  };
+
   const handleDifficultyChange = (event: any) => {
     setDifficulty(event.target.value);
   };
@@ -74,6 +102,7 @@ function App() {
   };
 
   const startLevel = () => {
+    setIsMusicPlaying(true);
     setIsLevelRunning(true);
     setTimer(30);
     setShowLevelComplete(false);
@@ -91,7 +120,7 @@ function App() {
   };
 
   const handleToggleSound = () => {
-    // Toggle sound logic
+    setIsSoundOn(!isSoundOn);
   };
 
   return (
@@ -99,9 +128,21 @@ function App() {
       <audio id="background-music" src="/Space.mp3" loop>
         Your browser does not support the audio element.
       </audio>
-
+      {isPaused && <div className="show-pause-menu"></div>}
+      {isPaused && (
+        <PauseMenu
+          isMusicPlaying={isMusicPlaying}
+          handlePause={handlePause}
+          volume={volume}
+          onVolumeChange={handleVolumeChange}
+          onToggleMusic={handleToggleMusic}
+          onToggleSound={handleToggleSound}
+          isSoundOn={isSoundOn}
+        />
+      )}
       {!isLevelRunning && (
-        <div>
+        <div className="space-themed-text">
+          <img src={Logo} className="logo bob" />
           <div>
             <input
               type="radio"
@@ -140,7 +181,8 @@ function App() {
       )}
 
       {showLevelComplete && (
-        <>
+        // Todo - Maybe turn into a comonent
+        <div className="space-themed-text">
           <div>Level completed!</div>
           <div>Total Score: {totalScore}</div>
           <div>Level Score: {levelScore}</div>
@@ -149,7 +191,7 @@ function App() {
             %
           </div>
           <div>WPM: {wpm.toFixed(0)}</div>
-        </>
+        </div>
       )}
       {isLevelRunning && (
         <>
@@ -168,12 +210,7 @@ function App() {
             />
           </div>
           <HealthAndScore health={health} score={levelScore} />
-          <ControlButtons
-            onPause={handlePause}
-            onToggleMusic={handleToggleMusic}
-            onToggleSound={handleToggleSound}
-            isPaused={isPaused}
-          />
+          <button onClick={handlePause}>Pause</button>
         </>
       )}
     </div>
