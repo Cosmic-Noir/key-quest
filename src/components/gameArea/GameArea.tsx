@@ -20,6 +20,8 @@ interface GameAreaProps {
   onTotalKeystrokesChange: React.Dispatch<React.SetStateAction<number>>;
   onCorrectKeystrokesChange: React.Dispatch<React.SetStateAction<number>>;
   difficulty: string;
+  words: Array<string>;
+  letters: Array<string>;
 }
 
 const GameArea: React.FC<GameAreaProps> = ({
@@ -30,27 +32,9 @@ const GameArea: React.FC<GameAreaProps> = ({
   onTotalKeystrokesChange,
   onCorrectKeystrokesChange,
   difficulty,
+  words,
+  letters,
 }) => {
-  const letters = "abcdefghijklmnopqrstuvwxyz".split("");
-  const words = [
-    "Hello",
-    "World",
-    "React",
-    "Game",
-    "Type",
-    "Pew",
-    "Lazer",
-    "Star",
-    "Meteor",
-    "Astronaut",
-    "Space",
-    "Kitties",
-    "Lobster",
-    "Cosmos",
-    "Milkyway",
-    "Galaxy",
-  ];
-
   const [elements, setElements] = useState<GameElement[]>([]);
   const [activeWordIndex, setActiveWordIndex] = useState<number | null>(null);
   const [typedChars, setTypedChars] = useState<number>(0);
@@ -69,6 +53,9 @@ const GameArea: React.FC<GameAreaProps> = ({
     );
 
     if (elementToPop) {
+      const dingSound = new Audio("/ding.wav");
+      dingSound.volume = 0.5;
+      dingSound.play();
       elementToPop.classList.add("pop");
 
       // Remove the class and hide the element after the effect duration
@@ -88,6 +75,7 @@ const GameArea: React.FC<GameAreaProps> = ({
 
   useEffect(() => {
     const handleKeyPress = (event: KeyboardEvent) => {
+      console.log("key pressed?");
       if (isPaused) return;
 
       if (event.key !== "Shift") {
@@ -241,6 +229,10 @@ const GameArea: React.FC<GameAreaProps> = ({
 
       if (elementToFizz) {
         elementToFizz.classList.add("fizzle");
+
+        const zapSound = new Audio("/fizzle.wav");
+        zapSound.volume = 0.5;
+        zapSound.play();
 
         // Remove the class and hide the element after the effect duration
         setTimeout(() => {

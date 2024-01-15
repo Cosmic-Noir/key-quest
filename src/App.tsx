@@ -4,25 +4,31 @@ import { DifficultyMenu } from "./components/difficultyMenu";
 import { ForceField } from "./components/forceField";
 import { GameArea } from "./components/gameArea";
 import { HealthAndScore } from "./components/healthAndScore";
+import { Level } from "./components/level";
 import { PauseMenu } from "./components/pauseMenu";
 import { Person } from "./components/person";
 import { ScoreCard } from "./components/scoreCard";
+import Logo from "./logo.png";
+import levels from "./levels";
 
 import "./App.sass";
-import Logo from "./logo.png";
 
 function App() {
-  // Settings
+  // Game Settings
   // Todo - Make difficulties a variable
-  // 'easy', 'normal', 'hard'
+  const [isGameStarted, setIsGameStarted] = useState(false);
   const [difficulty, setDifficulty] = useState("easy");
+  const [selectedLevel, setSelectedLevel] = useState<number>(0);
   const [timer, setTimer] = useState(30);
   const [isPaused, setIsPaused] = useState(false);
+
+  // Sound Settings
   const [isMusicPlaying, setIsMusicPlaying] = useState(false);
   const [volume, setVolume] = useState(0.5);
   const [isSoundOn, setIsSoundOn] = useState(true);
 
   // Level related state
+  const [showLevelSelection, setShowLevelSelection] = useState(false);
   const [isLevelRunning, setIsLevelRunning] = useState(false);
   const [showLevelComplete, setShowLevelComplete] = useState(false);
   const [health, setHealth] = useState(100);
@@ -89,6 +95,24 @@ function App() {
     setDifficulty(event.target.value);
   };
 
+  const handleLevelChange = (levelIndex: number) => {
+    setWpm(0);
+    setCorrectKeystrokes(0);
+    setTotalKeystrokes(0);
+    setSelectedLevel(() => levelIndex);
+  };
+
+  const handleShowSelectLevel = () => {
+    setShowLevelSelection(true);
+    setShowLevelComplete(false);
+  };
+
+  const startGame = () => {
+    setIsMusicPlaying(true);
+    setIsGameStarted(true);
+    handleShowSelectLevel();
+  };
+
   const endLevel = () => {
     // Check if the level hasn't already ended
     if (!levelEnded) {
@@ -96,7 +120,6 @@ function App() {
       const timeElapsed = 30 - timer;
       const wordsPerMinute = (correctKeystrokes / 5) * (60 / timeElapsed);
       setWpm(wordsPerMinute);
-
       setTotalScore((prevTotalScore) => prevTotalScore + levelScore);
       setIsLevelRunning(false);
       setShowLevelComplete(true);
@@ -105,7 +128,7 @@ function App() {
   };
 
   const startLevel = () => {
-    setIsMusicPlaying(true);
+    setShowLevelSelection(false);
     setIsLevelRunning(true);
     setTimer(30);
     setShowLevelComplete(false);
@@ -141,29 +164,40 @@ function App() {
           onToggleMusic={handleToggleMusic}
           onToggleSound={handleToggleSound}
           isSoundOn={isSoundOn}
+          difficulty={difficulty}
+          handleDifficultyChange={handleDifficultyChange}
         />
       )}
-      {!isLevelRunning && (
-        <div className="space-themed-text">
+      {!isGameStarted && (
+        <>
           <img src={Logo} className="logo bob" />
           <DifficultyMenu
             difficulty={difficulty}
             handleDifficultyChange={handleDifficultyChange}
           />
+          <Button variant="contained" size="large" onClick={startGame}>
+            Start Game
+          </Button>
+        </>
+      )}
+      {showLevelSelection && (
+        <div className="levels space-themed-text">
+          <div>Select Level:</div>
+          <div className="levels-container">
+            {levels.map((level, index) => (
+              <Level
+                index={index}
+                level={level}
+                selectedLevel={selectedLevel}
+                handleLevelChange={handleLevelChange}
+                key={index}
+              />
+            ))}
+          </div>
           <Button variant="contained" size="large" onClick={startLevel}>
             Start Level
           </Button>
         </div>
-      )}
-
-      {showLevelComplete && (
-        <ScoreCard
-          totalScore={totalScore}
-          levelScore={levelScore}
-          correctKeystrokes={correctKeystrokes}
-          totalKeystrokes={totalKeystrokes}
-          wpm={wpm}
-        />
       )}
       {isLevelRunning && (
         <>
@@ -179,11 +213,31 @@ function App() {
               onTotalKeystrokesChange={setTotalKeystrokes}
               onCorrectKeystrokesChange={setCorrectKeystrokes}
               difficulty={difficulty}
+              words={levels[selectedLevel].words}
+              letters={levels[selectedLevel].letters}
             />
           </div>
           <HealthAndScore health={health} score={levelScore} />
           <Button variant="contained" onClick={handlePause} disabled={isPaused}>
             Pause
+          </Button>
+        </>
+      )}
+      {showLevelComplete && (
+        <>
+          <ScoreCard
+            totalScore={totalScore}
+            levelScore={levelScore}
+            correctKeystrokes={correctKeystrokes}
+            totalKeystrokes={totalKeystrokes}
+            wpm={wpm}
+          />
+          <Button
+            variant="contained"
+            size="large"
+            onClick={handleShowSelectLevel}
+          >
+            Select Level
           </Button>
         </>
       )}

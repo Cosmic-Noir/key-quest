@@ -22,13 +22,17 @@
 .logo
   height: 400px
 
-  &:hover
-    // box-shadow: 0 0 15px #2a5298 // Glowing effect on hover
+.levels
+  width: 100%
+  margin: 50px 0
 
-  &:active
-    background: linear-gradient(to right, #2a5298 30%, #1e3c72 70%)
-    box-shadow: 0 2px #666
-    transform: translateY(4px)
+.levels-container
+  display: flex
+  gap: 30px
+  flex-wrap: wrap
+  justify-content: space-evenly
+  align-items: center
+  margin: 50px 0
 
 /* Define the bobbing animation */
 @keyframes bobbing
@@ -44,7 +48,7 @@
 
 .space-themed-text
   // color: white
-  font-family: 'Orbitron', sans-serif
+  font-family: 'Roboto', sans-serif
   font-weight: bold
   text-shadow: 0 0 10px rgba(180, 210, 255, 0.7)
   letter-spacing: 1px

@@ -14,6 +14,7 @@ const DifficultySelector: React.FC<DifficultySelectorProps> = ({
 }) => {
   return (
     <div className="difficultyMenu">
+      <h3>Difficulty:</h3>
       <div>
         <input
           type="radio"

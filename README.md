@@ -1,7 +1,7 @@
 # Key Quest
 
 <p align="center">
-  <img src="./src/logo.png" width="300" height="300" />
+  <img src="./src/logo.png" width="400" height="400" />
 </p>
 
 ## Description
@@ -33,6 +33,8 @@ This project is built using several modern web technologies:
 - [TypeScript](https://www.typescriptlang.org/): An open-source language that builds on JavaScript by adding static type definitions.
 - [Sass](https://sass-lang.com/): A powerful professional-grade CSS extension language.
 - [tsparticles](https://particles.js.org/): A lightweight JavaScript library for creating particles.
+- [Material-UI](https://mui.com/material-ui/): React UI framework with comprehensive suite of pre-designed components.
+- [ChatGPT](https://chat.openai.com/): Used in many steps of building this app, including _designing_ the steps to do it. Used to generate all of the images used in this project as well. I really just wanted to test how fast I could build something cute with AI.
 
 ### Installation
 
@@ -79,3 +81,8 @@ Check out [the Trello board](https://trello.com/b/c6ke5JTC/key-quest) for a view
 
 - Source: [Free Music Archive](https://freemusicarchive.org/music/Chad_Crouch/arps-ii/space-1/)
 - License: [Attribution-NonCommercial 4.0 International (CC BY-NC 4.0)](https://creativecommons.org/licenses/by-nc/4.0/)
+
+### Sound Effects
+
+- "Laser Zap" sound effect by nsstudios, available on Freesound: [laser1.wav](https://freesound.org/people/nsstudios/sounds/321102/). Licensed under [Creative Commons Attribution 4.0](https://creativecommons.org/licenses/by/4.0/).
+- "Ding 3" sound effect by andersmmg, available on Freesound: [Ding 3](https://freesound.org/people/andersmmg/sounds/523424/). Licensed under [Creative Commons Attribution 4.0](https://creativecommons.org/licenses/by/4.0/).

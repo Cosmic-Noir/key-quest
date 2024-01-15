@@ -19,8 +19,8 @@ const ScoreCard: React.FC<ScoreCardProps> = ({
   wpm,
 }) => {
   return (
-    <div className="space-themed-text">
-      <div>Level completed!</div>
+    <div className="score-card space-themed-text">
+      <h1>Level completed!</h1>
       <div>Total Score: {totalScore}</div>
       <div>Level Score: {levelScore}</div>
       <div>
