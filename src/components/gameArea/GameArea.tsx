@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useRef } from "react";
+import { dingSound, fizzleSound } from "../../sounds/index";
 import { Letter } from "../letter";
 import { Word } from "../word";
 import "./gameArea.sass";
@@ -22,18 +23,21 @@ interface GameAreaProps {
   difficulty: string;
   words: Array<string>;
   letters: Array<string>;
+  fxVolume: GLfloat;
+  isFxSoundOn: boolean;
 }
 
 const GameArea: React.FC<GameAreaProps> = ({
   isPaused,
   setHealth,
-  forceFieldRef,
   setLevelScore,
   onTotalKeystrokesChange,
   onCorrectKeystrokesChange,
   difficulty,
   words,
   letters,
+  fxVolume,
+  isFxSoundOn,
 }) => {
   const [elements, setElements] = useState<GameElement[]>([]);
   const [activeWordIndex, setActiveWordIndex] = useState<number | null>(null);
@@ -53,10 +57,8 @@ const GameArea: React.FC<GameAreaProps> = ({
     );
 
     if (elementToPop) {
-      const dingSound = new Audio("/ding.wav");
-      dingSound.volume = 0.5;
-      dingSound.play();
       elementToPop.classList.add("pop");
+      if (isFxSoundOn) dingSound(fxVolume);
 
       // Remove the class and hide the element after the effect duration
       setTimeout(() => {
@@ -75,7 +77,6 @@ const GameArea: React.FC<GameAreaProps> = ({
 
   useEffect(() => {
     const handleKeyPress = (event: KeyboardEvent) => {
-      console.log("key pressed?");
       if (isPaused) return;
 
       if (event.key !== "Shift") {
@@ -148,7 +149,7 @@ const GameArea: React.FC<GameAreaProps> = ({
     return () => {
       window.removeEventListener("keydown", handleKeyPress);
     };
-  }, [activeWordIndex, typedChars, isPaused]);
+  }, [activeWordIndex, typedChars, isPaused, fxVolume, isFxSoundOn]);
 
   useEffect(() => {
     const intervalTime =
@@ -157,9 +158,24 @@ const GameArea: React.FC<GameAreaProps> = ({
     const getRandomElement = () => {
       // 50% chance to choose a word
       const isWord = Math.random() > 0.5;
-      const char = isWord
-        ? words[Math.floor(Math.random() * words.length)]
+      let availableWords = [...words];
+
+      if (difficulty === "easy") {
+        availableWords = availableWords
+          .splice(0, 10)
+          .map((w) => w.toLowerCase());
+      } else if (difficulty === "medium") {
+        availableWords = availableWords.splice(10, 10);
+      } else {
+        availableWords = availableWords.splice(20, 10);
+      }
+      let char = isWord
+        ? availableWords[Math.floor(Math.random() * availableWords.length)]
         : letters[Math.floor(Math.random() * letters.length)];
+
+      if (difficulty === "easy") {
+        char = char.toLowerCase();
+      }
       // Random top position as a percentage of the GameArea height
       const top = Math.random() * 100;
 
@@ -178,11 +194,10 @@ const GameArea: React.FC<GameAreaProps> = ({
 
   useEffect(() => {
     const checkCollision = () => {
-      // Ensure the force field ref is not null
-      if (forceFieldRef.current) {
-        const forceFieldRect = forceFieldRef.current.getBoundingClientRect();
-        const forceFieldPosition = forceFieldRect.right;
+      const gameArea = document.querySelector(".gameArea");
 
+      if (gameArea) {
+        const gameAreaRect = gameArea.getBoundingClientRect();
         // Iterate over each game element to check for collision
         elements.forEach((el, index) => {
           if (el.hasCollided) return;
@@ -192,9 +207,8 @@ const GameArea: React.FC<GameAreaProps> = ({
 
           if (elementRef) {
             const elementRect = elementRef.getBoundingClientRect();
-
-            // Check if the element has collided with the force field
-            if (elementRect.right <= forceFieldPosition) {
+            // Check if the element has collided with the GameArea edge
+            if (elementRect.left <= gameAreaRect.left + 20) {
               // Mark element as collided:
               setElements((prevElements) =>
                 prevElements.map((elem, idx) =>
@@ -204,7 +218,6 @@ const GameArea: React.FC<GameAreaProps> = ({
 
               // Handle the collision:
               // 1. Deduct health
-
               setHealth((prevHealth) => Math.max(prevHealth - 5, 0));
               triggerFizzleEffect(index);
 
@@ -229,10 +242,7 @@ const GameArea: React.FC<GameAreaProps> = ({
 
       if (elementToFizz) {
         elementToFizz.classList.add("fizzle");
-
-        const zapSound = new Audio("/fizzle.wav");
-        zapSound.volume = 0.5;
-        zapSound.play();
+        if (isFxSoundOn) fizzleSound(fxVolume);
 
         // Remove the class and hide the element after the effect duration
         setTimeout(() => {
@@ -252,7 +262,7 @@ const GameArea: React.FC<GameAreaProps> = ({
     // Set an interval to repeatedly check for collisions
     const interval = setInterval(checkCollision, 100);
     return () => clearInterval(interval);
-  }, [elements, forceFieldRef, activeWordIndex, setHealth]);
+  }, [elements, activeWordIndex, setHealth, isFxSoundOn, fxVolume]);
 
   return (
     <div className="gameArea">

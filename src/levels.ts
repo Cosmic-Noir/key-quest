@@ -1,11 +1,8 @@
 const ALL_LETTERS = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOP".split("");
 const ALL_NUMBERS = "1234567890".split("");
-const ALL_SYMBOLS = "`~!@#$%^&*()-_=+\[]{};:,.<>/?".split("");
+const ALL_SYMBOLS = "`~!@#$%^&*()-_=+[]{};:,.<>/?".split("");
 
-const SMALL_WORDS = [
-  "Oh",
-  "Ah",
-  "Zzz",
+const LEVEL_ONE_WORDS = [
   "Star",
   "Moon",
   "Gas",
@@ -15,72 +12,126 @@ const SMALL_WORDS = [
   "Suit",
   "Dock",
   "Map",
-  "Gear",
   "Base",
-  "Fizz",
-  "Pop"
+  "Rocket",
+  "Launch",
+  "Module",
+  "Orbit",
+  "Engine",
+  "Pilot",
+  "Solar",
+  "Radar",
+  "Hatch",
+  "Flight",
+  "Astronautical",
+  "Microgravity",
+  "Hydroponics",
+  "Astrodynamics",
+  "Spacewalk",
+  "Telemetry",
+  "Astrophotography",
+  "Extravehicular",
+  "Thermosphere",
+  "Gravitational"
 ];
 
-const MEDIUM_WORDS = [
-  "Asteroid",
-  "Meteoroid",
+const LEVEL_TWO_WORDS = [
+  "Star",
+  "Moon",
+  "Mars",
+  "Orbit",
+  "Comet",
+  "Dust",
+  "Gas",
+  "Rock",
   "Crater",
-  "Fragment",
-  "Debris",
-  "Orbiting",
+  "Void",
+  "Asteroid",
+  "Meteor",
+  "Galaxy",
+  "Eclipse",
   "Gravity",
-  "Impact",
-  "Velocity",
-  "Ellipse",
-  "Galactic",
-  "Cosmos",
-  "Telescope",
-  "Cosmos",
   "Satellite",
-  "Trajectory"
-];
-
-const LONG_WORDS = [
-  "Interstellar",
-  "Gravitational",
+  "Spectrum",
+  "Cluster",
+  "Cosmic",
+  "Orbital",
   "Astrophysics",
-  "Extraterrestrial",
+  "Exoplanetary",
+  "Interstellar",
+  "Astronomical",
+  "Gravitational",
+  "Celestial",
+  "Thermosphere",
   "Spectroscopy",
-  "Cosmological",
-  "Electromagnetic",
-  "Heliocentric",
-  "Thermodynamics",
-  "Astrobiology",
+  "Meteoritical",
+  "Heliocentric"
 ];
 
-const SPECIAL_WORDS = [
-  "@stronomy",
-  "*Galaxy*",
-  "#Comet#",
-  "$$Satellite$$",
-  "%%Nebula%%",
-  "^Orbit^",
-  "&Cluster&",
-  "*Quasar*",
-  "#BlackHole#",
-  "$$Supernova$$",
-  "%%Cosmos%%",
-  "^Meteorite^",
-  "&Alien&",
-  "*Spaceport*",
-  "#Gravity#",
-  "$$Eclipse$$",
-  "%%Asteroid%%",
-  "^Photon^",
-  "&Wormhole&",
-  "*Pulsar*"
+const LEVEL_FOUR_WORDS = [
+  "Pl@net",
+  "St)r",
+  "G@laxy",
+  "C(met",
+  "M*on",
+  "Orb^t",
+  "Sp-ce",
+  "E+rth",
+  "A$tro",
+  "Ali=n",
+  "Cosm!c",
+  "T3l3port",
+  "Gr@vit%",
+  "N3bul@",
+  "Qu@sa#",
+  "G@lact^c",
+  "M3t3or",
+  "Sat3ll!te",
+  "Ast3r*id",
+  "Sp@cecr@ft",
+  "Int%rst%ll@r",
+  "Extr@t3rr3stri@l",
+  "T3chn*l*gy",
+  "Crypt^gr@phy",
+  "T3l3sc)pic",
+  "Hyp3rsp@c3",
+  "Astrophys!cs",
+  "Electr0m@gnetic",
+  "Micr0gr@vity",
+  "Spectr0sc0py"
 ];
 
-const ALL_WORDS = [
-  ...SMALL_WORDS,
-  ...MEDIUM_WORDS,
-  ...LONG_WORDS,
-  ...SPECIAL_WORDS
+const LEVEL_FIVE_WORDS = [
+  "St@r",
+  "M00n",
+  "C0met",
+  "Orb!t",
+  "Nebul@",
+  "G@laxy",
+  "Ecl!pse",
+  "Ast3r",
+  "Pl@net",
+  "Qu@sar",
+  "T3leport",
+  "Grav!ty",
+  "Cosm0s",
+  "Sp@tial",
+  "Gal@ctic",
+  "Stell@r",
+  "Puls@r",
+  "V0rtex",
+  "Meteor!",
+  "Interst@r",
+  "Extrat3rr3strial",
+  "Astrophys!cs",
+  "Gravit@ti0nal",
+  "Interg@lactic",
+  "Celesti@lMech",
+  "Supern0v@Expl",
+  "Electrom@gnetism",
+  "QuantumMech@nics",
+  "Cosmolog!calC0re",
+  "Hypersp@ceNavig"  
 ];
 
 const ALL_CHARACTERS = [
@@ -90,17 +141,22 @@ const ALL_CHARACTERS = [
 ];
 
 function generateRandomNumberStrings(numbersArray: string[], numOfStrings: number): string[] {
-  let stringsArray = [];
+  let stringsArray: string[] = [];
 
   for (let j = 0; j < numOfStrings; j++) {
-    // Determine the length of the resulting string (between 3 and 6)
-    const lengthOfString = Math.floor(Math.random() * 5) + 2;
+    let lengthOfString: number;
 
-    let resultString = '';
+    if (j < 10) {
+      lengthOfString = 3;
+    } else if (j < 20) {
+      lengthOfString = 5;
+    } else {
+      lengthOfString = 7;
+    }
+
+    let resultString: string = '';
     for (let i = 0; i < lengthOfString; i++) {
-      // Pick a random index from the numbersArray
-      const randomIndex = Math.floor(Math.random() * numbersArray.length);
-      // Add the number at the randomIndex to the resultString
+      const randomIndex: number = Math.floor(Math.random() * numbersArray.length);
       resultString += numbersArray[randomIndex];
     }
 
@@ -113,34 +169,33 @@ function generateRandomNumberStrings(numbersArray: string[], numOfStrings: numbe
 const levels = [
   {
     name: "Training Station",
-    words: SMALL_WORDS,
+    words: LEVEL_ONE_WORDS,
     letters: ALL_LETTERS,
     img: '/trainingStation.png' 
   },
   {
     name: "Lexicon Asteroid Belt",
-    words: MEDIUM_WORDS,
+    words: LEVEL_TWO_WORDS,
     letters: ALL_LETTERS,
     img: '/lexiconBelt.png'
   },
   {
     name: "Nebula of Numbers",
-    words: generateRandomNumberStrings(ALL_NUMBERS, 25),
+    words: generateRandomNumberStrings(ALL_NUMBERS, 30),
     letters: ALL_NUMBERS,
     img: '/nebula.png'
   },
   {
     name: "Interstellar Symbol Decryption",
-    words: SPECIAL_WORDS,
+    words: LEVEL_FOUR_WORDS,
     letters: ALL_SYMBOLS,
     img: '/symbols.png'
   },
   {
     name: "Galactic Core",
-    words: ALL_WORDS,
+    words: LEVEL_FIVE_WORDS,
     letters: ALL_CHARACTERS,
     img: '/core.png'
   }
 ];
- 
 export default levels;

@@ -13,6 +13,7 @@ interface LevelProps {
   index: number;
   selectedLevel: number;
   handleLevelChange: (index: number) => void;
+  locked: boolean;
 }
 
 const LevelComponent: React.FC<LevelProps> = ({
@@ -20,12 +21,13 @@ const LevelComponent: React.FC<LevelProps> = ({
   index,
   selectedLevel,
   handleLevelChange,
+  locked,
 }) => {
   return (
     <div
       key={index}
-      className="level-container"
-      onClick={() => handleLevelChange(index)}
+      className={classNames("level-container", { locked: locked })}
+      onClick={() => (locked ? "" : handleLevelChange(index))}
     >
       <img
         src={level.img}
@@ -47,6 +49,7 @@ const LevelComponent: React.FC<LevelProps> = ({
         id={`level-${index}`}
         name="level"
         value={index}
+        disabled={locked}
         onChange={() => handleLevelChange(index)}
         className={classNames({ active: selectedLevel === index })}
       />

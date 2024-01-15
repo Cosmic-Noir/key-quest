@@ -1,13 +1,13 @@
 import React, { useState, useEffect, useRef } from "react";
 import Button from "@mui/material/Button";
 import { DifficultyMenu } from "./components/difficultyMenu";
-import { ForceField } from "./components/forceField";
 import { GameArea } from "./components/gameArea";
 import { HealthAndScore } from "./components/healthAndScore";
 import { Level } from "./components/level";
 import { PauseMenu } from "./components/pauseMenu";
 import { Person } from "./components/person";
 import { ScoreCard } from "./components/scoreCard";
+import MenuIcon from "@mui/icons-material/Menu";
 import Logo from "./logo.png";
 import levels from "./levels";
 
@@ -21,16 +21,20 @@ function App() {
   const [selectedLevel, setSelectedLevel] = useState<number>(0);
   const [timer, setTimer] = useState(30);
   const [isPaused, setIsPaused] = useState(false);
+  const [highestLevelCompleted, setHighestLevelCompleted] = useState(0);
 
   // Sound Settings
   const [isMusicPlaying, setIsMusicPlaying] = useState(false);
-  const [volume, setVolume] = useState(0.5);
-  const [isSoundOn, setIsSoundOn] = useState(true);
+  const [musicVolume, setMusicVolume] = useState(0.5);
+  const [isFxSoundOn, setIsFxSoundOn] = useState(true);
+  const [fxVolume, setFxVolume] = useState(0.5);
 
   // Level related state
   const [showLevelSelection, setShowLevelSelection] = useState(false);
   const [isLevelRunning, setIsLevelRunning] = useState(false);
   const [showLevelComplete, setShowLevelComplete] = useState(false);
+  const [showLevelWon, setShowLevelWon] = useState(false);
+  const [showLevelLost, setShowLevelLost] = useState(false);
   const [health, setHealth] = useState(100);
   const [levelScore, setLevelScore] = useState(0);
   const [totalScore, setTotalScore] = useState(0);
@@ -47,6 +51,10 @@ function App() {
       timeout = setTimeout(() => setTimer(timer - 1), 1000);
     } else if (timer === 0) {
       endLevel();
+      if (selectedLevel >= highestLevelCompleted) {
+        setHighestLevelCompleted(selectedLevel + 1);
+      }
+      setShowLevelWon(true);
     }
 
     return () => clearTimeout(timeout);
@@ -55,6 +63,7 @@ function App() {
   useEffect(() => {
     if (isLevelRunning && health <= 0) {
       endLevel();
+      setShowLevelLost(true);
     }
   }, [health, isLevelRunning]);
 
@@ -72,9 +81,9 @@ function App() {
       "background-music"
     ) as HTMLAudioElement;
     if (music) {
-      music.volume = volume;
+      music.volume = musicVolume;
     }
-  }, [volume]);
+  }, [musicVolume]);
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -87,8 +96,15 @@ function App() {
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, []);
 
-  const handleVolumeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setVolume(parseFloat(e.target.value));
+  const handleMusicVolumeChange = (
+    event: Event,
+    newValue: number | number[]
+  ) => {
+    setMusicVolume(newValue as number);
+  };
+
+  const handleFxVolumeChange = (event: Event, newValue: number | number[]) => {
+    setFxVolume(newValue as number);
   };
 
   const handleDifficultyChange = (event: any) => {
@@ -105,6 +121,8 @@ function App() {
   const handleShowSelectLevel = () => {
     setShowLevelSelection(true);
     setShowLevelComplete(false);
+    setShowLevelWon(false);
+    setShowLevelLost(false);
   };
 
   const startGame = () => {
@@ -145,25 +163,27 @@ function App() {
     setIsMusicPlaying(!isMusicPlaying);
   };
 
-  const handleToggleSound = () => {
-    setIsSoundOn(!isSoundOn);
+  const handleToggleFxSound = () => {
+    setIsFxSoundOn(!isFxSoundOn);
   };
-
   return (
     <div className="App">
       <audio id="background-music" src="/Space.mp3" loop>
         Your browser does not support the audio element.
       </audio>
+      <MenuIcon onClick={handlePause} id="menu-icon" />
       {isPaused && <div className="show-pause-menu"></div>}
       {isPaused && (
         <PauseMenu
-          isMusicPlaying={isMusicPlaying}
           handlePause={handlePause}
-          volume={volume}
-          onVolumeChange={handleVolumeChange}
+          isMusicPlaying={isMusicPlaying}
+          musicVolume={musicVolume}
           onToggleMusic={handleToggleMusic}
-          onToggleSound={handleToggleSound}
-          isSoundOn={isSoundOn}
+          onMusicVolumeChange={handleMusicVolumeChange}
+          isFxSoundOn={isFxSoundOn}
+          fxVolume={fxVolume}
+          onToggleFxSound={handleToggleFxSound}
+          onFxVolumeChange={handleFxVolumeChange}
           difficulty={difficulty}
           handleDifficultyChange={handleDifficultyChange}
         />
@@ -191,6 +211,7 @@ function App() {
                 selectedLevel={selectedLevel}
                 handleLevelChange={handleLevelChange}
                 key={index}
+                locked={index > highestLevelCompleted}
               />
             ))}
           </div>
@@ -204,7 +225,6 @@ function App() {
           <div className="space-themed-text">Time Left: {timer}s</div>
           <div className="gameContainer">
             <Person />
-            <ForceField ref={forceFieldRef} />
             <GameArea
               isPaused={isPaused}
               setHealth={setHealth}
@@ -215,6 +235,8 @@ function App() {
               difficulty={difficulty}
               words={levels[selectedLevel].words}
               letters={levels[selectedLevel].letters}
+              isFxSoundOn={isFxSoundOn}
+              fxVolume={fxVolume}
             />
           </div>
           <HealthAndScore health={health} score={levelScore} />
@@ -225,6 +247,8 @@ function App() {
       )}
       {showLevelComplete && (
         <>
+          {showLevelWon && <h1>YOU WON WOO HOO</h1>}
+          {showLevelLost && <h1>You lost...</h1>}
           <ScoreCard
             totalScore={totalScore}
             levelScore={levelScore}

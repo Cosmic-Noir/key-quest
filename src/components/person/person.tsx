@@ -6,7 +6,7 @@ import "./person.sass"; // Importing the SASS file for styles
 const Person: React.FC = () => {
   return (
     <div className="person bob">
-      <img src={astronaut} />
+      <img src={astronaut} alt="Astronaut" />
     </div>
   );
 };
