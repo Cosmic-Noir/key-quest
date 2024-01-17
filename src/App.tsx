@@ -13,10 +13,26 @@ import levels from "./levels";
 
 import "./App.sass";
 
+const DIFFICULTIES: Record<string, { description: string }> = {
+  easy: {
+    description:
+      "Embark on a leisurely journey through the cosmos, perfect for new typists. Navigate through fields of lowercase asteroids, encounter shorter cosmic words, and enjoy the slower drift of celestial bodies.",
+  },
+  medium: {
+    description:
+      "Gear up for an interstellar challenge, ideal for experienced spacefarers. Encounter varied planetary landscapes with capitalization, longer alien words, and experience faster meteor showers of letters and words.",
+  },
+  hard: {
+    description:
+      "Dive into the heart of a typing galaxy, only for the bravest commanders. Brace for lightning-fast comet tails of really long words, quicksilver scrolling, and relentless generation of cosmic vocabulary.",
+  },
+};
+
 function App() {
   // Game Settings
   // Todo - Make difficulties a variable
   const [isGameStarted, setIsGameStarted] = useState(false);
+  const [showDifficultySelection, setShowDifficultySelection] = useState(false);
   const [difficulty, setDifficulty] = useState("easy");
   const [selectedLevel, setSelectedLevel] = useState<number>(0);
   const [timer, setTimer] = useState(30);
@@ -107,15 +123,20 @@ function App() {
     setFxVolume(newValue as number);
   };
 
-  const handleDifficultyChange = (event: any) => {
-    setDifficulty(event.target.value);
+  const startGame = () => {
+    setIsMusicPlaying(true);
+    setIsGameStarted(true);
+    setShowDifficultySelection(true);
+    // handleShowSelectLevel();
   };
 
-  const handleLevelChange = (levelIndex: number) => {
-    setWpm(0);
-    setCorrectKeystrokes(0);
-    setTotalKeystrokes(0);
-    setSelectedLevel(() => levelIndex);
+  const handleFinishSettingsSelection = () => {
+    setShowDifficultySelection(false);
+    setShowLevelSelection(true);
+  };
+
+  const handleDifficultyChange = (event: any) => {
+    setDifficulty(event.target.value);
   };
 
   const handleShowSelectLevel = () => {
@@ -125,10 +146,11 @@ function App() {
     setShowLevelLost(false);
   };
 
-  const startGame = () => {
-    setIsMusicPlaying(true);
-    setIsGameStarted(true);
-    handleShowSelectLevel();
+  const handleLevelChange = (levelIndex: number) => {
+    setWpm(0);
+    setCorrectKeystrokes(0);
+    setTotalKeystrokes(0);
+    setSelectedLevel(() => levelIndex);
   };
 
   const endLevel = () => {
@@ -191,17 +213,34 @@ function App() {
       {!isGameStarted && (
         <>
           <img src={Logo} className="logo bob" />
-          <DifficultyMenu
-            difficulty={difficulty}
-            handleDifficultyChange={handleDifficultyChange}
-          />
+
           <Button variant="contained" size="large" onClick={startGame}>
             Start Game
           </Button>
         </>
       )}
+      {showDifficultySelection && (
+        <>
+          <div className="difficulty-selection space-container">
+            <DifficultyMenu
+              difficulty={difficulty}
+              handleDifficultyChange={handleDifficultyChange}
+            />
+            <div className="space-themed-text difficulty-description">
+              {DIFFICULTIES[difficulty].description}
+            </div>
+          </div>
+          <Button
+            variant="contained"
+            size="large"
+            onClick={handleFinishSettingsSelection}
+          >
+            Select Difficulty
+          </Button>
+        </>
+      )}
       {showLevelSelection && (
-        <div className="levels space-themed-text">
+        <div className="levels space-themed-header-text">
           <div>Select Level:</div>
           <div className="levels-container">
             {levels.map((level, index) => (
@@ -222,7 +261,7 @@ function App() {
       )}
       {isLevelRunning && (
         <>
-          <div className="space-themed-text">Time Left: {timer}s</div>
+          <div className="space-themed-header-text">Time Left: {timer}s</div>
           <div className="gameContainer">
             <Person />
             <GameArea

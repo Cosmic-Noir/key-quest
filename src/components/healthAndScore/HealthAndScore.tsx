@@ -8,7 +8,7 @@ interface HealthAndScoreProps {
 
 const HealthAndScore: React.FC<HealthAndScoreProps> = ({ health, score }) => {
   return (
-    <div className="healthAndScore">
+    <div className="healthAndScore space-container">
       <div className="healthBar" style={{ width: `${health}%` }}></div>
       <div className="score">Score: {score}</div>
     </div>
