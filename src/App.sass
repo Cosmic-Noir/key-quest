@@ -31,7 +31,7 @@ h1, h2, h3, h4, div, span
   align-items: center
 
 .logo
-  height: 400px
+  height: 500px
 
 .levels
   width: 100%
@@ -72,6 +72,18 @@ h1, h2, h3, h4, div, span
 /* Apply the animation to the element with the 'bob' class */
 .bob
   animation: bobbing 1s ease-in-out infinite /* Adjust the duration and timing function as needed */
+
+@keyframes fadeIn
+  0%
+    opacity: 0
+  100%
+    opacity: 1
+
+.fade-in
+  animation: fadeIn 3s
+
+.bob-and-fade
+  animation: fadeIn 5s, bobbing 1s ease-in-out infinite
 
 .space-themed-header-text
   // color: white

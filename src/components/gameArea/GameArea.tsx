@@ -75,6 +75,44 @@ const GameArea: React.FC<GameAreaProps> = ({
     }
   };
 
+  // Function to handle Fizzle effect and removal
+  const triggerFizzleEffect = (elementIndex: number) => {
+    const fizzleDuration = 500;
+
+    // Get the element to apply the effect
+    const elementToFizz = document.querySelector(
+      `[data-index="${elementIndex}"]`
+    );
+
+    if (elementToFizz) {
+      elementToFizz.classList.add("fizzle");
+      if (isFxSoundOn) fizzleSound(fxVolume);
+
+      // Remove the class and hide the element after the effect duration
+      setTimeout(() => {
+        elementToFizz.classList.remove("fizzle");
+        // Update state to hide the element
+        setElements((prevElements) =>
+          prevElements.map((el, index) =>
+            index === elementIndex
+              ? { ...el, isVisible: false, typed: false }
+              : el
+          )
+        );
+      }, fizzleDuration);
+    }
+  };
+
+  const triggerShieldCollisionEffect = () => {
+    const gameArea = document.querySelector(".gameArea") as HTMLElement | null;
+    if (gameArea) {
+      gameArea.style.setProperty("--after-background", "red");
+      setTimeout(() => {
+        gameArea.style.removeProperty("--after-background");
+      }, 500);
+    }
+  };
+
   useEffect(() => {
     const handleKeyPress = (event: KeyboardEvent) => {
       if (isPaused) return;
@@ -220,6 +258,7 @@ const GameArea: React.FC<GameAreaProps> = ({
               // 1. Deduct health
               setHealth((prevHealth) => Math.max(prevHealth - 5, 0));
               triggerFizzleEffect(index);
+              triggerShieldCollisionEffect();
 
               // 3. If the element is the active word, reset the active word index
               if (index === activeWordIndex) {
@@ -228,34 +267,6 @@ const GameArea: React.FC<GameAreaProps> = ({
             }
           }
         });
-      }
-    };
-
-    // Function to handle Fizzle effect and removal
-    const triggerFizzleEffect = (elementIndex: number) => {
-      const fizzleDuration = 500;
-
-      // Get the element to apply the effect
-      const elementToFizz = document.querySelector(
-        `[data-index="${elementIndex}"]`
-      );
-
-      if (elementToFizz) {
-        elementToFizz.classList.add("fizzle");
-        if (isFxSoundOn) fizzleSound(fxVolume);
-
-        // Remove the class and hide the element after the effect duration
-        setTimeout(() => {
-          elementToFizz.classList.remove("fizzle");
-          // Update state to hide the element
-          setElements((prevElements) =>
-            prevElements.map((el, index) =>
-              index === elementIndex
-                ? { ...el, isVisible: false, typed: false }
-                : el
-            )
-          );
-        }, fizzleDuration);
       }
     };
 

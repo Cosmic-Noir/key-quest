@@ -13,6 +13,8 @@ import levels from "./levels";
 
 import "./App.sass";
 
+const LEVEL_TIME = 60;
+
 const DIFFICULTIES: Record<string, { description: string }> = {
   easy: {
     description:
@@ -35,7 +37,7 @@ function App() {
   const [showDifficultySelection, setShowDifficultySelection] = useState(false);
   const [difficulty, setDifficulty] = useState("easy");
   const [selectedLevel, setSelectedLevel] = useState<number>(0);
-  const [timer, setTimer] = useState(30);
+  const [timer, setTimer] = useState(LEVEL_TIME);
   const [isPaused, setIsPaused] = useState(false);
   const [highestLevelCompleted, setHighestLevelCompleted] = useState(0);
 
@@ -157,7 +159,7 @@ function App() {
     // Check if the level hasn't already ended
     if (!levelEnded) {
       // Calculate WPM
-      const timeElapsed = 30 - timer;
+      const timeElapsed = LEVEL_TIME - timer;
       const wordsPerMinute = (correctKeystrokes / 5) * (60 / timeElapsed);
       setWpm(wordsPerMinute);
       setTotalScore((prevTotalScore) => prevTotalScore + levelScore);
@@ -170,9 +172,12 @@ function App() {
   const startLevel = () => {
     setShowLevelSelection(false);
     setIsLevelRunning(true);
-    setTimer(30);
+    setTimer(LEVEL_TIME);
     setShowLevelComplete(false);
     setLevelScore(0);
+    setWpm(0);
+    setCorrectKeystrokes(0);
+    setTotalKeystrokes(0);
     setHealth(100);
     setLevelEnded(false);
   };
@@ -212,16 +217,21 @@ function App() {
       )}
       {!isGameStarted && (
         <>
-          <img src={Logo} className="logo bob" />
+          <img src={Logo} className="logo bob-and-fade" />
 
-          <Button variant="contained" size="large" onClick={startGame}>
+          <Button
+            variant="contained"
+            size="large"
+            onClick={startGame}
+            className="fade-in"
+          >
             Start Game
           </Button>
         </>
       )}
       {showDifficultySelection && (
         <>
-          <div className="difficulty-selection space-container">
+          <div className="difficulty-selection space-container fade-in">
             <DifficultyMenu
               difficulty={difficulty}
               handleDifficultyChange={handleDifficultyChange}
@@ -233,6 +243,7 @@ function App() {
           <Button
             variant="contained"
             size="large"
+            className="fade-in"
             onClick={handleFinishSettingsSelection}
           >
             Select Difficulty
@@ -240,7 +251,7 @@ function App() {
         </>
       )}
       {showLevelSelection && (
-        <div className="levels space-themed-header-text">
+        <div className="levels space-themed-header-text fade-in">
           <div>Select Level:</div>
           <div className="levels-container">
             {levels.map((level, index) => (
@@ -261,8 +272,10 @@ function App() {
       )}
       {isLevelRunning && (
         <>
-          <div className="space-themed-header-text">Time Left: {timer}s</div>
-          <div className="gameContainer">
+          <div className="space-themed-header-text fade-in">
+            Time Left: {timer}s
+          </div>
+          <div className="gameContainer fade-in">
             <Person />
             <GameArea
               isPaused={isPaused}
@@ -279,7 +292,12 @@ function App() {
             />
           </div>
           <HealthAndScore health={health} score={levelScore} />
-          <Button variant="contained" onClick={handlePause} disabled={isPaused}>
+          <Button
+            variant="contained"
+            onClick={handlePause}
+            disabled={isPaused}
+            className="fade-in"
+          >
             Pause
           </Button>
         </>

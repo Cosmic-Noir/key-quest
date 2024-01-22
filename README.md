@@ -63,11 +63,11 @@ This project is built using several modern web technologies:
 ```
 
 5. Playing the Game -
-   - Select a difficulty level and click 'Start Level' to begin.
+   - Start the game, select a difficulty and level. Surviving levels unlocks the next adventure.
    - Type the letters and words as they appear on the screen.
    - Try to maintain accuracy and speed to maximize your score.
    - Avoid letting words or letters strike the forcefield, which will reduce your health.
-   - When the health bar reaches 0, the game will end.
+   - When the health bar reaches 0 or the timer runs out, the level will end. Win by surviving until the timer runs out.
 
 ### Project Management
 
