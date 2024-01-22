@@ -4,6 +4,13 @@ import { Letter } from "../letter";
 import { Word } from "../word";
 import "./gameArea.sass";
 
+type WordsType = {
+  [key: string]: Array<string>;
+  easy: Array<string>;
+  medium: Array<string>;
+  hard: Array<string>;
+};
+
 interface GameElement {
   char: string;
   top: number;
@@ -21,7 +28,7 @@ interface GameAreaProps {
   onTotalKeystrokesChange: React.Dispatch<React.SetStateAction<number>>;
   onCorrectKeystrokesChange: React.Dispatch<React.SetStateAction<number>>;
   difficulty: string;
-  words: Array<string>;
+  words: WordsType;
   letters: Array<string>;
   fxVolume: GLfloat;
   isFxSoundOn: boolean;
@@ -63,7 +70,7 @@ const GameArea: React.FC<GameAreaProps> = ({
       // Remove the class and hide the element after the effect duration
       setTimeout(() => {
         elementToPop.classList.remove("pop");
-        // Update state to hide the element
+        // Todo - Why not just add 'hidden' class intead of mapping? Seems unperformant, we already have the element.
         setElements((prevElements) =>
           prevElements.map((el, index) =>
             index === elementIndex
@@ -196,16 +203,11 @@ const GameArea: React.FC<GameAreaProps> = ({
     const getRandomElement = () => {
       // 50% chance to choose a word
       const isWord = Math.random() > 0.5;
-      let availableWords = [...words];
+      let availableWords = words[difficulty];
 
+      // Todo - Make this depedant on alternate setting, not difficulty
       if (difficulty === "easy") {
-        availableWords = availableWords
-          .splice(0, 10)
-          .map((w) => w.toLowerCase());
-      } else if (difficulty === "medium") {
-        availableWords = availableWords.splice(10, 10);
-      } else {
-        availableWords = availableWords.splice(20, 10);
+        availableWords = availableWords.map((w) => w.toLowerCase());
       }
       let char = isWord
         ? availableWords[Math.floor(Math.random() * availableWords.length)]

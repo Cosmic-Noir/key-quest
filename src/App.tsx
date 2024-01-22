@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import Button from "@mui/material/Button";
-import { DifficultyMenu } from "./components/difficultyMenu";
+import { DifficultySelection } from "./components/difficultySelection";
 import { GameArea } from "./components/gameArea";
 import { HealthAndScore } from "./components/healthAndScore";
 import { Level } from "./components/level";
@@ -230,25 +230,12 @@ function App() {
         </>
       )}
       {showDifficultySelection && (
-        <>
-          <div className="difficulty-selection space-container fade-in">
-            <DifficultyMenu
-              difficulty={difficulty}
-              handleDifficultyChange={handleDifficultyChange}
-            />
-            <div className="space-themed-text difficulty-description">
-              {DIFFICULTIES[difficulty].description}
-            </div>
-          </div>
-          <Button
-            variant="contained"
-            size="large"
-            className="fade-in"
-            onClick={handleFinishSettingsSelection}
-          >
-            Select Difficulty
-          </Button>
-        </>
+        <DifficultySelection
+          difficulty={difficulty}
+          handleDifficultyChange={handleDifficultyChange}
+          handleFinishSettingsSelection={handleFinishSettingsSelection}
+          activeLevelDescription={DIFFICULTIES[difficulty].description}
+        />
       )}
       {showLevelSelection && (
         <div className="levels space-themed-header-text fade-in">
