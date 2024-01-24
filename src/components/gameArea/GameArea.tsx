@@ -32,6 +32,7 @@ interface GameAreaProps {
   letters: Array<string>;
   fxVolume: GLfloat;
   isFxSoundOn: boolean;
+  autoSpawnEnabled: boolean;
 }
 
 const GameArea: React.FC<GameAreaProps> = ({
@@ -45,6 +46,7 @@ const GameArea: React.FC<GameAreaProps> = ({
   letters,
   fxVolume,
   isFxSoundOn,
+  autoSpawnEnabled,
 }) => {
   const [elements, setElements] = useState<GameElement[]>([]);
   const [activeWordIndex, setActiveWordIndex] = useState<number | null>(null);
@@ -55,6 +57,27 @@ const GameArea: React.FC<GameAreaProps> = ({
   useEffect(() => {
     elementsRef.current = elements;
   }, [elements]);
+
+  const getRandomElement = () => {
+    // 50% chance to choose a word
+    const isWord = Math.random() > 0.5;
+    let availableWords = words[difficulty];
+
+    if (difficulty === "easy") {
+      availableWords = availableWords.map((w) => w.toLowerCase());
+    }
+    let char = isWord
+      ? availableWords[Math.floor(Math.random() * availableWords.length)]
+      : letters[Math.floor(Math.random() * letters.length)];
+
+    if (difficulty === "easy") {
+      char = char.toLowerCase();
+    }
+    // Random top position as a percentage of the GameArea height
+    const top = Math.random() * 100;
+
+    return { char, top, typed: false, isPaused: false, isVisible: true };
+  };
 
   // Function to handle pop effect and removal
   const triggerPopEffect = (elementIndex: number) => {
@@ -119,6 +142,17 @@ const GameArea: React.FC<GameAreaProps> = ({
       }, 500);
     }
   };
+
+  useEffect(() => {
+    if (autoSpawnEnabled) {
+      const allElementsInvisible = elements.every((el) => !el.isVisible);
+
+      if (allElementsInvisible) {
+        const newElement = getRandomElement();
+        setElements((prevElements) => [...prevElements, newElement]);
+      }
+    }
+  }, [elements, autoSpawnEnabled]);
 
   useEffect(() => {
     const handleKeyPress = (event: KeyboardEvent) => {
@@ -200,27 +234,6 @@ const GameArea: React.FC<GameAreaProps> = ({
     const intervalTime =
       difficulty === "hard" ? 900 : difficulty === "medium" ? 1500 : 2000;
 
-    const getRandomElement = () => {
-      // 50% chance to choose a word
-      const isWord = Math.random() > 0.5;
-      let availableWords = words[difficulty];
-
-      // Todo - Make this depedant on alternate setting, not difficulty
-      if (difficulty === "easy") {
-        availableWords = availableWords.map((w) => w.toLowerCase());
-      }
-      let char = isWord
-        ? availableWords[Math.floor(Math.random() * availableWords.length)]
-        : letters[Math.floor(Math.random() * letters.length)];
-
-      if (difficulty === "easy") {
-        char = char.toLowerCase();
-      }
-      // Random top position as a percentage of the GameArea height
-      const top = Math.random() * 100;
-
-      return { char, top, typed: false, isPaused: false, isVisible: true };
-    };
     let interval: any;
 
     if (!isPaused) {
