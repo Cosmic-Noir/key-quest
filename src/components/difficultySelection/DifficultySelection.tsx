@@ -1,5 +1,7 @@
 import React from "react";
 import Button from "@mui/material/Button";
+import { AdvancedSettings } from "../advancedSettings";
+
 import classNames from "classnames";
 
 import "./difficultySelection.sass";
@@ -9,6 +11,12 @@ interface DifficultySelectionProps {
   handleDifficultyChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   handleFinishSettingsSelection: () => void;
   activeLevelDescription: string;
+  autoSpawnEnabled: boolean;
+  handleAutoSpawnChange: (value: boolean) => void;
+  scrollSpeed: number;
+  handleScrollSpeedChange: (value: number) => void;
+  spawnInterval: number;
+  handleSpawnIntervalChange: (value: number) => void;
 }
 
 const DifficultySelection: React.FC<DifficultySelectionProps> = ({
@@ -16,6 +24,12 @@ const DifficultySelection: React.FC<DifficultySelectionProps> = ({
   handleDifficultyChange,
   handleFinishSettingsSelection,
   activeLevelDescription,
+  autoSpawnEnabled,
+  handleAutoSpawnChange,
+  scrollSpeed,
+  handleScrollSpeedChange,
+  spawnInterval,
+  handleSpawnIntervalChange,
 }) => {
   return (
     <div className="difficulty-selection space-container fade-in">
@@ -91,6 +105,14 @@ const DifficultySelection: React.FC<DifficultySelectionProps> = ({
       <div className="space-themed-text difficulty-description">
         {activeLevelDescription}
       </div>
+      <AdvancedSettings
+        autoSpawnEnabled={autoSpawnEnabled}
+        handleAutoSpawnChange={handleAutoSpawnChange}
+        scrollSpeed={scrollSpeed}
+        handleScrollSpeedChange={handleScrollSpeedChange}
+        spawnInterval={spawnInterval}
+        handleSpawnIntervalChange={handleSpawnIntervalChange}
+      />
       <Button
         variant="contained"
         size="large"

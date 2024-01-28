@@ -33,6 +33,8 @@ interface GameAreaProps {
   fxVolume: GLfloat;
   isFxSoundOn: boolean;
   autoSpawnEnabled: boolean;
+  spawnInterval: number;
+  scrollSpeed: number;
 }
 
 const GameArea: React.FC<GameAreaProps> = ({
@@ -47,6 +49,8 @@ const GameArea: React.FC<GameAreaProps> = ({
   fxVolume,
   isFxSoundOn,
   autoSpawnEnabled,
+  spawnInterval,
+  scrollSpeed,
 }) => {
   const [elements, setElements] = useState<GameElement[]>([]);
   const [activeWordIndex, setActiveWordIndex] = useState<number | null>(null);
@@ -231,15 +235,12 @@ const GameArea: React.FC<GameAreaProps> = ({
   }, [activeWordIndex, typedChars, isPaused, fxVolume, isFxSoundOn]);
 
   useEffect(() => {
-    const intervalTime =
-      difficulty === "hard" ? 900 : difficulty === "medium" ? 1500 : 2000;
-
     let interval: any;
 
     if (!isPaused) {
       interval = setInterval(() => {
         setElements((prev) => [...prev, getRandomElement()]);
-      }, intervalTime);
+      }, spawnInterval);
     }
 
     return () => clearInterval(interval);
@@ -304,7 +305,7 @@ const GameArea: React.FC<GameAreaProps> = ({
               style={{ top: `${element.top}%` }}
               isPaused={isPaused}
               isVisible={element.isVisible}
-              className={difficulty}
+              className={`scroll-speed-${scrollSpeed}`}
             />
           ) : (
             <Word
@@ -318,7 +319,7 @@ const GameArea: React.FC<GameAreaProps> = ({
               isActive={index === activeWordIndex}
               typedChars={typedChars}
               isVisible={element.isVisible}
-              className={difficulty}
+              className={`scroll-speed-${scrollSpeed}`}
             />
           )
         ) : null

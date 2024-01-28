@@ -17,28 +17,39 @@ const LEVEL_TIME = 60;
 
 const DIFFICULTIES: Record<
   string,
-  { [key: string]: Object; description: string; autoSpawnEnabled: boolean }
+  {
+    [key: string]: Object;
+    description: string;
+    autoSpawnEnabled: boolean;
+    spawnInterval: number;
+    scrollSpeed: number;
+  }
 > = {
   easy: {
     description:
       "Embark on a leisurely journey through the cosmos, perfect for new typists. Navigate through fields of lowercase asteroids, encounter shorter cosmic words, and enjoy the slower drift of celestial bodies.",
     autoSpawnEnabled: false,
+    spawnInterval: 2000,
+    scrollSpeed: 7,
   },
   medium: {
     description:
       "Gear up for an interstellar challenge, ideal for experienced spacefarers. Encounter varied planetary landscapes with capitalization, longer alien words, and experience faster meteor showers of letters and words.",
     autoSpawnEnabled: true,
+    spawnInterval: 1500,
+    scrollSpeed: 5,
   },
   hard: {
     description:
       "Dive into the heart of a typing galaxy, only for the bravest commanders. Brace for lightning-fast comet tails of really long words, quicksilver scrolling, and relentless generation of cosmic vocabulary.",
     autoSpawnEnabled: true,
+    spawnInterval: 1000,
+    scrollSpeed: 4,
   },
 };
 
 function App() {
   // Game Settings
-  // Todo - Make difficulties a variable
   const [isGameStarted, setIsGameStarted] = useState(false);
   const [showDifficultySelection, setShowDifficultySelection] = useState(false);
   const [difficulty, setDifficulty] = useState("easy");
@@ -46,6 +57,15 @@ function App() {
   const [timer, setTimer] = useState(LEVEL_TIME);
   const [isPaused, setIsPaused] = useState(false);
   const [highestLevelCompleted, setHighestLevelCompleted] = useState(0);
+  const [autoSpawnEnabled, setAutoSpawnEnabled] = useState(
+    DIFFICULTIES[difficulty].autoSpawnEnabled
+  );
+  const [spawnInterval, setAutoSpawnChange] = useState(
+    DIFFICULTIES[difficulty].spawnInterval
+  );
+  const [scrollSpeed, setScrollSpeedChange] = useState(
+    DIFFICULTIES[difficulty].scrollSpeed
+  );
 
   // Sound Settings
   const [isMusicPlaying, setIsMusicPlaying] = useState(false);
@@ -120,6 +140,12 @@ function App() {
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, []);
 
+  useEffect(() => {
+    setAutoSpawnEnabled(DIFFICULTIES[difficulty].autoSpawnEnabled);
+    setAutoSpawnChange(DIFFICULTIES[difficulty].spawnInterval);
+    setScrollSpeedChange(DIFFICULTIES[difficulty].scrollSpeed);
+  }, [difficulty]);
+
   const handleMusicVolumeChange = (
     event: Event,
     newValue: number | number[]
@@ -145,6 +171,18 @@ function App() {
 
   const handleDifficultyChange = (event: any) => {
     setDifficulty(event.target.value);
+  };
+
+  const handleAutoSpawnChange = (value: boolean) => {
+    setAutoSpawnEnabled(value);
+  };
+
+  const handleScrollSpeedChange = (value: number) => {
+    setScrollSpeedChange(value);
+  };
+
+  const handleSpawnIntervalChange = (value: number) => {
+    setAutoSpawnChange(value);
   };
 
   const handleShowSelectLevel = () => {
@@ -224,7 +262,6 @@ function App() {
       {!isGameStarted && (
         <>
           <img src={Logo} className="logo bob-and-fade" />
-
           <Button
             variant="contained"
             size="large"
@@ -241,6 +278,12 @@ function App() {
           handleDifficultyChange={handleDifficultyChange}
           handleFinishSettingsSelection={handleFinishSettingsSelection}
           activeLevelDescription={DIFFICULTIES[difficulty].description}
+          autoSpawnEnabled={autoSpawnEnabled}
+          handleAutoSpawnChange={handleAutoSpawnChange}
+          scrollSpeed={scrollSpeed}
+          handleScrollSpeedChange={handleScrollSpeedChange}
+          spawnInterval={spawnInterval}
+          handleSpawnIntervalChange={handleSpawnIntervalChange}
         />
       )}
       {showLevelSelection && (
@@ -282,7 +325,9 @@ function App() {
               letters={levels[selectedLevel].letters}
               isFxSoundOn={isFxSoundOn}
               fxVolume={fxVolume}
-              autoSpawnEnabled={DIFFICULTIES[difficulty]["autoSpawnEnabled"]}
+              autoSpawnEnabled={autoSpawnEnabled}
+              spawnInterval={spawnInterval}
+              scrollSpeed={scrollSpeed}
             />
           </div>
           <HealthAndScore health={health} score={levelScore} />
