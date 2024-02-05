@@ -36,7 +36,7 @@ const PauseMenu: React.FC<PauseMenuProps> = ({
   handleDifficultyChange,
 }) => {
   return (
-    <div className="pause-menu">
+    <div className="pause-menu space-container">
       <h1>Menu</h1>
       <h4>Sound FX:</h4>
       <div className="settings-section">

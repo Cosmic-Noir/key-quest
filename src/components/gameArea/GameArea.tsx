@@ -172,6 +172,7 @@ const GameArea: React.FC<GameAreaProps> = ({
       // Check if there is an active word
       if (activeWordIndex !== null) {
         const activeElement = updatedElements[activeWordIndex];
+        console.log("Finding active element:", activeElement);
 
         if (activeElement && typeof activeElement.char === "string") {
           const targetChar = activeElement.char[typedChars];
@@ -182,9 +183,9 @@ const GameArea: React.FC<GameAreaProps> = ({
 
             if (typedChars === activeElement.char.length - 1) {
               // Word completed
-              triggerPopEffect(activeWordIndex);
               setActiveWordIndex(null);
               setTypedChars(0);
+              triggerPopEffect(activeWordIndex);
               setLevelScore((prevScore) => prevScore + 10);
             } else {
               // Continue typing the word
@@ -270,16 +271,17 @@ const GameArea: React.FC<GameAreaProps> = ({
                 )
               );
 
-              // Handle the collision:
-              // 1. Deduct health
-              setHealth((prevHealth) => Math.max(prevHealth - 5, 0));
-              triggerFizzleEffect(index);
-              triggerShieldCollisionEffect();
-
-              // 3. If the element is the active word, reset the active word index
+              // If the element is the active word, reset the active word index
               if (index === activeWordIndex) {
                 setActiveWordIndex(null);
               }
+
+              // Handle the collision:
+              triggerShieldCollisionEffect();
+              // Deduct health
+              setHealth((prevHealth) => Math.max(prevHealth - 5, 0));
+              // Fizzle the word
+              triggerFizzleEffect(index);
             }
           }
         });
