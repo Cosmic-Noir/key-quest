@@ -7,6 +7,7 @@ import { Level } from "./components/level";
 import { PauseMenu } from "./components/pauseMenu";
 import { Person } from "./components/person";
 import { ScoreCard } from "./components/scoreCard";
+import { useGameSettings } from "./hooks/useGameSettings";
 import MenuIcon from "@mui/icons-material/Menu";
 import Logo from "./logo.png";
 import levels from "./levels";
@@ -50,9 +51,9 @@ const DIFFICULTIES: Record<
 
 function App() {
   // Game Settings
+  const { difficulty, setDifficulty } = useGameSettings();
   const [isGameStarted, setIsGameStarted] = useState(false);
   const [showDifficultySelection, setShowDifficultySelection] = useState(false);
-  const [difficulty, setDifficulty] = useState("easy");
   const [selectedLevel, setSelectedLevel] = useState<number>(0);
   const [timer, setTimer] = useState(LEVEL_TIME);
   const [isPaused, setIsPaused] = useState(false);
@@ -161,7 +162,6 @@ function App() {
     setIsMusicPlaying(true);
     setIsGameStarted(true);
     setShowDifficultySelection(true);
-    // handleShowSelectLevel();
   };
 
   const handleFinishSettingsSelection = () => {
@@ -237,6 +237,7 @@ function App() {
   const handleToggleFxSound = () => {
     setIsFxSoundOn(!isFxSoundOn);
   };
+
   return (
     <div className="App">
       <audio id="background-music" src="/Space.mp3" loop>

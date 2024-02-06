@@ -8,13 +8,14 @@
 
 Welcome to Key Quest, an intergalactic typing adventure! In this game, you journey through the cosmos as a space explorer, encountering various challenges that test your typing skills. Whether it's dodging asteroids with quick keystrokes or communicating with alien species through precise typing, Key Quest offers an engaging and educational experience for typists of all levels.
 
-This is mostly a cute game project to practice using React, Typescript, ChatGPT and to have some fun!
+This is mostly a cute game project to practice using React, Typescript, React Query, ChatGPT and to have some fun!
 
 ## Features
 
 - **Dynamic Typing Challenges:** Encounter different typing tasks, from simple letters to complex words and phrases.
-- **Difficulty Levels:** Choose your adventure's difficulty – Easy, Medium, or Hard.
+- **Difficulty Levels:** Choose your adventure's difficulty – Space Cadet, Orbital Officer, or Star Voyager.
 - **Progress Tracking:** Keep track of your typing accuracy, words per minute, and overall score.
+- **State Management with React Query:** Utilize the powerful features of React Query to manage game data with local storage.
 
 ## Getting Started
 
@@ -31,6 +32,7 @@ This project is built using several modern web technologies:
 
 - [React](https://reactjs.org/): A JavaScript library for building user interfaces.
 - [TypeScript](https://www.typescriptlang.org/): An open-source language that builds on JavaScript by adding static type definitions.
+- [React Query](https://tanstack.com/query/latest/): A library for fetching, caching, and updating asynchronous data in React.
 - [Sass](https://sass-lang.com/): A powerful professional-grade CSS extension language.
 - [tsparticles](https://particles.js.org/): A lightweight JavaScript library for creating particles.
 - [Material-UI](https://mui.com/material-ui/): React UI framework with comprehensive suite of pre-designed components.

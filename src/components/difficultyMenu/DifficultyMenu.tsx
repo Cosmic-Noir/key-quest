@@ -28,7 +28,7 @@ const DifficultySelector: React.FC<DifficultySelectorProps> = ({
           htmlFor="easy"
           className={classNames({ active: difficulty === "easy" })}
         >
-          Easy
+          Space Cadet
         </label>
       </div>
       <div>
@@ -44,7 +44,7 @@ const DifficultySelector: React.FC<DifficultySelectorProps> = ({
           htmlFor="medium"
           className={classNames({ active: difficulty === "medium" })}
         >
-          Medium
+          Orbital Officer
         </label>
       </div>
       <div>
@@ -60,7 +60,7 @@ const DifficultySelector: React.FC<DifficultySelectorProps> = ({
           htmlFor="hard"
           className={classNames("", { active: difficulty === "hard" })}
         >
-          Hard
+          Star Voyager
         </label>
       </div>
     </div>
