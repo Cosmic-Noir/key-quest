@@ -18,6 +18,21 @@ const ScoreCard: React.FC<ScoreCardProps> = ({
   totalKeystrokes,
   wpm,
 }) => {
+  // function calculateFinalScore(
+  //   wpm,
+  //   accuracyPercentage,
+  //   difficulty,
+  //   levelScore
+  // ) {
+  //   const scoreMultiplier = getDifficultyMultiplier(difficulty); // Assume this function exists and returns a multiplier based on the difficulty
+  //   const constant = 10; // Adjust based on your scoring preferences
+  //   const baseScore = wpm * constant;
+  //   const finalScore =
+  //     (baseScore + levelScore) * accuracyPercentage * scoreMultiplier;
+
+  //   return Math.round(finalScore); // Optionally round the score for cleaner display
+  // }
+
   return (
     <div className="score-card space-themed-header-text">
       <h1>Level completed!</h1>

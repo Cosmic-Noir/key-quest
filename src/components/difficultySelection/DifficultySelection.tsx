@@ -1,36 +1,49 @@
 import React from "react";
 import Button from "@mui/material/Button";
+import { useGameSettings } from "../../hooks/useGameSettings";
 import { AdvancedSettings } from "../advancedSettings";
+import DIFFICULTIES from "../../difficulties";
 
 import classNames from "classnames";
 
 import "./difficultySelection.sass";
 
 interface DifficultySelectionProps {
-  difficulty: string;
-  handleDifficultyChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  handleFinishSettingsSelection: () => void;
-  activeLevelDescription: string;
-  autoSpawnEnabled: boolean;
-  handleAutoSpawnChange: (value: boolean) => void;
-  scrollSpeed: number;
-  handleScrollSpeedChange: (value: number) => void;
-  spawnInterval: number;
-  handleSpawnIntervalChange: (value: number) => void;
+  handleNext: () => void;
+  buttonText: string;
 }
 
 const DifficultySelection: React.FC<DifficultySelectionProps> = ({
-  difficulty,
-  handleDifficultyChange,
-  handleFinishSettingsSelection,
-  activeLevelDescription,
-  autoSpawnEnabled,
-  handleAutoSpawnChange,
-  scrollSpeed,
-  handleScrollSpeedChange,
-  spawnInterval,
-  handleSpawnIntervalChange,
+  handleNext,
+  buttonText,
 }) => {
+  const { gameSettings, updateGameSettings } = useGameSettings();
+  const {
+    difficulty,
+    autoSpawnEnabled,
+    spawnInterval,
+    scrollSpeed,
+    description,
+  } = gameSettings!;
+
+  const handleDifficultyChange = (event: any) => {
+    // Difficulty selection overrides other settings with defaults
+    const newDifficulty: string = event.target.value;
+    updateGameSettings(DIFFICULTIES[newDifficulty]);
+  };
+
+  const handleAutoSpawnChange = (value: boolean) => {
+    updateGameSettings({ ...gameSettings, autoSpawnEnabled: value });
+  };
+
+  const handleScrollSpeedChange = (value: number) => {
+    updateGameSettings({ ...gameSettings, scrollSpeed: value });
+  };
+
+  const handleSpawnIntervalChange = (value: number) => {
+    updateGameSettings({ ...gameSettings, spawnInterval: value });
+  };
+
   return (
     <div className="difficulty-selection space-container fade-in">
       <h3 className="space-themed-header-text">Difficulty:</h3>
@@ -103,7 +116,7 @@ const DifficultySelection: React.FC<DifficultySelectionProps> = ({
         </div>
       </div>
       <div className="space-themed-text difficulty-description">
-        {activeLevelDescription}
+        {description}
       </div>
       <AdvancedSettings
         autoSpawnEnabled={autoSpawnEnabled}
@@ -117,9 +130,9 @@ const DifficultySelection: React.FC<DifficultySelectionProps> = ({
         variant="contained"
         size="large"
         className="fade-in"
-        onClick={handleFinishSettingsSelection}
+        onClick={handleNext}
       >
-        Select Difficulty
+        {buttonText}
       </Button>
     </div>
   );

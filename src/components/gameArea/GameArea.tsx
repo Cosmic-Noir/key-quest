@@ -1,4 +1,6 @@
 import React, { useEffect, useState, useRef } from "react";
+import { useGameSettings } from "../../hooks/useGameSettings";
+import { useSoundSettings } from "../../hooks/useSoundSettings";
 import { dingSound, fizzleSound } from "../../sounds/index";
 import { Letter } from "../letter";
 import { Word } from "../word";
@@ -23,18 +25,11 @@ interface GameElement {
 interface GameAreaProps {
   isPaused: boolean;
   setHealth: React.Dispatch<React.SetStateAction<number>>;
-  forceFieldRef: React.RefObject<HTMLDivElement>;
   setLevelScore: React.Dispatch<React.SetStateAction<number>>;
   onTotalKeystrokesChange: React.Dispatch<React.SetStateAction<number>>;
   onCorrectKeystrokesChange: React.Dispatch<React.SetStateAction<number>>;
-  difficulty: string;
   words: WordsType;
   letters: Array<string>;
-  fxVolume: GLfloat;
-  isFxSoundOn: boolean;
-  autoSpawnEnabled: boolean;
-  spawnInterval: number;
-  scrollSpeed: number;
 }
 
 const GameArea: React.FC<GameAreaProps> = ({
@@ -43,15 +38,16 @@ const GameArea: React.FC<GameAreaProps> = ({
   setLevelScore,
   onTotalKeystrokesChange,
   onCorrectKeystrokesChange,
-  difficulty,
   words,
   letters,
-  fxVolume,
-  isFxSoundOn,
-  autoSpawnEnabled,
-  spawnInterval,
-  scrollSpeed,
 }) => {
+  const { gameSettings } = useGameSettings();
+  const { difficulty, autoSpawnEnabled, spawnInterval, scrollSpeed } =
+    gameSettings!;
+
+  const { soundSettings } = useSoundSettings();
+  const { isFxSoundOn, fxVolume } = soundSettings!;
+
   const [elements, setElements] = useState<GameElement[]>([]);
   const [activeWordIndex, setActiveWordIndex] = useState<number | null>(null);
   const [typedChars, setTypedChars] = useState<number>(0);
