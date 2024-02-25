@@ -203,8 +203,7 @@ function App() {
                   setLevelScore={setLevelScore}
                   onTotalKeystrokesChange={setTotalKeystrokes}
                   onCorrectKeystrokesChange={setCorrectKeystrokes}
-                  words={levels[selectedLevel].words}
-                  letters={levels[selectedLevel].letters}
+                  selectedLevel={selectedLevel}
                 />
               </div>
               <HealthAndScore health={health} score={levelScore} />

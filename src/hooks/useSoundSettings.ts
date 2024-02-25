@@ -16,8 +16,6 @@ const defaultSoundSettings: SoundSettings = {
 
 const fetchSoundSettings = async (): Promise<SoundSettings> => {
   const storedSettings = localStorage.getItem('soundSettings');
-  console.log('defaultSoundSettings', defaultSoundSettings);
-  console.log('storedSettings', storedSettings);
   return storedSettings ? JSON.parse(storedSettings) : defaultSoundSettings;
 };
 

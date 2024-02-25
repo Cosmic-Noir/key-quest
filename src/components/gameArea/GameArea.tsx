@@ -2,8 +2,11 @@ import React, { useEffect, useState, useRef } from "react";
 import { useGameSettings } from "../../hooks/useGameSettings";
 import { useSoundSettings } from "../../hooks/useSoundSettings";
 import { dingSound, fizzleSound } from "../../sounds/index";
+import { ImageGallery } from "../imageGallery";
 import { Letter } from "../letter";
 import { Word } from "../word";
+import levels, { Difficulty } from "../../levels";
+
 import "./gameArea.sass";
 
 type WordsType = {
@@ -28,8 +31,7 @@ interface GameAreaProps {
   setLevelScore: React.Dispatch<React.SetStateAction<number>>;
   onTotalKeystrokesChange: React.Dispatch<React.SetStateAction<number>>;
   onCorrectKeystrokesChange: React.Dispatch<React.SetStateAction<number>>;
-  words: WordsType;
-  letters: Array<string>;
+  selectedLevel: number;
 }
 
 const GameArea: React.FC<GameAreaProps> = ({
@@ -38,8 +40,7 @@ const GameArea: React.FC<GameAreaProps> = ({
   setLevelScore,
   onTotalKeystrokesChange,
   onCorrectKeystrokesChange,
-  words,
-  letters,
+  selectedLevel,
 }) => {
   const { gameSettings } = useGameSettings();
   const { difficulty, autoSpawnEnabled, spawnInterval, scrollSpeed } =
@@ -52,6 +53,10 @@ const GameArea: React.FC<GameAreaProps> = ({
   const [activeWordIndex, setActiveWordIndex] = useState<number | null>(null);
   const [typedChars, setTypedChars] = useState<number>(0);
 
+  const level = levels[selectedLevel];
+  const words = level.words[difficulty as Difficulty];
+  const letters = level.letters;
+
   const elementsRef = useRef<GameElement[]>([]);
 
   useEffect(() => {
@@ -61,10 +66,10 @@ const GameArea: React.FC<GameAreaProps> = ({
   const getRandomElement = () => {
     // 50% chance to choose a word
     const isWord = Math.random() > 0.5;
-    let availableWords = words[difficulty];
+    let availableWords = words;
 
     if (difficulty === "easy") {
-      availableWords = availableWords.map((w) => w.toLowerCase());
+      availableWords = availableWords.map((w: string) => w.toLowerCase());
     }
     let char = isWord
       ? availableWords[Math.floor(Math.random() * availableWords.length)]
@@ -168,7 +173,6 @@ const GameArea: React.FC<GameAreaProps> = ({
       // Check if there is an active word
       if (activeWordIndex !== null) {
         const activeElement = updatedElements[activeWordIndex];
-        console.log("Finding active element:", activeElement);
 
         if (activeElement && typeof activeElement.char === "string") {
           const targetChar = activeElement.char[typedChars];
@@ -289,8 +293,11 @@ const GameArea: React.FC<GameAreaProps> = ({
     return () => clearInterval(interval);
   }, [elements, activeWordIndex, setHealth, isFxSoundOn, fxVolume]);
 
+  const levelImages = level.levelImages ?? [];
+
   return (
     <div className="gameArea">
+      {<ImageGallery srcs={levelImages} />}
       {elements.map((element, index) =>
         element.isVisible ? (
           element.char.length === 1 ? (

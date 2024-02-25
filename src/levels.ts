@@ -210,12 +210,35 @@ function generateNumberStrings(
 
 const LEVEL_THREE_WORDS = generateNumberStrings(ALL_NUMBERS, 10); 
 
-const levels = [
+export type Difficulty = 'easy' | 'medium' | 'hard';
+
+interface LevelWords {
+  easy: string[];
+  medium: string[];
+  hard: string[];
+}
+
+interface Level {
+  name: string;
+  words: LevelWords; // Use Difficulty type here
+  letters: string[]; 
+  img: string;
+  levelImages?: string[]; // Optional array of strings for level-specific images
+}
+
+const levels: Level[] = [
   {
     name: "Training Station",
     words: LEVEL_ONE_WORDS,
     letters: ALL_LETTERS,
-    img: '/trainingStation.png' 
+    img: '/trainingStation.png',
+    levelImages: [
+      '/asteroid2.png',
+      '/asteroids.png',
+      '/asteroid.png',
+      '/asteroid.png',
+      '/asteroids.png'
+    ]
   },
   {
     name: "Lexicon Asteroid Belt",

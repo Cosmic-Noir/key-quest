@@ -1,0 +1,14 @@
+@mixin rotateAndBob($angle: 180deg, $speed: 2s)
+  // Use CSS custom property for rotation angle if needed
+  --rotation-angle: #{$angle}
+  animation: rotated-bobbing $speed infinite
+  transform-origin: center
+  transform: rotate(var(--rotation-angle))
+
+  @keyframes rotated-bobbing
+    0%
+      transform: translateY(0) rotate(var(--rotation-angle))
+    50%
+      transform: translateY(-20px) rotate(var(--rotation-angle))
+    100%
+      transform: translateY(0) rotate(var(--rotation-angle))
