@@ -14,7 +14,7 @@ const ImageGallery: React.FC<ImageGalleryProps> = ({ srcs }) => {
           key={index}
           src={src}
           className={`image-gallery-image image-${index}`}
-          alt={`Dynamic image ${index}`}
+          alt={`Dynamic level decoration ${index}`}
         />
       ))}
     </div>

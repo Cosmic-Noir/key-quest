@@ -244,7 +244,14 @@ const levels: Level[] = [
     name: "Lexicon Asteroid Belt",
     words: LEVEL_TWO_WORDS,
     letters: ALL_LETTERS,
-    img: '/lexiconBelt.png'
+    img: '/lexiconBelt.png',
+    levelImages: [
+      '/asteroid2.png',
+      '/asteroids.png',
+      '/asteroid.png',
+      '/asteroid.png',
+      '/asteroids.png'
+    ]
   },
   {
     name: "Nebula of Numbers",
