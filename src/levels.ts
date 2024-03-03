@@ -233,11 +233,10 @@ const levels: Level[] = [
     letters: ALL_LETTERS,
     img: '/trainingStation.png',
     levelImages: [
-      '/asteroid2.png',
-      '/asteroids.png',
-      '/asteroid.png',
-      '/asteroid.png',
-      '/asteroids.png'
+      '/spaceProbe.png',
+      '/planet1.png',
+      '/planet2.png',
+      '/spaceStation.png'
     ]
   },
   {
