@@ -236,7 +236,8 @@ const levels: Level[] = [
       '/spaceProbe.png',
       '/planet1.png',
       '/planet2.png',
-      '/spaceStation.png'
+      '/spaceStation.png',
+      '/planet2.png'
     ]
   },
   {
@@ -256,13 +257,27 @@ const levels: Level[] = [
     name: "Nebula of Numbers",
     words: LEVEL_THREE_WORDS,
     letters: ALL_NUMBERS,
-    img: '/nebula.png'
+    img: '/nebula.png',
+    levelImages: [
+      '/nebula1.png',
+      '/nebula1.png',
+      '/nebula1.png',
+      '/nebula1.png',
+      '/nebula1.png'
+    ]
   },
   {
     name: "Interstellar Symbol Decryption",
     words: LEVEL_FOUR_WORDS,
     letters: ALL_SYMBOLS,
-    img: '/symbols.png'
+    img: '/symbols.png',
+    levelImages: [
+      '/crystal1.png',
+      '/crystal1.png',
+      '/crystal1.png',
+      '/crystal1.png',
+      '/crystal1.png'
+    ]
   },
   {
     name: "Galactic Core",
