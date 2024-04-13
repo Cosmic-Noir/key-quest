@@ -17,10 +17,22 @@ interface GameScores {
     wpm: number;
     difficulty: string;
   };
+  totalScore: number;
 }
 
 const LOCAL_STORAGE_KEY = 'gameScores';
-const defaultGameScores = { highestLevelCompleted: 0, levels: {}, allTimeBest: { score: 0, level: 0, accuracy: 0, wpm: 0, difficulty: 'easy' } };
+const defaultGameScores = { 
+  highestLevelCompleted: 0,
+  levels: {},
+  allTimeBest: {
+    score: 0,
+    level: 0,
+    accuracy: 0,
+    wpm: 0,
+    difficulty: 'easy'
+  },
+  totalScore: 0
+};
 
 const fetchGameScores = async (): Promise<GameScores> => {
   const data = localStorage.getItem(LOCAL_STORAGE_KEY);

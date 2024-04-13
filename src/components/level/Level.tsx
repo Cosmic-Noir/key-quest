@@ -16,7 +16,7 @@ interface LevelProps {
   locked: boolean;
 }
 
-const LevelComponent: React.FC<LevelProps> = ({
+const Level: React.FC<LevelProps> = ({
   level,
   index,
   selectedLevel,
@@ -57,4 +57,4 @@ const LevelComponent: React.FC<LevelProps> = ({
   );
 };
 
-export default LevelComponent;
+export default Level;
