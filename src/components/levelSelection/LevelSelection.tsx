@@ -33,7 +33,7 @@ const LevelSelection: React.FC<LevelSelectionProps> = ({
                 selectedLevel={selectedLevel}
                 handleLevelChange={() => handleLevelChange(index)}
                 key={index}
-                locked={index > (gameScores?.highestLevelCompleted ?? 0)}
+                locked={index > gameScores!.highestLevelUnlocked}
               />
             ))}
           </div>

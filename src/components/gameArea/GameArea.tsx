@@ -8,13 +8,7 @@ import { Word } from "../word";
 import levels, { Difficulty } from "../../levels";
 
 import "./gameArea.sass";
-
-type WordsType = {
-  [key: string]: Array<string>;
-  easy: Array<string>;
-  medium: Array<string>;
-  hard: Array<string>;
-};
+import DIFFICULTIES from "../../difficulties";
 
 interface GameElement {
   char: string;
@@ -169,6 +163,7 @@ const GameArea: React.FC<GameAreaProps> = ({
 
       let updatedElements = [...elementsRef.current];
       let foundMatch = false;
+      const scoreMultiplier = DIFFICULTIES[difficulty].scoreMultiplier;
 
       // Check if there is an active word
       if (activeWordIndex !== null) {
@@ -186,7 +181,8 @@ const GameArea: React.FC<GameAreaProps> = ({
               setActiveWordIndex(null);
               setTypedChars(0);
               triggerPopEffect(activeWordIndex);
-              setLevelScore((prevScore) => prevScore + 10);
+              const points = 10 * scoreMultiplier;
+              setLevelScore((prevScore) => prevScore + points);
             } else {
               // Continue typing the word
               setTypedChars(typedChars + 1);
@@ -208,7 +204,8 @@ const GameArea: React.FC<GameAreaProps> = ({
               if (el.char.length === 1) {
                 // Single letter, pop effect and increase score
                 triggerPopEffect(index);
-                setLevelScore((prevScore) => prevScore + 5);
+                const points = 5 * scoreMultiplier;
+                setLevelScore((prevScore) => prevScore + points);
               } else {
                 // Start typing a word
                 setActiveWordIndex(index);

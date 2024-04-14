@@ -27,7 +27,6 @@ const GameUI: React.FC<GameUIProps> = ({
 }) => {
   const { gameSettings } = useGameSettings();
   const { gameScores, updateGameScores } = useScoreTracking();
-  const highestLevelCompleted = gameScores?.highestLevelCompleted || 0;
 
   // Level Settings:
   const [timer, setTimer] = useState(LEVEL_TIME);
@@ -37,9 +36,11 @@ const GameUI: React.FC<GameUIProps> = ({
   const [levelWon, setLevelWon] = useState(false);
   const [levelScore, setLevelScore] = useState(0);
   const [totalLevelScore, setTotalLevelScore] = useState(0);
-
+  const [totalGameScore, setTotalGameScore] = useState(gameScores?.totalScore);
+  const [newHighScore, setNewHighScore] = useState(false);
   const [totalKeystrokes, setTotalKeystrokes] = useState(0);
   const [correctKeystrokes, setCorrectKeystrokes] = useState(0);
+  const [accuracy, setAccuracy] = useState(0);
   const [wpm, setWpm] = useState(0);
 
   // Start delay before the level begins
@@ -52,15 +53,22 @@ const GameUI: React.FC<GameUIProps> = ({
     return () => clearTimeout(startDelay); // Cleanup the timeout if the component unmounts
   }, []);
 
+  useEffect(() => {
+    setTotalGameScore(gameScores?.totalScore);
+  }, [gameScores]);
+
   const endLevel = () => {
-    console.log("level ending!");
     // Calculate WPM
     const timeElapsed = LEVEL_TIME - timer;
-    // Average 5 letters per word *
-    const wordsPerMinute = (correctKeystrokes / 5) * (60 / timeElapsed);
-    const accuracy = (correctKeystrokes / totalKeystrokes) * 100;
 
+    // Average 5 letters per word *
+    const wordsPerMinute = Math.round(
+      (correctKeystrokes / 5) * (60 / timeElapsed)
+    );
     setWpm(wordsPerMinute);
+
+    const accuracy = Math.round((correctKeystrokes / totalKeystrokes) * 100);
+    setAccuracy(accuracy);
 
     let newScores = { ...gameScores };
 
@@ -71,43 +79,41 @@ const GameUI: React.FC<GameUIProps> = ({
     );
 
     setTotalLevelScore(currentLevelScore);
-    console.log("checking if the level was won: ", levelWon);
+
     if (levelWon) {
-      console.log("selectedLevel", selectedLevel);
-      console.log("highestLevelCompleted", highestLevelCompleted);
-      if (selectedLevel === 0 || selectedLevel >= highestLevelCompleted) {
-        newScores.highestLevelCompleted = selectedLevel;
+      if (gameScores!.highestLevelUnlocked <= selectedLevel) {
+        newScores.highestLevelUnlocked = selectedLevel + 1;
       }
-      console.log(
-        "newScores.highestLevelCompleted",
-        newScores.highestLevelCompleted
-      );
 
       const previousLevelScore = gameScores?.levels[selectedLevel];
+
       if (previousLevelScore?.topScore ?? 0 < currentLevelScore) {
+        setNewHighScore(true);
+
         newScores.levels![selectedLevel] = {
           topScore: currentLevelScore,
           accuracy: correctKeystrokes,
           wpm: wordsPerMinute,
           difficulty: gameSettings!.difficulty,
         };
-        console.log(
-          "New level high score detected, updating gamescores with: ",
-          newScores
-        );
-        updateGameScores(newScores);
       }
     }
+
+    // Update total, all time score  v
+    const newTotalScore = (gameScores?.totalScore ?? 0) + totalLevelScore;
+    newScores.totalScore = newTotalScore;
+    updateGameScores(newScores);
+    console.log("total score updated!", newScores);
   };
 
-  // Difficulty multiplyer is accounted for in levelScore for each correct keystroke/word
+  // Difficulty score multipler already applied to levelScore
   const calculateTotalLevelScore = (
     wpm: number,
     accuracy: number,
     levelScore: number
   ): number => {
-    const baseScore = wpm * 10;
-    const finalScore = (baseScore + levelScore) * accuracy;
+    const baseScore = wpm * 1;
+    const finalScore = Math.round((baseScore + levelScore) * accuracy);
     return finalScore;
   };
 
@@ -123,14 +129,12 @@ const GameUI: React.FC<GameUIProps> = ({
 
     // Check for win condition: if the timer hits zero
     if (isLevelRunning && timer <= 0) {
-      console.log("We WON cause timer ran out");
       setLevelWon(true);
       setIsLevelRunning(false);
     }
 
     // Check for lose condition: if health drops to zero or below
     if (isLevelRunning && health <= 0) {
-      console.log("I guess we lost?");
       setLevelWon(false);
       setIsLevelRunning(false);
     }
@@ -166,10 +170,10 @@ const GameUI: React.FC<GameUIProps> = ({
         <>
           <ScoreCard
             levelWon={levelWon}
-            totalScore={gameScores?.totalScore ?? 0}
+            totalScore={totalGameScore ?? 0}
             levelScore={totalLevelScore}
-            correctKeystrokes={correctKeystrokes}
-            totalKeystrokes={totalKeystrokes}
+            newHighScore={newHighScore}
+            accuracy={accuracy}
             wpm={wpm}
           />
           <Button

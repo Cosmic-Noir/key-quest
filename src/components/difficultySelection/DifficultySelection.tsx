@@ -3,8 +3,7 @@ import Button from "@mui/material/Button";
 import { useGameSettings } from "../../hooks/useGameSettings";
 import { AdvancedSettings } from "../advancedSettings";
 import DIFFICULTIES from "../../difficulties";
-
-import classNames from "classnames";
+import DifficultyOption from "../difficultyOption/DifficultyOption";
 
 import "./difficultySelection.sass";
 
@@ -26,8 +25,10 @@ const DifficultySelection: React.FC<DifficultySelectionProps> = ({
     description,
   } = gameSettings!;
 
-  const handleDifficultyChange = (event: any) => {
-    // Difficulty selection overrides other settings with defaults
+  // Difficulty selection overrides other settings with defaults
+  const handleDifficultyChange = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
     const newDifficulty: string = event.target.value;
     updateGameSettings(DIFFICULTIES[newDifficulty]);
   };
@@ -48,72 +49,17 @@ const DifficultySelection: React.FC<DifficultySelectionProps> = ({
     <div className="difficulty-selection space-container fade-in">
       <h3 className="space-themed-header-text">Difficulty:</h3>
       <div className="difficulties-container">
-        <div className="difficulty-container">
-          <img
-            src="/spaceCadetDiff.png"
-            className={classNames("difficulty-image", {
-              bob: difficulty === "easy",
-            })}
-          />
-          <input
-            type="radio"
-            id="easy"
+        {Object.entries(DIFFICULTIES).map(([key, { label, img }]) => (
+          <DifficultyOption
+            key={key}
+            id={key}
             name="difficulty"
-            value="easy"
-            checked={difficulty === "easy"}
+            label={label}
+            imageSrc={img}
             onChange={handleDifficultyChange}
+            checked={difficulty === key}
           />
-          <label
-            htmlFor="easy"
-            className={classNames({ active: difficulty === "easy" })}
-          >
-            Space Cadet
-          </label>
-        </div>
-        <div className="difficulty-container">
-          <img
-            src="/orbitalOfficerDiff.png"
-            className={classNames("difficulty-image", {
-              bob: difficulty === "medium",
-            })}
-          />
-          <input
-            type="radio"
-            id="medium"
-            name="difficulty"
-            value="medium"
-            checked={difficulty === "medium"}
-            onChange={handleDifficultyChange}
-          />
-          <label
-            htmlFor="medium"
-            className={classNames({ active: difficulty === "medium" })}
-          >
-            Orbital Officer
-          </label>
-        </div>
-        <div className="difficulty-container">
-          <img
-            src="/starVoyagerDiff.png"
-            className={classNames("difficulty-image", {
-              bob: difficulty === "hard",
-            })}
-          />
-          <input
-            type="radio"
-            id="hard"
-            name="difficulty"
-            value="hard"
-            checked={difficulty === "hard"}
-            onChange={handleDifficultyChange}
-          />
-          <label
-            htmlFor="hard"
-            className={classNames("", { active: difficulty === "hard" })}
-          >
-            Star Voyager
-          </label>
-        </div>
+        ))}
       </div>
       <div className="space-themed-text difficulty-description">
         {description}

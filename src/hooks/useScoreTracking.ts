@@ -8,7 +8,7 @@ interface LevelScore {
 }
 
 interface GameScores {
-  highestLevelCompleted: number;
+  highestLevelUnlocked: number;
   levels: Record<number, LevelScore>;
   allTimeBest: {
     score: number;
@@ -22,7 +22,7 @@ interface GameScores {
 
 const LOCAL_STORAGE_KEY = 'gameScores';
 const defaultGameScores = { 
-  highestLevelCompleted: 0,
+  highestLevelUnlocked: 0,
   levels: {},
   allTimeBest: {
     score: 0,
