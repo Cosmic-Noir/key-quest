@@ -3,27 +3,27 @@ import "./letter.sass";
 import classNames from "classnames";
 
 interface LetterProps {
-  letter: string;
-  style?: React.CSSProperties;
+  className?: string;
+  isHighlighted?: boolean;
   isPaused: boolean;
   isInWord?: boolean;
-  isHighlighted?: boolean;
-  isVisible?: boolean;
   isTypedInWord?: boolean;
-  className?: string;
+  isVisible?: boolean;
+  letter: string;
+  style?: React.CSSProperties;
 }
 
 const Letter = forwardRef<HTMLDivElement, LetterProps>(
   (
     {
+      className,
+      isHighlighted = false,
+      isInWord = false,
+      isPaused,
+      isTypedInWord = false,
+      isVisible,
       letter,
       style,
-      isPaused,
-      isInWord = false,
-      isHighlighted = false,
-      isVisible,
-      isTypedInWord = false,
-      className,
     },
     ref
   ) => {
@@ -31,11 +31,11 @@ const Letter = forwardRef<HTMLDivElement, LetterProps>(
       <div
         ref={ref}
         className={classNames(`${className}`, {
-          letter: !isInWord,
-          isInWord: isInWord,
-          paused: isPaused,
-          highlighted: isHighlighted,
           hidden: !isVisible,
+          highlighted: isHighlighted,
+          isInWord: isInWord,
+          letter: !isInWord,
+          paused: isPaused,
           typedInWord: isTypedInWord,
         })}
         style={isInWord ? {} : style}

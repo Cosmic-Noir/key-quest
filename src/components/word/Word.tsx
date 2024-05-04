@@ -4,18 +4,18 @@ import { Letter } from "../letter";
 import classNames from "classnames";
 
 interface WordProps {
-  word: string;
-  style: React.CSSProperties;
-  isPaused: boolean;
-  isActive: boolean;
-  typedChars: number;
-  isVisible?: boolean;
   className?: string;
+  isActive: boolean;
+  isPaused: boolean;
+  isVisible?: boolean;
+  style: React.CSSProperties;
+  typedChars: number;
+  word: string;
 }
 
 const Word = forwardRef<HTMLDivElement, WordProps>(
   (
-    { word, style, isPaused, isActive, typedChars, isVisible, className },
+    { className, isActive, isPaused, isVisible, typedChars, style, word },
     ref
   ) => {
     return (
@@ -28,9 +28,9 @@ const Word = forwardRef<HTMLDivElement, WordProps>(
           <Letter
             key={index}
             letter={char}
-            isPaused={isPaused}
             isInWord={true}
             isHighlighted={isActive && index === typedChars}
+            isPaused={isPaused}
             isVisible={isVisible}
             isTypedInWord={isActive && index < typedChars}
           />

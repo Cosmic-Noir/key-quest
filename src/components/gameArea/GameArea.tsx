@@ -75,7 +75,13 @@ const GameArea: React.FC<GameAreaProps> = ({
     // Random top position as a percentage of the GameArea height
     const top = Math.random() * 100;
 
-    return { char, top, typed: false, isPaused: false, isVisible: true };
+    return {
+      char,
+      top,
+      typed: false,
+      isPaused: false,
+      isVisible: true,
+    };
   };
 
   // Function to handle pop effect and removal
@@ -87,6 +93,7 @@ const GameArea: React.FC<GameAreaProps> = ({
 
     if (elementToPop) {
       elementToPop.classList.add("pop");
+
       if (isFxSoundOn) dingSound(fxVolume);
 
       // Remove the class and hide the element after the effect duration
@@ -115,6 +122,7 @@ const GameArea: React.FC<GameAreaProps> = ({
 
     if (elementToFizz) {
       elementToFizz.classList.add("fizzle");
+
       if (isFxSoundOn) fizzleSound(fxVolume);
 
       // Remove the class and hide the element after the effect duration
@@ -165,7 +173,7 @@ const GameArea: React.FC<GameAreaProps> = ({
       let foundMatch = false;
       const scoreMultiplier = DIFFICULTIES[difficulty].scoreMultiplier;
 
-      // Check if there is an active word
+      // If there is currently an active word being typed:
       if (activeWordIndex !== null) {
         const activeElement = updatedElements[activeWordIndex];
 
@@ -190,12 +198,17 @@ const GameArea: React.FC<GameAreaProps> = ({
           }
         }
       } else {
-        // Check for first letter matches among all elements if no active word
         for (let index = 0; index < updatedElements.length; index++) {
           const el = updatedElements[index];
 
           if (typeof el.char === "string") {
             const targetChar = el.char[0];
+
+            // Check if element is marked as popped
+            const elementRef = document.querySelector(
+              `[data-index="${index}"]`
+            );
+            if (elementRef?.classList.contains("pop")) return;
 
             if (el.isVisible && targetChar && event.key === targetChar) {
               onCorrectKeystrokesChange((prev) => prev + 1);
@@ -204,7 +217,7 @@ const GameArea: React.FC<GameAreaProps> = ({
               if (el.char.length === 1) {
                 // Single letter, pop effect and increase score
                 triggerPopEffect(index);
-                const points = 5 * scoreMultiplier;
+                const points = 2 * scoreMultiplier;
                 setLevelScore((prevScore) => prevScore + points);
               } else {
                 // Start typing a word
@@ -252,14 +265,16 @@ const GameArea: React.FC<GameAreaProps> = ({
         const gameAreaRect = gameArea.getBoundingClientRect();
         // Iterate over each game element to check for collision
         elements.forEach((el, index) => {
-          if (el.hasCollided) return;
+          if (el.hasCollided || !el.isVisible) return;
 
-          // Query for the element in the DOM
           const elementRef = document.querySelector(`[data-index="${index}"]`);
 
           if (elementRef) {
+            if (elementRef.classList.contains("pop")) return;
+
             const elementRect = elementRef.getBoundingClientRect();
             // Check if the element has collided with the GameArea edge
+            // Todo - Check if element has been marked as `pop` so we don't collide correct characters
             if (elementRect.left <= gameAreaRect.left + 20) {
               // Mark element as collided:
               setElements((prevElements) =>
