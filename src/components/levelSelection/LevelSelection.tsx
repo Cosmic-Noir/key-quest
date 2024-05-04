@@ -1,7 +1,7 @@
 import Button from "@mui/material/Button";
-import { Level } from "../level";
-import { useScoreTracking } from "../../hooks/useScoreTracking";
-import levels from "../../levels";
+import { Level } from "components/level";
+import { useScoreTracking } from "hooks/useScoreTracking";
+import levels from "levels";
 
 import "./levelSelection.sass";
 

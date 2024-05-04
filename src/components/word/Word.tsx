@@ -1,6 +1,6 @@
 import React, { forwardRef } from "react";
 import "./word.sass";
-import { Letter } from "../letter";
+import { Letter } from "components/letter";
 import classNames from "classnames";
 
 interface WordProps {

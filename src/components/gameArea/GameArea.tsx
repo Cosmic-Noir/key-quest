@@ -1,14 +1,14 @@
 import React, { useEffect, useState, useRef } from "react";
-import { useGameSettings } from "../../hooks/useGameSettings";
-import { useSoundSettings } from "../../hooks/useSoundSettings";
-import { dingSound, fizzleSound } from "../../sounds/index";
-import { ImageGallery } from "../imageGallery";
-import { Letter } from "../letter";
-import { Word } from "../word";
-import levels, { Difficulty } from "../../levels";
+import { useGameSettings } from "hooks/useGameSettings";
+import { useSoundSettings } from "hooks/useSoundSettings";
+import { dingSound, fizzleSound } from "sounds/index";
+import { ImageGallery } from "components/imageGallery";
+import { Letter } from "components/letter";
+import { Word } from "components/word";
+import levels, { Difficulty } from "levels";
 
 import "./gameArea.sass";
-import DIFFICULTIES from "../../difficulties";
+import DIFFICULTIES from "difficulties";
 
 interface GameElement {
   char: string;

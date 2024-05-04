@@ -1,5 +1,5 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import DIFFICULTIES from '../difficulties';
+import DIFFICULTIES from 'difficulties';
 
 type GameSettings = {
   difficulty: string;

@@ -1,5 +1,5 @@
 import React from "react";
-import { useSoundSettings } from "../../hooks/useSoundSettings";
+import { useSoundSettings } from "hooks/useSoundSettings";
 import Button from "@mui/material/Button";
 import Slider from "@mui/material/Slider";
 import { MdMusicNote, MdMusicOff } from "react-icons/md";

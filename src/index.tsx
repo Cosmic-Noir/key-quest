@@ -1,10 +1,11 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import "./index.css";
-import App from "./App";
-import reportWebVitals from "./reportWebVitals";
-import { Space } from "./components/space";
+import App from "App";
+import reportWebVitals from "reportWebVitals";
+import { Space } from "components/space";
+
+import "index.css";
 
 import "@fontsource/roboto/300.css";
 import "@fontsource/roboto/400.css";

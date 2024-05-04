@@ -1,9 +1,9 @@
 import React from "react";
 import Button from "@mui/material/Button";
-import { useGameSettings } from "../../hooks/useGameSettings";
-import { AdvancedSettings } from "../advancedSettings";
-import DIFFICULTIES from "../../difficulties";
-import DifficultyOption from "../difficultyOption/DifficultyOption";
+import { useGameSettings } from "hooks/useGameSettings";
+import { AdvancedSettings } from "components/advancedSettings";
+import DIFFICULTIES from "difficulties";
+import { DifficultyOption } from "components/difficultyOption";
 
 import "./difficultySelection.sass";
 
@@ -45,6 +45,8 @@ const DifficultySelection: React.FC<DifficultySelectionProps> = ({
     updateGameSettings({ ...gameSettings, spawnInterval: value });
   };
 
+  const { scoreMultiplier } = DIFFICULTIES[difficulty];
+
   return (
     <div className="difficulty-selection space-container fade-in">
       <h3 className="space-themed-header-text">Difficulty:</h3>
@@ -60,6 +62,9 @@ const DifficultySelection: React.FC<DifficultySelectionProps> = ({
             checked={difficulty === key}
           />
         ))}
+      </div>
+      <div className="space-themed-text">
+        Score multiplier: x {scoreMultiplier}
       </div>
       <div className="space-themed-text difficulty-description">
         {description}

@@ -1,14 +1,14 @@
 import { useState } from "react";
 import Button from "@mui/material/Button";
-import { Audio } from "./components/audio";
-import { DifficultySelection } from "./components/difficultySelection";
-import { LevelSelection } from "./components/levelSelection";
-import { Loading } from "./components/loading";
-import { GameUI } from "./components/gameUI";
-import { PauseMenu } from "./components/pauseMenu";
-import { useGameSettings } from "./hooks/useGameSettings";
-import { useSoundSettings } from "./hooks/useSoundSettings";
-import { useScoreTracking } from "./hooks/useScoreTracking";
+import { Audio } from "components/audio";
+import { DifficultySelection } from "components/difficultySelection";
+import { LevelSelection } from "components/levelSelection";
+import { Loading } from "components/loading";
+import { GameUI } from "components/gameUI";
+import { PauseMenu } from "components/pauseMenu";
+import { useGameSettings } from "hooks/useGameSettings";
+import { useSoundSettings } from "hooks/useSoundSettings";
+import { useScoreTracking } from "hooks/useScoreTracking";
 import MenuIcon from "@mui/icons-material/Menu";
 import Logo from "./logo.png";
 

@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { useSoundSettings } from "../../hooks/useSoundSettings";
+import { useSoundSettings } from "hooks/useSoundSettings";
 
 const Audio = () => {
   const { soundSettings } = useSoundSettings();

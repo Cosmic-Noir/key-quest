@@ -1,7 +1,7 @@
 import React from "react";
 
 import astronaut from "./astronaut.png";
-import "./person.sass"; // Importing the SASS file for styles
+import "./person.sass";
 
 const Person: React.FC = () => {
   return (

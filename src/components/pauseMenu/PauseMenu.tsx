@@ -1,6 +1,6 @@
 import React from "react";
-import { SoundSettings } from "../soundSettings";
-import { DifficultySelection } from "../difficultySelection";
+import { SoundSettings } from "components/soundSettings";
+import { DifficultySelection } from "components/difficultySelection";
 
 import "./pauseMenu.sass";
 

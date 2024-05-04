@@ -1,11 +1,11 @@
 import { useState, useEffect } from "react";
 import Button from "@mui/material/Button";
-import { GameArea } from "../gameArea";
-import { HealthAndScore } from "../healthAndScore";
-import { Person } from "../person";
-import { ScoreCard } from "../scoreCard";
-import { useScoreTracking } from "../../hooks/useScoreTracking";
-import { useGameSettings } from "../../hooks/useGameSettings";
+import { GameArea } from "components/gameArea";
+import { HealthAndScore } from "components/healthAndScore";
+import { Person } from "components/person";
+import { ScoreCard } from "components/scoreCard";
+import { useScoreTracking } from "hooks/useScoreTracking";
+import { useGameSettings } from "hooks/useGameSettings";
 
 import "./gameUI.sass";
 

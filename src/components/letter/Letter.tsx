@@ -1,6 +1,7 @@
 import React, { forwardRef } from "react";
-import "./letter.sass";
 import classNames from "classnames";
+
+import "./letter.sass";
 
 interface LetterProps {
   className?: string;
