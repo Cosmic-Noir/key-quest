@@ -208,7 +208,7 @@ const GameArea: React.FC<GameAreaProps> = ({
             const elementRef = document.querySelector(
               `[data-index="${index}"]`
             );
-            if (elementRef?.classList.contains("pop")) return;
+            if (elementRef?.classList.contains("pop")) continue;
 
             if (el.isVisible && targetChar && event.key === targetChar) {
               onCorrectKeystrokesChange((prev) => prev + 1);
