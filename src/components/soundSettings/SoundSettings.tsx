@@ -31,7 +31,7 @@ const SoundSettings: React.FC = () => {
 
   return (
     <div>
-      <h4>Sound FX:</h4>
+      <h4 className="space-themed-header-text">Sound FX:</h4>
       <div className="settings-section">
         <Button variant="outlined" onClick={handleToggleFxSound}>
           {isFxSoundOn ? <FaVolumeUp /> : <FaVolumeMute />}
@@ -45,7 +45,7 @@ const SoundSettings: React.FC = () => {
           step={0.01}
         />
       </div>
-      <h4>Music:</h4>
+      <h4 className="space-themed-header-text">Music:</h4>
       <div className="settings-section">
         <Button variant="outlined" onClick={handleToggleMusic}>
           {isMusicPlaying ? <MdMusicNote /> : <MdMusicOff />}

@@ -21,7 +21,14 @@ const DifficultyOption: React.FC<DifficultyOptionProps> = ({
   checked,
 }) => {
   return (
-    <div className="difficulty-container">
+    <div
+      className="difficulty-container"
+      onClick={() =>
+        onChange({
+          target: { value: id },
+        } as React.ChangeEvent<HTMLInputElement>)
+      }
+    >
       <img
         src={imageSrc}
         className={classNames("difficulty-image", {

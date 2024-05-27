@@ -12,3 +12,17 @@
       transform: translateY(-20px) rotate(var(--rotation-angle))
     100%
       transform: translateY(0) rotate(var(--rotation-angle))
+
+@mixin pulse-blue-animation
+  animation: pulse-blue 1s infinite
+
+@keyframes pulse-blue
+  0%
+    box-shadow: 0 0 5px #10a0df
+    background-color: #10a0df
+  50%
+    box-shadow: 0 0 20px #8fcfeb
+    background-color: #8fcfeb
+  100%
+    box-shadow: 0 0 5px #10a0df
+    background-color: #10a0df

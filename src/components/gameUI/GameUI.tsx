@@ -164,6 +164,16 @@ const GameUI: React.FC<GameUIProps> = ({
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, []);
 
+  const [countdown, setCountdown] = useState(3);
+
+  useEffect(() => {
+    const countdownInterval = setInterval(() => {
+      setCountdown((prevCountdown) => prevCountdown - 1);
+    }, 1000);
+
+    return () => clearInterval(countdownInterval);
+  }, []);
+
   return (
     <>
       {showLevelComplete ? (
@@ -186,10 +196,12 @@ const GameUI: React.FC<GameUIProps> = ({
         </>
       ) : (
         <>
-          <div className="space-themed-header-text fade-in">
-            Time Left: {timer}s
-          </div>
           <div className="gameContainer fade-in">
+            {countdown > 0 && (
+              <div className="space-themed-header-text countdown fade-in pop">
+                {countdown}
+              </div>
+            )}
             <Person />
             <GameArea
               isPaused={isPaused || !isLevelRunning}
@@ -200,15 +212,7 @@ const GameUI: React.FC<GameUIProps> = ({
               selectedLevel={selectedLevel}
             />
           </div>
-          <HealthAndScore health={health} score={levelScore} />
-          <Button
-            variant="contained"
-            onClick={handlePause}
-            disabled={isPaused}
-            className="fade-in"
-          >
-            Pause
-          </Button>
+          <HealthAndScore health={health} score={levelScore} time={timer} />
         </>
       )}
     </>

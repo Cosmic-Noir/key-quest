@@ -8,8 +8,8 @@ import { DifficultyOption } from "components/difficultyOption";
 import "./difficultySelection.sass";
 
 interface DifficultySelectionProps {
-  handleNext: () => void;
-  buttonText: string;
+  handleNext?: () => void;
+  buttonText?: string;
 }
 
 const DifficultySelection: React.FC<DifficultySelectionProps> = ({
@@ -53,17 +53,17 @@ const DifficultySelection: React.FC<DifficultySelectionProps> = ({
       <div className="difficulties-container">
         {Object.entries(DIFFICULTIES).map(([key, { label, img }]) => (
           <DifficultyOption
-            key={key}
-            id={key}
-            name="difficulty"
-            label={label}
-            imageSrc={img}
-            onChange={handleDifficultyChange}
             checked={difficulty === key}
+            id={key}
+            imageSrc={img}
+            key={key}
+            label={label}
+            name="difficulty"
+            onChange={handleDifficultyChange}
           />
         ))}
       </div>
-      <div className="space-themed-text">
+      <div className="difficulty-selection__score-multiplier space-themed-text">
         Score multiplier: x {scoreMultiplier}
       </div>
       <div className="space-themed-text difficulty-description">
@@ -77,14 +77,16 @@ const DifficultySelection: React.FC<DifficultySelectionProps> = ({
         spawnInterval={spawnInterval}
         handleSpawnIntervalChange={handleSpawnIntervalChange}
       />
-      <Button
-        variant="contained"
-        size="large"
-        className="fade-in"
-        onClick={handleNext}
-      >
-        {buttonText}
-      </Button>
+      {handleNext && buttonText && (
+        <Button
+          variant="contained"
+          size="large"
+          className="difficulty-selection__button fade-in"
+          onClick={handleNext}
+        >
+          {buttonText}
+        </Button>
+      )}
     </div>
   );
 };

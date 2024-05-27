@@ -28,13 +28,13 @@ const AdvancedSettings: React.FC<AdvancedSettingsProps> = ({
   autoSpawnEnabled,
   handleAutoSpawnChange,
 }) => {
-  // Inverts the range from 4-7 to 7-4 for display
-  const displayScrollSpeed = 11 - scrollSpeed;
+  // Inverts the range from 1-10 to 10-1 for display
+  const displayScrollSpeed = 12 - scrollSpeed;
 
-  // Inverts the range from 900-2000 to 2000-900 for display
+  // Inverts the range from 200-2000 to 2000-200 for display
 
   const maxInterval = 2000;
-  const minInterval = 900;
+  const minInterval = 200;
   const spawnIntervalSliderValue = maxInterval - (spawnInterval - minInterval);
   const displaySpawnInterval = (
     (maxInterval - spawnIntervalSliderValue + minInterval) /
@@ -70,7 +70,7 @@ const AdvancedSettings: React.FC<AdvancedSettingsProps> = ({
             }
             step={1}
             marks
-            min={3}
+            min={1}
             max={8}
           />
         </div>

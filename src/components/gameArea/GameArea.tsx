@@ -3,6 +3,7 @@ import { useGameSettings } from "hooks/useGameSettings";
 import { useSoundSettings } from "hooks/useSoundSettings";
 import { dingSound, fizzleSound } from "sounds/index";
 import { ImageGallery } from "components/imageGallery";
+import { VisualKeyboard } from "components/visualKeyboard";
 import { Letter } from "components/letter";
 import { Word } from "components/word";
 import levels, { Difficulty } from "levels";
@@ -46,6 +47,7 @@ const GameArea: React.FC<GameAreaProps> = ({
   const [elements, setElements] = useState<GameElement[]>([]);
   const [activeWordIndex, setActiveWordIndex] = useState<number | null>(null);
   const [typedChars, setTypedChars] = useState<number>(0);
+  const [currentChar, setCurrentChar] = useState<string>("");
 
   const level = levels[selectedLevel];
   const words = level.words[difficulty as Difficulty];
@@ -305,6 +307,41 @@ const GameArea: React.FC<GameAreaProps> = ({
     return () => clearInterval(interval);
   }, [elements, activeWordIndex, setHealth, isFxSoundOn, fxVolume]);
 
+  useEffect(() => {
+    const determineNextChar = () => {
+      // If there is an active word being typed
+      if (activeWordIndex !== null) {
+        const activeElement = elements[activeWordIndex];
+
+        // Check if the active element is a string and find the next character
+        if (activeElement && typeof activeElement.char === "string") {
+          const nextChar = activeElement.char[typedChars];
+          if (nextChar) {
+            setCurrentChar(nextChar);
+            return;
+          }
+        }
+      }
+
+      // If no active word, find the next visible element
+      for (const element of elements) {
+        if (
+          element.isVisible &&
+          typeof element.char === "string" &&
+          !element.typed
+        ) {
+          setCurrentChar(element.char[0]);
+          return;
+        }
+      }
+
+      // If no visible elements, set currentChar to an empty string
+      setCurrentChar("");
+    };
+
+    determineNextChar();
+  }, [elements, activeWordIndex, typedChars]);
+
   const levelImages = level.levelImages ?? [];
 
   return (
@@ -341,6 +378,7 @@ const GameArea: React.FC<GameAreaProps> = ({
           )
         ) : null
       )}
+      <VisualKeyboard nextKey={currentChar} />
     </div>
   );
 };

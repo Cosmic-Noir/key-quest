@@ -10,9 +10,31 @@ import { useGameSettings } from "hooks/useGameSettings";
 import { useSoundSettings } from "hooks/useSoundSettings";
 import { useScoreTracking } from "hooks/useScoreTracking";
 import MenuIcon from "@mui/icons-material/Menu";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
 import Logo from "./logo.png";
 
 import "./App.sass";
+
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: "#10a0df",
+      contrastText: "#fff",
+    },
+    secondary: {
+      main: "#1cd0f9",
+    },
+    error: {
+      main: "#red",
+    },
+    background: {
+      default: "#fff",
+    },
+    text: {
+      primary: "#fff",
+    },
+  },
+});
 
 enum GamePhase {
   StartScreen,
@@ -56,52 +78,54 @@ function App() {
   };
 
   return (
-    <div className="App">
-      {loading ? (
-        <Loading />
-      ) : (
-        <div className="App-content">
-          <MenuIcon onClick={handlePause} id="menu-icon" />
-          {isGameStarted && <Audio />}
-          {isPaused && <div className="show-pause-menu"></div>}
-          {isPaused && <PauseMenu handlePause={handlePause} />}
-          {currentPhase === GamePhase.StartScreen && (
-            <>
-              <img src={Logo} className="logo bob-and-fade" />
-              <Button
-                variant="contained"
-                size="large"
-                onClick={goToDifficultySelection}
-                className="fade-in"
-              >
-                Start Game
-              </Button>
-            </>
-          )}
-          {currentPhase === GamePhase.DifficultySelection && (
-            <DifficultySelection
-              handleNext={goToLevelSelection}
-              buttonText="Select Difficulty"
-            />
-          )}
-          {currentPhase === GamePhase.LevelSelection && (
-            <LevelSelection
-              selectedLevel={selectedLevel}
-              handleLevelChange={handleLevelChange}
-              handleStartLevel={startLevel}
-            />
-          )}
-          {currentPhase === GamePhase.GameUI && (
-            <GameUI
-              isPaused={isPaused}
-              handlePause={handlePause}
-              selectedLevel={selectedLevel}
-              handleLevelSelection={goToLevelSelection}
-            />
-          )}
-        </div>
-      )}
-    </div>
+    <ThemeProvider theme={theme}>
+      <div className="App">
+        {loading ? (
+          <Loading />
+        ) : (
+          <div className="App-content">
+            <MenuIcon onClick={handlePause} id="menu-icon" />
+            {isGameStarted && <Audio />}
+            {isPaused && <div className="show-pause-menu"></div>}
+            {isPaused && <PauseMenu handlePause={handlePause} />}
+            {currentPhase === GamePhase.StartScreen && (
+              <>
+                <img src={Logo} className="logo bob-and-fade" />
+                <Button
+                  variant="contained"
+                  size="large"
+                  onClick={goToDifficultySelection}
+                  className="fade-in"
+                >
+                  Start Game
+                </Button>
+              </>
+            )}
+            {currentPhase === GamePhase.DifficultySelection && (
+              <DifficultySelection
+                handleNext={goToLevelSelection}
+                buttonText="Next"
+              />
+            )}
+            {currentPhase === GamePhase.LevelSelection && (
+              <LevelSelection
+                selectedLevel={selectedLevel}
+                handleLevelChange={handleLevelChange}
+                handleStartLevel={startLevel}
+              />
+            )}
+            {currentPhase === GamePhase.GameUI && (
+              <GameUI
+                isPaused={isPaused}
+                handlePause={handlePause}
+                selectedLevel={selectedLevel}
+                handleLevelSelection={goToLevelSelection}
+              />
+            )}
+          </div>
+        )}
+      </div>
+    </ThemeProvider>
   );
 }
 
