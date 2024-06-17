@@ -1,3 +1,19 @@
+import trainingStationImg from 'assets/trainingStation.png';
+import lexiconBeltImg from 'assets/lexiconBelt.png';
+import nebulaImg from 'assets/nebula.png';
+import symbolsImg from 'assets/symbols.png';
+import coreImg from 'assets/core.png';
+
+import spaceProbeImg from 'assets/spaceProbe.png';
+import planet1Img from 'assets/planet1.png';
+import planet2Img from 'assets/planet2.png';
+import spaceStationImg from 'assets/spaceStation.png';
+import asteroid2Img from 'assets/asteroid2.png';
+import asteroidsImg from 'assets/asteroids.png';
+import asteroidImg from 'assets/asteroid.png';
+import nebula1Img from 'assets/nebula1.png';
+import crystal1Img from 'assets/crystal1.png';
+
 const ALL_LETTERS = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOP".split("");
 const ALL_NUMBERS = "1234567890".split("");
 const ALL_SYMBOLS = "`~!@#$%^&*()-_=+[]{};:,.<>/?".split("");
@@ -231,59 +247,60 @@ const levels: Level[] = [
     name: "Training Station",
     words: LEVEL_ONE_WORDS,
     letters: ALL_LETTERS,
-    img: '/trainingStation.png',
+    img: trainingStationImg,
     levelImages: [
-      '/spaceProbe.png',
-      '/planet1.png',
-      '/planet2.png',
-      '/spaceStation.png',
-      '/planet2.png'
+      spaceProbeImg,
+      planet1Img,
+      planet2Img,
+      spaceStationImg,
+      planet2Img
     ]
   },
   {
     name: "Lexicon Asteroid Belt",
     words: LEVEL_TWO_WORDS,
     letters: ALL_LETTERS,
-    img: '/lexiconBelt.png',
+    img: lexiconBeltImg,
     levelImages: [
-      '/asteroid2.png',
-      '/asteroids.png',
-      '/asteroid.png',
-      '/asteroid.png',
-      '/asteroids.png'
+      asteroid2Img,
+      asteroidsImg,
+      asteroidImg,
+      asteroidImg,
+      asteroidsImg
     ]
   },
   {
     name: "Nebula of Numbers",
     words: LEVEL_THREE_WORDS,
     letters: ALL_NUMBERS,
-    img: '/nebula.png',
+    img: nebulaImg,
     levelImages: [
-      '/nebula1.png',
-      '/nebula1.png',
-      '/nebula1.png',
-      '/nebula1.png',
-      '/nebula1.png'
+      nebula1Img,
+      nebula1Img,
+      nebula1Img,
+      nebula1Img,
+      nebula1Img
     ]
   },
   {
     name: "Interstellar Symbol Decryption",
     words: LEVEL_FOUR_WORDS,
     letters: ALL_SYMBOLS,
-    img: '/symbols.png',
+    img: symbolsImg,
     levelImages: [
-      '/crystal1.png',
-      '/crystal1.png',
-      '/crystal1.png',
-      '/crystal1.png',
-      '/crystal1.png'
+      crystal1Img,
+      crystal1Img,
+      crystal1Img,
+      crystal1Img,
+      crystal1Img
     ]
   },
   {
     name: "Galactic Core",
     words: LEVEL_FIVE_WORDS,
     letters: ALL_CHARACTERS,
-    img: '/core.png'
+    img: coreImg
   }
 ];
+
 export default levels;

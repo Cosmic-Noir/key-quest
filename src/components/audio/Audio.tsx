@@ -1,6 +1,8 @@
 import { useEffect } from "react";
 import { useSoundSettings } from "hooks/useSoundSettings";
 
+import SpaceMusic from "assets/Space.mp3";
+
 const Audio = () => {
   const { soundSettings } = useSoundSettings();
   const { isMusicPlaying = false, musicVolume = 0.5 } = soundSettings!;
@@ -17,7 +19,7 @@ const Audio = () => {
   }, [isMusicPlaying, musicVolume]);
 
   return (
-    <audio id="background-music" src="/Space.mp3" loop>
+    <audio id="background-music" src={SpaceMusic} loop>
       Your browser does not support the audio element.
     </audio>
   );

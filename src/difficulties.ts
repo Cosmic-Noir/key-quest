@@ -1,3 +1,7 @@
+import spaceCadetDiff from 'assets/spaceCadetDiff.png';
+import orbitalOfficerDiff from 'assets/orbitalOfficerDiff.png';
+import starVoyagerDiff from 'assets/starVoyagerDiff.png';
+
 const DIFFICULTIES: Record<
   string,
   {
@@ -21,7 +25,7 @@ const DIFFICULTIES: Record<
     scrollSpeed: 11,
     difficulty: 'easy',
     scoreMultiplier: 1.0,
-    img: "/spaceCadetDiff.png"
+    img: spaceCadetDiff
   },
   medium: {
     label: "Orbital Officer",
@@ -32,7 +36,7 @@ const DIFFICULTIES: Record<
     scrollSpeed: 8,
     difficulty: 'medium',
     scoreMultiplier: 1.5,
-    img: "/orbitalOfficerDiff.png"
+    img: orbitalOfficerDiff
   },
   hard: {
     label: "Space Voyager",
@@ -43,7 +47,7 @@ const DIFFICULTIES: Record<
     scrollSpeed: 5,
     difficulty: 'hard',
     scoreMultiplier: 2.0,
-    img: "/starVoyagerDiff.png"
+    img: starVoyagerDiff
   },
 };
 
