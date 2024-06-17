@@ -1,10 +1,29 @@
 {
   "files": {
     "main.css": "/key-quest/static/css/main.d178d164.css",
-    "main.js": "/key-quest/static/js/main.ea8e097c.js",
+    "main.js": "/key-quest/static/js/main.8844e72f.js",
     "static/js/787.bbef9d72.chunk.js": "/key-quest/static/js/787.bbef9d72.chunk.js",
+    "static/media/Space.mp3": "/key-quest/static/media/Space.6da13132328d1f33d0bf.mp3",
+    "static/media/core.png": "/key-quest/static/media/core.8338ac0074831f5de041.png",
+    "static/media/starVoyagerDiff.png": "/key-quest/static/media/starVoyagerDiff.ff6d5129663ff5b832f7.png",
+    "static/media/trainingStation.png": "/key-quest/static/media/trainingStation.3eaee46d7806a1c1934a.png",
     "static/media/logo.png": "/key-quest/static/media/logo.389bfd08fbc6664c886e.png",
+    "static/media/orbitalOfficerDiff.png": "/key-quest/static/media/orbitalOfficerDiff.33498cf70120a56ba98b.png",
+    "static/media/lexiconBelt.png": "/key-quest/static/media/lexiconBelt.390186c2c3d9c800300f.png",
+    "static/media/spaceStation.png": "/key-quest/static/media/spaceStation.86b8ced59471eacd74ec.png",
+    "static/media/symbols.png": "/key-quest/static/media/symbols.ab976938ee816bdcc1ca.png",
+    "static/media/asteroids.png": "/key-quest/static/media/asteroids.ea431ffaf2da136a59ff.png",
+    "static/media/asteroid.png": "/key-quest/static/media/asteroid.ea78d443a0016d63ca7e.png",
+    "static/media/planet2.png": "/key-quest/static/media/planet2.4e4b30593cebc0d9636d.png",
+    "static/media/nebula.png": "/key-quest/static/media/nebula.792beb387ecd7ab135ac.png",
+    "static/media/spaceCadetDiff.png": "/key-quest/static/media/spaceCadetDiff.3a064dd789b4bccf0788.png",
+    "static/media/crystal1.png": "/key-quest/static/media/crystal1.56fa0d629d937f19cc97.png",
+    "static/media/planet1.png": "/key-quest/static/media/planet1.442896d85075862480cf.png",
+    "static/media/spaceProbe.png": "/key-quest/static/media/spaceProbe.390050db6f1ba5fcf095.png",
     "static/media/astronaut.png": "/key-quest/static/media/astronaut.3463efc166beeadab782.png",
+    "static/media/nebula1.png": "/key-quest/static/media/nebula1.1a09fa46f570b4a61b95.png",
+    "static/media/asteroid2.png": "/key-quest/static/media/asteroid2.3a28dc1948423c1844dc.png",
+    "static/media/fizzle.wav": "/key-quest/static/media/fizzle.786e3f2deb0a6b134445.wav",
     "static/media/roboto-latin-500-normal.woff2": "/key-quest/static/media/roboto-latin-500-normal.f25d774ecfe0996f8eb5.woff2",
     "static/media/roboto-latin-700-normal.woff2": "/key-quest/static/media/roboto-latin-700-normal.227c93190fe7f82de3f8.woff2",
     "static/media/roboto-latin-400-normal.woff2": "/key-quest/static/media/roboto-latin-400-normal.b009a76ad6afe4ebd301.woff2",
@@ -17,6 +36,7 @@
     "static/media/roboto-latin-500-normal.woff": "/key-quest/static/media/roboto-latin-500-normal.1f075502d0094a398e21.woff",
     "static/media/roboto-latin-700-normal.woff": "/key-quest/static/media/roboto-latin-700-normal.666d7a2f9db53cf52e2d.woff",
     "static/media/roboto-latin-400-normal.woff": "/key-quest/static/media/roboto-latin-400-normal.3f2b9a42f643e62a49b7.woff",
+    "static/media/ding.wav": "/key-quest/static/media/ding.abfe721e56b3422648d3.wav",
     "static/media/roboto-cyrillic-ext-300-normal.woff": "/key-quest/static/media/roboto-cyrillic-ext-300-normal.3503ec5cc6330e21f695.woff",
     "static/media/roboto-cyrillic-ext-400-normal.woff": "/key-quest/static/media/roboto-cyrillic-ext-400-normal.af4d91666ea345601bea.woff",
     "static/media/roboto-cyrillic-ext-500-normal.woff": "/key-quest/static/media/roboto-cyrillic-ext-500-normal.268f264f58eba5c07c88.woff",
@@ -63,11 +83,11 @@
     "static/media/roboto-greek-ext-700-normal.woff": "/key-quest/static/media/roboto-greek-ext-700-normal.249853776d22a271b2b5.woff",
     "index.html": "/key-quest/index.html",
     "main.d178d164.css.map": "/key-quest/static/css/main.d178d164.css.map",
-    "main.ea8e097c.js.map": "/key-quest/static/js/main.ea8e097c.js.map",
+    "main.8844e72f.js.map": "/key-quest/static/js/main.8844e72f.js.map",
     "787.bbef9d72.chunk.js.map": "/key-quest/static/js/787.bbef9d72.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.d178d164.css",
-    "static/js/main.ea8e097c.js"
+    "static/js/main.8844e72f.js"
   ]
 }
