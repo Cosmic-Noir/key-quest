@@ -10,6 +10,10 @@ Welcome to Key Quest, an intergalactic typing adventure! In this game, you journ
 
 This is mostly a cute game project to practice using React, Typescript, React Query, ChatGPT and to have some fun!
 
+## Demo
+
+Try the game [here](https://cosmic-noir.github.io/key-quest/)! Note this is a hobby project with bugs and features in development.
+
 ## Features
 
 - **Dynamic Typing Challenges:** Encounter different typing tasks, from simple letters to complex words and phrases.
