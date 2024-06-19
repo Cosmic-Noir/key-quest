@@ -36,8 +36,11 @@ const GameUI: React.FC<GameUIProps> = ({
   const [levelWon, setLevelWon] = useState(false);
   const [levelScore, setLevelScore] = useState(0);
   const [newHighScore, setNewHighScore] = useState(false);
+  const [newAllTimeBestScore, setNewAllTimeBestScore] = useState(false);
   const [totalLevelScore, setTotalLevelScore] = useState(0);
-  const [totalGameScore, setTotalGameScore] = useState(gameScores?.totalScore);
+  const [totalGameScore, setTotalGameScore] = useState(
+    gameScores?.totalScore || 0
+  );
   const [totalKeystrokes, setTotalKeystrokes] = useState(0);
   const [correctKeystrokes, setCorrectKeystrokes] = useState(0);
   const [accuracy, setAccuracy] = useState(0);
@@ -52,10 +55,6 @@ const GameUI: React.FC<GameUIProps> = ({
 
     return () => clearTimeout(startDelay); // Cleanup the timeout if the component unmounts
   }, []);
-
-  useEffect(() => {
-    setTotalGameScore(gameScores?.totalScore);
-  }, [gameScores]);
 
   const endLevel = () => {
     // Calculate WPM
@@ -87,23 +86,42 @@ const GameUI: React.FC<GameUIProps> = ({
 
       const previousLevelScore = gameScores?.levels[selectedLevel];
 
-      if (previousLevelScore?.topScore ?? 0 < currentLevelScore) {
+      if ((previousLevelScore?.topScore ?? 0) < currentLevelScore) {
+        // For the level
         setNewHighScore(true);
+        const accuracy = Math.round(
+          (correctKeystrokes / totalKeystrokes) * 100
+        );
 
         newScores.levels![selectedLevel] = {
           topScore: currentLevelScore,
-          accuracy: correctKeystrokes,
+          accuracy: accuracy,
           wpm: wordsPerMinute,
           difficulty: gameSettings!.difficulty,
         };
       }
     }
 
-    // Update total, all time score  v
-    const newTotalScore = (gameScores?.totalScore ?? 0) + totalLevelScore;
+    // Update total, all time totoal score
+    const newTotalScore = totalGameScore + currentLevelScore;
     newScores.totalScore = newTotalScore;
+
+    setTotalGameScore(newTotalScore);
+
+    // Next check if the score is higher than the allTimeBest.score
+    if ((gameScores?.allTimeBest?.score ?? 0) < currentLevelScore) {
+      newScores.allTimeBest = {
+        score: currentLevelScore,
+        level: selectedLevel,
+        accuracy: accuracy,
+        wpm: wordsPerMinute,
+        difficulty: gameSettings!.difficulty,
+      };
+
+      setNewAllTimeBestScore(true);
+    }
+
     updateGameScores(newScores);
-    console.log("total score updated!", newScores);
   };
 
   // Difficulty score multipler already applied to levelScore
@@ -179,11 +197,12 @@ const GameUI: React.FC<GameUIProps> = ({
       {showLevelComplete ? (
         <>
           <ScoreCard
-            levelWon={levelWon}
-            totalScore={totalGameScore ?? 0}
-            levelScore={totalLevelScore}
-            newHighScore={newHighScore}
             accuracy={accuracy}
+            levelScore={totalLevelScore}
+            levelWon={levelWon}
+            newHighScore={newHighScore}
+            newAllTimeBest={newAllTimeBestScore}
+            totalScore={totalGameScore ?? 0}
             wpm={wpm}
           />
           <Button

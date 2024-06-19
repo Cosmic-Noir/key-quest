@@ -4,20 +4,22 @@ import "./scoreCard.sass";
 
 // Define the types for the props
 interface ScoreCardProps {
+  accuracy: number;
   levelScore: number;
   levelWon: boolean;
-  accuracy: number;
+  newAllTimeBest: boolean;
+  newHighScore: boolean;
   totalScore: number;
   wpm: number;
-  newHighScore: boolean;
 }
 
 const ScoreCard: React.FC<ScoreCardProps> = ({
+  accuracy,
   levelScore,
   levelWon,
-  totalScore,
+  newAllTimeBest,
   newHighScore,
-  accuracy,
+  totalScore,
   wpm,
 }) => {
   return (
@@ -25,10 +27,13 @@ const ScoreCard: React.FC<ScoreCardProps> = ({
       <h1>Level completed!</h1>
       <h1>{levelWon ? "You WON" : "You lost..."}</h1>
       <div>Total Score: {totalScore.toLocaleString()}</div>
-      <div>Level Score: {levelScore.toLocaleString()}</div>
+      {newAllTimeBest && (
+        <div className="score-card_new-all-time-best">New all-time best!!</div>
+      )}
       {newHighScore && (
         <div className="score-card_new-high-score">New high score!!</div>
       )}
+      <div>Level Score: {levelScore.toLocaleString()}</div>
       <div>Accuracy: {accuracy}%</div>
       <div>WPM: {wpm}</div>
     </div>
