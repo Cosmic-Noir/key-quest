@@ -130,8 +130,12 @@ const GameUI: React.FC<GameUIProps> = ({
     accuracy: number,
     levelScore: number
   ): number => {
-    const baseScore = wpm * 1;
-    const finalScore = Math.round((baseScore + levelScore) * accuracy);
+    const scaledWpm = wpm * 0.5;
+    const accuracyMultiplier = accuracy;
+    const baseScore = scaledWpm * accuracyMultiplier;
+
+    const finalScore = Math.round(baseScore + levelScore);
+
     return finalScore;
   };
 

@@ -191,7 +191,7 @@ const GameArea: React.FC<GameAreaProps> = ({
               setActiveWordIndex(null);
               setTypedChars(0);
               triggerPopEffect(activeWordIndex);
-              const points = 10 * scoreMultiplier;
+              const points = 5 * scoreMultiplier;
               setLevelScore((prevScore) => prevScore + points);
             } else {
               // Continue typing the word
@@ -219,7 +219,7 @@ const GameArea: React.FC<GameAreaProps> = ({
               if (el.char.length === 1) {
                 // Single letter, pop effect and increase score
                 triggerPopEffect(index);
-                const points = 2 * scoreMultiplier;
+                const points = 1 * scoreMultiplier;
                 setLevelScore((prevScore) => prevScore + points);
               } else {
                 // Start typing a word
