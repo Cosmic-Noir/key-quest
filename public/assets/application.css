@@ -1,0 +1,896 @@
+/* app/javascript/key-quest/src/components/advancedSettings/advancedSettings.sass */
+.advanced-settings {
+  text-align: left;
+  background: none !important;
+  color: white !important;
+  box-shadow: none !important;
+  font-family: "Roboto", sans-serif;
+  max-width: 815px;
+  align-self: center;
+}
+.advanced-settings::before {
+  background-color: transparent !important;
+}
+.advanced-settings .advanced-settilngs_accodion-title {
+  font-size: 24px;
+}
+.advanced-settings .advanced-settings_slider {
+  width: 60%;
+}
+.advanced-settings .advanced-settings_details {
+  margin: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.advanced-settings .advanced-settings_details > * {
+  margin: 15px 0;
+}
+.advanced-settings .advanced-settings_description {
+  width: 80%;
+  font-size: 18px;
+  margin: 0 20px;
+}
+.advanced-settings .advanced-settings_label-container {
+  display: flex;
+  align-items: center;
+}
+.advanced-settings .advanced-settings_section {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* app/javascript/key-quest/src/components/difficultyOption/difficultyOption.sass */
+.difficulty-image {
+  height: 200px;
+}
+
+/* app/javascript/key-quest/src/components/difficultySelection/difficultySelection.sass */
+.difficulty-selection {
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+  justify-content: space-evenly;
+  gap: 15px;
+  margin: 30px 10px;
+  padding: 20px;
+}
+.difficulty-selection input {
+  display: none;
+}
+.difficulty-selection label {
+  display: inline-block;
+  width: 200px;
+  padding: 10px;
+}
+.difficulty-selection label.active {
+  border: 1px solid white;
+  border-radius: 4px;
+  box-shadow: 0 0 10px rgba(180, 210, 255, 0.7);
+  border-radius: 4px;
+}
+.difficulty-description {
+  display: flex;
+  align-items: center;
+  min-width: 200px;
+  text-align: left;
+  margin: 0 auto;
+  line-height: 1.6;
+  padding: 15px;
+  letter-spacing: 0.05em;
+  font-size: 20px;
+  max-width: 800px;
+}
+.difficulties-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+.difficulty-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+}
+.difficulty-container label {
+  font-size: 18px;
+}
+.difficulty-selection__button {
+  align-self: center;
+}
+.difficulty-selection__score-multiplier {
+  margin-top: 20px;
+  font-size: 20px;
+}
+
+/* app/javascript/key-quest/src/components/level/level.sass */
+.level-image {
+  height: 200px;
+}
+.level-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+.level-container input {
+  display: none;
+}
+.level-container label {
+  display: inline-block;
+  width: 200px;
+  padding: 10px;
+  font-size: 18px;
+}
+.level-container label.active {
+  border: 1px solid white;
+  border-radius: 4px;
+  box-shadow: 0 0 10px rgba(180, 210, 255, 0.7);
+}
+.locked {
+  opacity: 0.5;
+}
+
+/* app/javascript/key-quest/src/components/levelSelection/levelSelection.sass */
+
+/* app/javascript/key-quest/src/components/imageGallery/imageGallery.sass */
+@keyframes pulse-blue {
+  0% {
+    box-shadow: 0 0 5px #10a0df;
+    background-color: #10a0df;
+  }
+  50% {
+    box-shadow: 0 0 20px #8fcfeb;
+    background-color: #8fcfeb;
+  }
+  100% {
+    box-shadow: 0 0 5px #10a0df;
+    background-color: #10a0df;
+  }
+}
+.image-gallery-container {
+  overflow: hidden;
+}
+.image-gallery-image {
+  position: absolute;
+}
+.image-0 {
+  width: 125px;
+  top: -130px;
+  left: -140px;
+  --rotation-angle: 0;
+  animation: rotated-bobbing 4.5s infinite;
+  transform-origin: center;
+  transform: rotate(var(--rotation-angle));
+}
+@keyframes rotated-bobbing {
+  0% {
+    transform: translateY(0) rotate(var(--rotation-angle));
+  }
+  50% {
+    transform: translateY(-20px) rotate(var(--rotation-angle));
+  }
+  100% {
+    transform: translateY(0) rotate(var(--rotation-angle));
+  }
+}
+.image-1 {
+  height: 200px;
+  top: -100px;
+  right: -10px;
+  --rotation-angle: 0;
+  animation: rotated-bobbing 4.5s infinite;
+  transform-origin: center;
+  transform: rotate(var(--rotation-angle));
+}
+@keyframes rotated-bobbing {
+  0% {
+    transform: translateY(0) rotate(var(--rotation-angle));
+  }
+  50% {
+    transform: translateY(-20px) rotate(var(--rotation-angle));
+  }
+  100% {
+    transform: translateY(0) rotate(var(--rotation-angle));
+  }
+}
+.image-2 {
+  height: 100px;
+  top: -150px;
+  --rotation-angle: 50deg;
+  animation: rotated-bobbing 4s infinite;
+  transform-origin: center;
+  transform: rotate(var(--rotation-angle));
+}
+@keyframes rotated-bobbing {
+  0% {
+    transform: translateY(0) rotate(var(--rotation-angle));
+  }
+  50% {
+    transform: translateY(-20px) rotate(var(--rotation-angle));
+  }
+  100% {
+    transform: translateY(0) rotate(var(--rotation-angle));
+  }
+}
+.image-3 {
+  height: 300px;
+  bottom: -70%;
+  right: 0;
+  --rotation-angle: 2deg;
+  animation: rotated-bobbing 3.5s infinite;
+  transform-origin: center;
+  transform: rotate(var(--rotation-angle));
+}
+@keyframes rotated-bobbing {
+  0% {
+    transform: translateY(0) rotate(var(--rotation-angle));
+  }
+  50% {
+    transform: translateY(-20px) rotate(var(--rotation-angle));
+  }
+  100% {
+    transform: translateY(0) rotate(var(--rotation-angle));
+  }
+}
+.image-4 {
+  height: 300px;
+  bottom: -75%;
+  left: -250px;
+  --rotation-angle: 180deg;
+  animation: rotated-bobbing 2s infinite;
+  transform-origin: center;
+  transform: rotate(var(--rotation-angle));
+}
+@keyframes rotated-bobbing {
+  0% {
+    transform: translateY(0) rotate(var(--rotation-angle));
+  }
+  50% {
+    transform: translateY(-20px) rotate(var(--rotation-angle));
+  }
+  100% {
+    transform: translateY(0) rotate(var(--rotation-angle));
+  }
+}
+.image-5 {
+  height: 300px;
+  top: -150px;
+  right: -140px;
+}
+
+/* app/javascript/key-quest/node_modules/react-simple-keyboard/build/css/index.css */
+.hg-theme-default {
+  background-color: #ececec;
+  border-radius: 5px;
+  box-sizing: border-box;
+  font-family:
+    HelveticaNeue-Light,
+    Helvetica Neue Light,
+    Helvetica Neue,
+    Helvetica,
+    Arial,
+    Lucida Grande,
+    sans-serif;
+  overflow: hidden;
+  padding: 5px;
+  touch-action: manipulation;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+  width: 100%;
+}
+.hg-theme-default .hg-button span {
+  pointer-events: none;
+}
+.hg-theme-default button.hg-button {
+  border-width: 0;
+  font-size: inherit;
+  outline: 0;
+}
+.hg-theme-default .hg-button {
+  display: inline-block;
+  flex-grow: 1;
+}
+.hg-theme-default .hg-row {
+  display: flex;
+}
+.hg-theme-default .hg-row:not(:last-child) {
+  margin-bottom: 5px;
+}
+.hg-theme-default .hg-row .hg-button-container,
+.hg-theme-default .hg-row .hg-button:not(:last-child) {
+  margin-right: 5px;
+}
+.hg-theme-default .hg-row > div:last-child {
+  margin-right: 0;
+}
+.hg-theme-default .hg-row .hg-button-container {
+  display: flex;
+}
+.hg-theme-default .hg-button {
+  align-items: center;
+  background: #fff;
+  border-bottom: 1px solid #b5b5b5;
+  border-radius: 5px;
+  box-shadow: 0 0 3px -1px rgba(0, 0, 0, .3);
+  box-sizing: border-box;
+  cursor: pointer;
+  display: flex;
+  height: 40px;
+  justify-content: center;
+  padding: 5px;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+.hg-theme-default .hg-button.hg-standardBtn {
+  width: 20px;
+}
+.hg-theme-default .hg-button.hg-activeButton {
+  background: #efefef;
+}
+.hg-theme-default.hg-layout-numeric .hg-button {
+  align-items: center;
+  display: flex;
+  height: 60px;
+  justify-content: center;
+  width: 33.3%;
+}
+.hg-theme-default .hg-button.hg-button-numpadadd,
+.hg-theme-default .hg-button.hg-button-numpadenter {
+  height: 85px;
+}
+.hg-theme-default .hg-button.hg-button-numpad0 {
+  width: 105px;
+}
+.hg-theme-default .hg-button.hg-button-com {
+  max-width: 85px;
+}
+.hg-theme-default .hg-button.hg-standardBtn.hg-button-at {
+  max-width: 45px;
+}
+.hg-theme-default .hg-button.hg-selectedButton {
+  background: rgba(5, 25, 70, .53);
+  color: #fff;
+}
+.hg-theme-default .hg-button.hg-standardBtn[data-skbtn=".com"] {
+  max-width: 82px;
+}
+.hg-theme-default .hg-button.hg-standardBtn[data-skbtn="@"] {
+  max-width: 60px;
+}
+.hg-candidate-box {
+  background: #ececec;
+  border-bottom: 2px solid #b5b5b5;
+  border-radius: 5px;
+  display: inline-flex;
+  margin-top: -10px;
+  position: absolute;
+  transform: translateY(-100%);
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+}
+ul.hg-candidate-box-list {
+  display: flex;
+  flex: 1;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+li.hg-candidate-box-list-item {
+  align-items: center;
+  display: flex;
+  height: 40px;
+  justify-content: center;
+  width: 40px;
+}
+li.hg-candidate-box-list-item:hover {
+  background: rgba(0, 0, 0, .03);
+  cursor: pointer;
+}
+li.hg-candidate-box-list-item:active {
+  background: rgba(0, 0, 0, .1);
+}
+.hg-candidate-box-prev:before {
+  content: "\25c4";
+}
+.hg-candidate-box-next:before {
+  content: "\25ba";
+}
+.hg-candidate-box-next,
+.hg-candidate-box-prev {
+  align-items: center;
+  color: #969696;
+  cursor: pointer;
+  display: flex;
+  padding: 0 10px;
+}
+.hg-candidate-box-next {
+  border-bottom-right-radius: 5px;
+  border-top-right-radius: 5px;
+}
+.hg-candidate-box-prev {
+  border-bottom-left-radius: 5px;
+  border-top-left-radius: 5px;
+}
+.hg-candidate-box-btn-active {
+  color: #444;
+}
+
+/* app/javascript/key-quest/src/components/visualKeyboard/visualKeyboard.sass */
+@keyframes pulse-blue {
+  0% {
+    box-shadow: 0 0 5px #10a0df;
+    background-color: #10a0df;
+  }
+  50% {
+    box-shadow: 0 0 20px #8fcfeb;
+    background-color: #8fcfeb;
+  }
+  100% {
+    box-shadow: 0 0 5px #10a0df;
+    background-color: #10a0df;
+  }
+}
+.react-simple-keyboard {
+  position: absolute;
+  width: 90%;
+  bottom: -270px;
+  background-color: #10a0df;
+  opacity: 0.9;
+}
+.react-simple-keyboard .highlight {
+  animation: pulse-blue 1s infinite;
+}
+.react-simple-keyboard .highlight-shift {
+  animation: pulse-blue 1s infinite;
+}
+.hg-button {
+  color: #084e6d;
+}
+
+/* app/javascript/key-quest/src/components/letter/letter.sass */
+@keyframes scrollHorizontal {
+  from {
+    right: 0;
+  }
+  to {
+    right: 100%;
+  }
+}
+.scroll-speed-11 {
+  animation: scrollHorizontal 11s linear infinite;
+}
+.scroll-speed-10 {
+  animation: scrollHorizontal 10s linear infinite;
+}
+.scroll-speed-9 {
+  animation: scrollHorizontal 9s linear infinite;
+}
+.scroll-speed-8 {
+  animation: scrollHorizontal 8s linear infinite;
+}
+.scroll-speed-7 {
+  animation: scrollHorizontal 7s linear infinite;
+}
+.scroll-speed-6 {
+  animation: scrollHorizontal 6s linear infinite;
+}
+.scroll-speed-5 {
+  animation: scrollHorizontal 5s linear infinite;
+}
+.scroll-speed-4 {
+  animation: scrollHorizontal 4s linear infinite;
+}
+.scroll-speed-3 {
+  animation: scrollHorizontal 3s linear infinite;
+}
+.letter {
+  position: absolute;
+  top: 0;
+}
+.letter {
+  animation-play-state: running;
+}
+.letter.paused {
+  animation-play-state: paused;
+}
+.letterInWord {
+  display: inline;
+}
+.letter.highlighted,
+.isInWord.highlighted {
+  color: white;
+  text-shadow:
+    0 0 5px black,
+    0 0 10px black,
+    0 0 15px black,
+    0 0 20px black,
+    0 0 25px black,
+    0 0 30px black,
+    0 0 35px black;
+  font-weight: bold;
+}
+@keyframes popEffect {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+.pop {
+  color: white !important;
+  text-shadow:
+    0 0 5px #10a0df,
+    0 0 10px #10a0df,
+    0 0 15px #10a0df,
+    0 0 20px #10a0df,
+    0 0 25px #10a0df,
+    0 0 30px #10a0df,
+    0 0 35px #10a0df !important;
+  transform: scale(2);
+  transition: transform 0.5s ease;
+}
+@keyframes fizzleOut {
+  0% {
+    opacity: 1;
+    color: white;
+    text-shadow: 0px 0px 8px red;
+  }
+  50% {
+    opacity: 0.7;
+    color: red;
+    text-shadow: 0px 0px 10px red;
+  }
+  100% {
+    opacity: 0;
+    color: darkred;
+    text-shadow: 0px 0px 12px red;
+  }
+}
+.fizzle {
+  animation: fizzleOut 2s ease-in-out forwards;
+}
+.hidden {
+  display: none;
+}
+.typedInWord {
+  opacity: 0.5;
+  color: white;
+  text-shadow:
+    0 0 5px #10a0df,
+    0 0 10px #10a0df,
+    0 0 15px #10a0df,
+    0 0 20px #10a0df,
+    0 0 25px #10a0df,
+    0 0 30px #10a0df,
+    0 0 35px #10a0df;
+}
+.word,
+.letter {
+  color: white;
+  text-shadow:
+    0 0 5px red,
+    0 0 10px red,
+    0 0 15px red,
+    0 0 20px red,
+    0 0 25px red,
+    0 0 30px red,
+    0 0 35px red;
+  font-size: 2rem;
+  font-weight: bold;
+  display: inline-block;
+}
+
+/* app/javascript/key-quest/src/components/word/word.sass */
+.word {
+  display: flex;
+}
+@keyframes scrollHorizontal {
+  from {
+    right: 0;
+  }
+  to {
+    right: 100%;
+  }
+}
+.word {
+  position: absolute;
+  top: 0;
+}
+.word {
+  animation-play-state: running;
+}
+.word.paused {
+  animation-play-state: paused;
+}
+.hidden {
+  display: none;
+}
+
+/* app/javascript/key-quest/src/components/gameArea/gameArea.sass */
+.gameArea {
+  position: relative;
+  width: 100%;
+  height: 400px;
+  right: 10px;
+  z-index: 1;
+  margin: 20px;
+}
+.gameArea::before {
+  content: "";
+  position: absolute;
+  top: 5px;
+  left: -15px;
+  width: 20px;
+  height: 100%;
+  z-index: -1;
+  filter: blur(10px);
+  background: var(--after-background, blue);
+}
+.collision.gameArea::before {
+  background: red !important;
+}
+
+/* app/javascript/key-quest/src/components/healthAndScore/healthAndScore.sass */
+.healthAndScore {
+  display: flex;
+  position: absolute;
+  top: 20px;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: 15px;
+  color: white;
+  font-size: 1.2rem;
+  margin: 10px;
+  width: 400px;
+  z-index: 9;
+}
+.healthBar {
+  background-color: green;
+  height: 20px;
+  border-radius: 5px;
+}
+.stats {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+}
+
+/* app/javascript/key-quest/src/components/person/person.sass */
+.person {
+  margin-left: 70px;
+}
+.person img {
+  height: 200px;
+}
+
+/* app/javascript/key-quest/src/components/scoreCard/scoreCard.sass */
+.score-card > * {
+  margin: 15px 0px;
+}
+.score-card_new-high-score {
+  color: #0ff902;
+  text-shadow: none;
+}
+.score-card_new-all-time-best {
+  color: #f9f902;
+  text-shadow: none;
+}
+
+/* app/javascript/key-quest/src/components/gameUI/gameUI.sass */
+@keyframes pulse-blue {
+  0% {
+    box-shadow: 0 0 5px #10a0df;
+    background-color: #10a0df;
+  }
+  50% {
+    box-shadow: 0 0 20px #8fcfeb;
+    background-color: #8fcfeb;
+  }
+  100% {
+    box-shadow: 0 0 5px #10a0df;
+    background-color: #10a0df;
+  }
+}
+.countdown {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  font-size: 5rem;
+  animation: pulse-blue 1s infinite;
+}
+
+/* app/javascript/key-quest/src/components/pauseMenu/pauseMenu.sass */
+.pause-menu {
+  position: absolute;
+  width: 60%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  top: 20px;
+  z-index: 10;
+  padding: 20px;
+  border-radius: 4px;
+}
+.pause-menu > * {
+  margin: 10px;
+}
+.pause-menu .difficulty-image {
+  display: none;
+}
+.pause-menu .difficulty-selection {
+  border: none;
+  background: none;
+  box-shadow: none;
+  margin: 0;
+  padding: 0;
+}
+.pause-menu .MuiBox-root {
+  display: flex;
+  justify-content: center;
+}
+.show-pause-menu {
+  background: black;
+  opacity: 50%;
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 10;
+}
+.settings-section {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  width: 250px;
+}
+.pause-menu__content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+/* app/javascript/key-quest/src/App.sass */
+h1,
+h2,
+h3,
+h4,
+div,
+span {
+  letter-spacing: 0.05em;
+}
+#menu-icon {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 50px;
+  height: 50px;
+  z-index: 10;
+}
+.App-content {
+  text-align: center;
+  z-index: 1;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+.gameContainer {
+  position: absolute;
+  top: -75px;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+.logo {
+  height: 500px;
+}
+.levels {
+  width: 80%;
+  margin: 50px 0;
+}
+.levels-container {
+  display: flex;
+  gap: 50px;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  align-items: flex-start;
+  margin: 50px auto;
+  width: 75%;
+}
+.MuiButton-containedPrimary {
+  max-width: 400px;
+}
+@keyframes bobbing {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+}
+.bob {
+  animation: bobbing 1s ease-in-out infinite;
+}
+.bob-2 {
+  animation: bobbing 2s ease-in-out infinite;
+}
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+.fade-in {
+  animation: fadeIn 3s;
+}
+.bob-and-fade {
+  animation: fadeIn 5s, bobbing 1s ease-in-out infinite;
+}
+.space-themed-header-text {
+  font-family: "Roboto", sans-serif;
+  font-weight: bold;
+  text-shadow: 0 0 5px rgba(180, 210, 255, 0.7);
+}
+.space-themed-text {
+  font-family: "Roboto", sans-serif;
+  font-weight: 300;
+  text-shadow: 0 0 3px rgba(180, 210, 255, 0.7);
+  letter-spacing: 1px;
+}
+.space-container {
+  border: 1px solid white;
+  background:
+    linear-gradient(
+      to bottom,
+      rgb(0, 18, 51),
+      rgb(3, 83, 164));
+  border-radius: 4px;
+  box-shadow: 0 0 10px rgba(180, 210, 255, 0.7);
+}
+/*! Bundled license information:
+
+react-simple-keyboard/build/css/index.css:
+  (*!
+   * 
+   *   react-simple-keyboard v3.7.120
+   *   https://github.com/hodgef/react-simple-keyboard
+   *
+   *   Copyright (c) Francisco Hodge (https://github.com/hodgef) and project contributors.
+   *
+   *   This source code is licensed under the MIT license found in the
+   *   LICENSE file in the root directory of this source tree.
+   *
+   *)
+  (*!
+   * 
+   *   simple-keyboard v3.7.80
+   *   https://github.com/hodgef/simple-keyboard
+   *
+   *   Copyright (c) Francisco Hodge (https://github.com/hodgef) and project contributors.
+   *
+   *   This source code is licensed under the MIT license found in the
+   *   LICENSE file in the root directory of this source tree.
+   *
+   *)
+*/
