@@ -2,9 +2,10 @@ services:
   web:
     build: .
     container_name: key_quest_web
-    command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails server -b 0.0.0.0 -p 3000"
+    command: bash -c "PUBLIC_URL=/ yarn build && rm -f tmp/pids/server.pid && bundle exec rails server -b 0.0.0.0 -p 3000"
     volumes:
       - .:/key_quest
+      - /key_quest/node_modules
     ports:
       - "3000:3000"
     depends_on:
@@ -14,6 +15,9 @@ services:
       - PUBLIC_URL=/
       - DATABASE_URL=postgres://postgres:password@db:5432/key_quest_development
       - APP_VERSION=0.1.0
+      - NODE_PATH=/key_quest/node_modules
+    env_file:
+    - .env
   db:
     image: postgres:13
     environment:

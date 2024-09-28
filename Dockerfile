@@ -23,17 +23,14 @@ COPY Gemfile Gemfile.lock /key_quest/
 # Install Ruby dependencies
 RUN bundle install
 
+# Copy package.json and yarn.lock
+COPY package.json yarn.lock /key_quest/
+
 # Install JavaScript dependencies using Yarn
-RUN yarn install
+RUN yarn install --verbose
 
 # Copy the entire project into the working directory inside the container
 COPY . /key_quest/
 
-# Precompile assets (optional)
-# RUN bundle exec rails assets:precompile
-
 # Expose port 3000 to the host
 EXPOSE 3000
-
-# Set the default command to start the Rails server
-CMD ["rails", "server", "-b", "0.0.0.0"]
