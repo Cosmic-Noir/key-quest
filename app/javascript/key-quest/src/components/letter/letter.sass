@@ -1,0 +1,96 @@
+@keyframes scrollHorizontal
+  from
+    right: 0
+  to
+    right: 100%
+
+.scroll-speed-11
+  animation: scrollHorizontal 11s linear infinite
+
+.scroll-speed-10
+  animation: scrollHorizontal 10s linear infinite
+
+.scroll-speed-9
+  animation: scrollHorizontal 9s linear infinite
+
+.scroll-speed-8
+  animation: scrollHorizontal 8s linear infinite
+
+.scroll-speed-7
+  animation: scrollHorizontal 7s linear infinite
+
+.scroll-speed-6
+  animation: scrollHorizontal 6s linear infinite
+
+.scroll-speed-5
+  animation: scrollHorizontal 5s linear infinite
+
+.scroll-speed-4
+  animation: scrollHorizontal 4s linear infinite
+
+.scroll-speed-3
+  animation: scrollHorizontal 3s linear infinite
+
+.letter
+  position: absolute
+  top: 0
+
+.letter
+  animation-play-state: running
+
+.letter.paused
+  animation-play-state: paused
+
+.letterInWord
+  display: inline
+
+.letter.highlighted, .isInWord.highlighted
+  color: white
+  text-shadow: 0 0 5px black, 0 0 10px black, 0 0 15px black, 0 0 20px black, 0 0 25px black, 0 0 30px black, 0 0 35px black
+  font-weight: bold
+
+@keyframes popEffect
+  0%
+    transform: scale(1)
+  50%
+    transform: scale(1.2) // Scale up
+  100%
+    transform: scale(1)
+
+.pop
+  color: white !important
+  text-shadow: 0 0 5px #10a0df, 0 0 10px #10a0df, 0 0 15px #10a0df, 0 0 20px #10a0df, 0 0 25px #10a0df, 0 0 30px #10a0df, 0 0 35px #10a0df !important
+  transform: scale(2)
+  transition: transform 0.5s ease
+
+@keyframes fizzleOut
+  0%
+    opacity: 1
+    color: white
+    text-shadow: 0px 0px 8px red
+  50%
+    opacity: 0.7
+    color: red
+    text-shadow: 0px 0px 10px red
+  100%
+    opacity: 0
+    color: darkred
+    text-shadow: 0px 0px 12px red
+
+.fizzle
+  animation: fizzleOut 2s ease-in-out forwards
+
+.hidden
+  display: none
+
+.typedInWord
+  opacity: .5
+  color: white
+  text-shadow: 0 0 5px #10a0df, 0 0 10px #10a0df, 0 0 15px #10a0df, 0 0 20px #10a0df, 0 0 25px #10a0df, 0 0 30px #10a0df, 0 0 35px #10a0df
+
+.word, .letter
+  color: white
+  text-shadow: 0 0 5px red, 0 0 10px red, 0 0 15px red, 0 0 20px red, 0 0 25px red, 0 0 30px red, 0 0 35px red
+  font-size: 2rem /* Adjust as needed */
+  font-weight: bold
+  display: inline-block
