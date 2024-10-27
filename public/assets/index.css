@@ -869,19 +869,6 @@ span {
   box-shadow: 0 0 10px rgba(180, 210, 255, 0.7);
 }
 
-/* app/javascript/key-quest/src/components/space/space.sass */
-#tsparticles {
-  z-index: -1;
-  position: absolute;
-}
-#tsparticles canvas {
-  background:
-    linear-gradient(
-      to bottom,
-      #001233,
-      #0353A4);
-}
-
 /* app/javascript/key-quest/src/index.css */
 body {
   margin: 0;

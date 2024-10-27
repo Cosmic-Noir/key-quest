@@ -49,8 +49,7 @@ const App: React.FC = () => {
     useSoundSettings();
   const { isScoresLoading } = useScoreTracking();
 
-  const loading =
-    isSettingsLoading || isSoundSettingsLoading || isScoresLoading;
+  const loading = isSoundSettingsLoading || isScoresLoading;
 
   // Game Settings
   const [currentPhase, setCurrentPhase] = useState<GamePhase>(

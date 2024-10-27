@@ -27,7 +27,7 @@ RUN bundle install
 COPY package.json yarn.lock /key_quest/
 
 # Install JavaScript dependencies using Yarn
-RUN yarn install --verbose
+RUN yarn install
 
 # Copy the entire project into the working directory inside the container
 COPY . /key_quest/
