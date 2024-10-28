@@ -8,7 +8,7 @@
 
 Welcome to Key Quest, an intergalactic typing adventure! In this game, you journey through the cosmos as a space explorer, encountering various challenges that test your typing skills. Whether it's dodging asteroids with quick keystrokes or communicating with alien species through precise typing, Key Quest offers an engaging and educational experience for typists of all levels.
 
-This is mostly a cute game project to practice using React, Typescript, React Query, ChatGPT and to have some fun!
+This is mostly a cute game project to practice using React, Typescript, React Query, Docker, ChatGPT and to have some fun!
 
 ## Demo
 
@@ -45,7 +45,7 @@ This project is built using several modern web technologies and tools:
   - [Material-UI](https://mui.com/material-ui/): React UI framework with a comprehensive suite of pre-designed components.
   - [tsparticles](https://particles.js.org/): A lightweight JavaScript library for creating particles.
   - [Sass](https://sass-lang.com/): A powerful CSS extension language used for styling.
-  - **esbuild**: A fast JavaScript bundler used to build the React frontend efficiently.
+  - [esbuild](https://esbuild.github.io/): A fast JavaScript bundler used to build the React frontend efficiently.
 
 - **Backend:**
 
@@ -58,8 +58,8 @@ This project is built using several modern web technologies and tools:
 
 - **DevOps and Deployment:**
 
-  - **Docker**: Used to containerize the application, ensuring a consistent environment across development, testing, and production.
-  - **Docker Compose**: Manages multi-container applications, making it easy to run the backend, frontend, and database together.
+  - [Docker](https://docs.docker.com/engine/install/): Used to containerize the application, ensuring a consistent environment across development, testing, and production.
+  - [Docker Compose](https://docs.docker.com/compose/): Manages multi-container applications, making it easy to run the backend, frontend, and database together.
 
 - **AI and Assistance:**
   - [ChatGPT](https://chat.openai.com/): Used throughout the project for brainstorming, coding assistance, and generating assets like images.
