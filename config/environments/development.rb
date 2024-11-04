@@ -65,4 +65,9 @@ Rails.application.configure do
 
   # allow serving of static assets
   config.public_file_server.enabled = true
+
+  # allow serving of images
+  config.public_file_server.headers = {
+    'Content-Type' => 'image/png',  # Adjust based on file type
+  }
 end

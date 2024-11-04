@@ -5,6 +5,7 @@ esbuild.build({
   entryPoints: ['app/javascript/key-quest/src/index.tsx'],
   bundle: true,
   // outdir: 'public/assets',
+  // The above is necessary to force to generate application.js
   outfile: 'public/assets/application.js',
   plugins: [sassPlugin()],
   define: {
@@ -24,5 +25,7 @@ esbuild.build({
     '.woff': 'file',
     '.woff2': 'file'
     // Add other loaders as needed for additional file types
-  }
+  },
+  // Ensure hashed filenames are used for caching
+  assetNames: '[name]-[hash]'
 }).catch(() => process.exit(1));

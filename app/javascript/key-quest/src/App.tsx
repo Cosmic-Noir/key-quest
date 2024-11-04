@@ -11,7 +11,7 @@ import { useSoundSettings } from "hooks/useSoundSettings";
 import { useScoreTracking } from "hooks/useScoreTracking";
 import MenuIcon from "@mui/icons-material/Menu";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import Logo from "./logo.png";
+import Logo from "assets/logo.png";
 
 import "./App.sass";
 
@@ -89,7 +89,7 @@ const App: React.FC = () => {
             {isPaused && <PauseMenu handlePause={handlePause} />}
             {currentPhase === GamePhase.StartScreen && (
               <>
-                <img src={Logo} className="logo bob-and-fade" />
+                <img src={`assets/${Logo}`} className="logo bob-and-fade" />
                 <Button
                   variant="contained"
                   size="large"

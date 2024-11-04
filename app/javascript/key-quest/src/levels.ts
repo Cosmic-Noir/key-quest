@@ -247,59 +247,59 @@ const levels: Level[] = [
     name: "Training Station",
     words: LEVEL_ONE_WORDS,
     letters: ALL_LETTERS,
-    img: trainingStationImg,
+    img: `assets/${trainingStationImg}`,
     levelImages: [
-      spaceProbeImg,
-      planet1Img,
-      planet2Img,
-      spaceStationImg,
-      planet2Img
+      `/${spaceProbeImg}`,
+      `/${planet1Img}`,
+      `/${planet2Img}`,
+      `/${spaceStationImg}`,
+      `/${planet2Img}`
     ]
   },
   {
     name: "Lexicon Asteroid Belt",
     words: LEVEL_TWO_WORDS,
     letters: ALL_LETTERS,
-    img: lexiconBeltImg,
+    img: `assets/${lexiconBeltImg}`,
     levelImages: [
-      asteroid2Img,
-      asteroidsImg,
-      asteroidImg,
-      asteroidImg,
-      asteroidsImg
+      `/${asteroid2Img}`,
+      `/${asteroidsImg}`,
+      `/${asteroidImg}`,
+      `/${asteroidImg}`,
+      `/${asteroidsImg}`
     ]
   },
   {
     name: "Nebula of Numbers",
     words: LEVEL_THREE_WORDS,
     letters: ALL_NUMBERS,
-    img: nebulaImg,
+    img: `assets/${nebulaImg}`,
     levelImages: [
-      nebula1Img,
-      nebula1Img,
-      nebula1Img,
-      nebula1Img,
-      nebula1Img
+      `/${nebula1Img}`,
+      `/${nebula1Img}`,
+      `/${nebula1Img}`,
+      `/${nebula1Img}`,
+      `/${nebula1Img}`
     ]
   },
   {
     name: "Interstellar Symbol Decryption",
     words: LEVEL_FOUR_WORDS,
     letters: ALL_SYMBOLS,
-    img: symbolsImg,
+    img: `assets/${symbolsImg}`,
     levelImages: [
-      crystal1Img,
-      crystal1Img,
-      crystal1Img,
-      crystal1Img,
-      crystal1Img
+      `/${crystal1Img}`,
+      `/${crystal1Img}`,
+      `/${crystal1Img}`,
+      `/${crystal1Img}`,
+      `/${crystal1Img}`
     ]
   },
   {
     name: "Galactic Core",
     words: LEVEL_FIVE_WORDS,
     letters: ALL_CHARACTERS,
-    img: coreImg
+    img: `assets/${coreImg}`
   }
 ];
 

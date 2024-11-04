@@ -46865,7 +46865,7 @@ try {
         audio.volume = musicVolume;
       }
     }, [isMusicPlaying, musicVolume]);
-    return /* @__PURE__ */ (0, import_jsx_runtime21.jsx)("audio", { id: "background-music", src: Space_default, loop: true, children: "Your browser does not support the audio element." });
+    return /* @__PURE__ */ (0, import_jsx_runtime21.jsx)("audio", { id: "background-music", src: `/assets${Space_default}`, loop: true, children: "Your browser does not support the audio element." });
   };
   var Audio_default = Audio2;
 
@@ -46888,7 +46888,7 @@ try {
       scrollSpeed: 11,
       difficulty: "easy",
       scoreMultiplier: 1,
-      img: spaceCadetDiff_default
+      img: `/${spaceCadetDiff_default}`
     },
     medium: {
       label: "Orbital Officer",
@@ -46898,7 +46898,7 @@ try {
       scrollSpeed: 8,
       difficulty: "medium",
       scoreMultiplier: 1.5,
-      img: orbitalOfficerDiff_default
+      img: `/${orbitalOfficerDiff_default}`
     },
     hard: {
       label: "Space Voyager",
@@ -46908,7 +46908,7 @@ try {
       scrollSpeed: 5,
       difficulty: "hard",
       scoreMultiplier: 2,
-      img: starVoyagerDiff_default
+      img: `/${starVoyagerDiff_default}`
     }
   };
   var difficulties_default = DIFFICULTIES;
@@ -55319,7 +55319,7 @@ To suppress this warning, you need to explicitly provide the \`palette.${key}Cha
         {
           checked: difficulty === key,
           id: key,
-          imageSrc: img,
+          imageSrc: `/assets${img}`,
           label,
           name: "difficulty",
           onChange: handleDifficultyChange
@@ -55692,59 +55692,59 @@ To suppress this warning, you need to explicitly provide the \`palette.${key}Cha
       name: "Training Station",
       words: LEVEL_ONE_WORDS,
       letters: ALL_LETTERS,
-      img: trainingStation_default,
+      img: `assets/${trainingStation_default}`,
       levelImages: [
-        spaceProbe_default,
-        planet1_default,
-        planet2_default,
-        spaceStation_default,
-        planet2_default
+        `/${spaceProbe_default}`,
+        `/${planet1_default}`,
+        `/${planet2_default}`,
+        `/${spaceStation_default}`,
+        `/${planet2_default}`
       ]
     },
     {
       name: "Lexicon Asteroid Belt",
       words: LEVEL_TWO_WORDS,
       letters: ALL_LETTERS,
-      img: lexiconBelt_default,
+      img: `assets/${lexiconBelt_default}`,
       levelImages: [
-        asteroid2_default,
-        asteroids_default,
-        asteroid_default,
-        asteroid_default,
-        asteroids_default
+        `/${asteroid2_default}`,
+        `/${asteroids_default}`,
+        `/${asteroid_default}`,
+        `/${asteroid_default}`,
+        `/${asteroids_default}`
       ]
     },
     {
       name: "Nebula of Numbers",
       words: LEVEL_THREE_WORDS,
       letters: ALL_NUMBERS,
-      img: nebula_default,
+      img: `assets/${nebula_default}`,
       levelImages: [
-        nebula1_default,
-        nebula1_default,
-        nebula1_default,
-        nebula1_default,
-        nebula1_default
+        `/${nebula1_default}`,
+        `/${nebula1_default}`,
+        `/${nebula1_default}`,
+        `/${nebula1_default}`,
+        `/${nebula1_default}`
       ]
     },
     {
       name: "Interstellar Symbol Decryption",
       words: LEVEL_FOUR_WORDS,
       letters: ALL_SYMBOLS,
-      img: symbols_default,
+      img: `assets/${symbols_default}`,
       levelImages: [
-        crystal1_default,
-        crystal1_default,
-        crystal1_default,
-        crystal1_default,
-        crystal1_default
+        `/${crystal1_default}`,
+        `/${crystal1_default}`,
+        `/${crystal1_default}`,
+        `/${crystal1_default}`,
+        `/${crystal1_default}`
       ]
     },
     {
       name: "Galactic Core",
       words: LEVEL_FIVE_WORDS,
       letters: ALL_CHARACTERS,
-      img: core_default
+      img: `assets/${core_default}`
     }
   ];
   var levels_default = levels;
@@ -56072,7 +56072,7 @@ To suppress this warning, you need to explicitly provide the \`palette.${key}Cha
     return /* @__PURE__ */ (0, import_jsx_runtime61.jsx)("div", { className: "image-gallery-container", children: srcs.map((src, index) => /* @__PURE__ */ (0, import_jsx_runtime61.jsx)(
       "img",
       {
-        src,
+        src: `/assets${src}`,
         className: `image-gallery-image image-${index}`,
         alt: `Dynamic level decoration ${index}`
       },
@@ -56535,7 +56535,7 @@ To suppress this warning, you need to explicitly provide the \`palette.${key}Cha
   // app/javascript/key-quest/src/components/person/person.tsx
   var import_jsx_runtime67 = __toESM(require_jsx_runtime());
   var Person = () => {
-    return /* @__PURE__ */ (0, import_jsx_runtime67.jsx)("div", { className: "person bob", children: /* @__PURE__ */ (0, import_jsx_runtime67.jsx)("img", { src: astronaut_default, alt: "Astronaut" }) });
+    return /* @__PURE__ */ (0, import_jsx_runtime67.jsx)("div", { className: "person bob", children: /* @__PURE__ */ (0, import_jsx_runtime67.jsx)("img", { src: `assets/${astronaut_default}`, alt: "Astronaut" }) });
   };
   var person_default = Person;
 
@@ -86964,7 +86964,7 @@ To suppress this warning, you need to explicitly provide the \`palette.${key}Cha
   // app/javascript/key-quest/src/App.tsx
   var import_Menu4 = __toESM(require_Menu());
 
-  // app/javascript/key-quest/src/logo.png
+  // app/javascript/key-quest/src/assets/logo.png
   var logo_default = "./logo-X3TJU2SY.png";
 
   // app/javascript/key-quest/src/App.tsx
@@ -87019,7 +87019,7 @@ To suppress this warning, you need to explicitly provide the \`palette.${key}Cha
       isPaused && /* @__PURE__ */ (0, import_jsx_runtime253.jsx)("div", { className: "show-pause-menu" }),
       isPaused && /* @__PURE__ */ (0, import_jsx_runtime253.jsx)(PauseMenu_default, { handlePause }),
       currentPhase === 0 /* StartScreen */ && /* @__PURE__ */ (0, import_jsx_runtime253.jsxs)(import_jsx_runtime253.Fragment, { children: [
-        /* @__PURE__ */ (0, import_jsx_runtime253.jsx)("img", { src: logo_default, className: "logo bob-and-fade" }),
+        /* @__PURE__ */ (0, import_jsx_runtime253.jsx)("img", { src: `assets/${logo_default}`, className: "logo bob-and-fade" }),
         /* @__PURE__ */ (0, import_jsx_runtime253.jsx)(
           Button_default,
           {

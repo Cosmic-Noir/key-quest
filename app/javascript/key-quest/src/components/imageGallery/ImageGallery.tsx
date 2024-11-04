@@ -12,7 +12,7 @@ const ImageGallery: React.FC<ImageGalleryProps> = ({ srcs }) => {
       {srcs.map((src, index) => (
         <img
           key={index}
-          src={src}
+          src={`/assets${src}`}
           className={`image-gallery-image image-${index}`}
           alt={`Dynamic level decoration ${index}`}
         />

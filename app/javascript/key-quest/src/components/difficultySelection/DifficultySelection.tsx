@@ -55,7 +55,7 @@ const DifficultySelection: React.FC<DifficultySelectionProps> = ({
           <DifficultyOption
             checked={difficulty === key}
             id={key}
-            imageSrc={img}
+            imageSrc={`/assets${img}`}
             key={key}
             label={label}
             name="difficulty"

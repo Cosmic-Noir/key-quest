@@ -19,7 +19,7 @@ const Audio = () => {
   }, [isMusicPlaying, musicVolume]);
 
   return (
-    <audio id="background-music" src={SpaceMusic} loop>
+    <audio id="background-music" src={`/assets${SpaceMusic}`} loop>
       Your browser does not support the audio element.
     </audio>
   );

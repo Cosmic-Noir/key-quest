@@ -10,6 +10,6 @@ Rails.application.routes.draw do
 
   # Send all non-API requests to the React SPA
   get '*path', to: 'public#index', constraints: ->(req) do
-    !req.path.start_with?('/api')
+    !req.path.start_with?('/api') && !req.path.start_with?('/assets')
   end
 end
