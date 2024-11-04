@@ -1,7 +1,7 @@
 # Key Quest
 
 <p align="center">
-  <img src="public/assets/logo.png" width="400" height="400" />
+  <img src="app/javascript/key-quest/src/assets/logo.png" width="400" height="400" />
 </p>
 
 ## Description
