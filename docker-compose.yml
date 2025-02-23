@@ -2,9 +2,10 @@ services:
   web:
     build: .
     container_name: key_quest_web
-    command: bash -c "PUBLIC_URL=/ yarn build && rm -f tmp/pids/server.pid && bundle exec rails server -b 0.0.0.0 -p 3000"
+    command: bash -c "PUBLIC_URL=/ CHOKIDAR_USEPOLLING=true yarn watch & rm -f tmp/pids/server.pid && bundle exec rails server -b 0.0.0.0 -p 3000"
     volumes:
       - .:/key_quest
+      - /key_quest/node_modules
     ports:
       - "3000:3000"
     depends_on:
